@@ -1,4 +1,4 @@
-import os
+import hashlib
 import os
 import time
 from enum import Enum
@@ -31,8 +31,18 @@ class SupportedModels(Enum):
 
 
 class JiraLabelInference:
-    # Class variable: shared by all employees
-    bert_model = SentenceTransformer("all-MiniLM-L6-v2")
+    """Train and run Jira field classifiers with shared semantic features."""
+
+    EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
+    RANDOM_STATE = 42
+    _bert_model = None
+    _embedding_cache: Dict[str, np.ndarray] = {}
+
+    @classmethod
+    def _get_bert_model(cls):
+        if cls._bert_model is None:
+            cls._bert_model = SentenceTransformer(cls.EMBEDDING_MODEL_NAME)
+        return cls._bert_model
     def __init__(self,
                  model_type: str = "logistic",
                  multi_label: bool = True,
@@ -49,15 +59,13 @@ class JiraLabelInference:
         """
         self.model_type = model_type
         self.multi_label = multi_label
-        self.structured_fields = structured_fields or []
+        self.structured_fields = [field for field in (structured_fields or []) if field]
         # self.model_dir = "ml_models"
         self.model_dir = f"ml_models/{model_type}"
         os.makedirs(self.model_dir, exist_ok=True)
-        self.model_path = f"{self.model_dir}/{model_path}"
+        self.model_path = f"{self.model_dir}/{model_path}" if model_path else None
 
         # Models
-        # self.bert_model = SentenceTransformer("all-MiniLM-L6-v2")
-        self.bert_model = JiraLabelInference.bert_model
         self.model = None
 
         # Encoders
@@ -70,8 +78,29 @@ class JiraLabelInference:
 
     # -------- Feature Extraction --------
     def extract_text_features(self, issues: List[Dict]) -> np.ndarray:
+        """Return normalised MiniLM embeddings, reusing them across classifiers."""
         texts = [f"{i.get('summary', '')} {i.get('description', '')}" for i in issues]
-        return self.bert_model.encode(texts)
+        if not texts:
+            return np.empty((0, 0), dtype=np.float32)
+
+        keys = [hashlib.sha256(text.encode("utf-8")).hexdigest() for text in texts]
+        missing_indexes = [
+            idx for idx, key in enumerate(keys)
+            if key not in self._embedding_cache
+        ]
+        if missing_indexes:
+            missing_texts = [texts[idx] for idx in missing_indexes]
+            encoded = self._get_bert_model().encode(
+                missing_texts,
+                normalize_embeddings=True,
+                show_progress_bar=False,
+            )
+            for idx, vector in zip(missing_indexes, encoded):
+                self._embedding_cache[keys[idx]] = np.asarray(
+                    vector, dtype=np.float32
+                )
+
+        return np.vstack([self._embedding_cache[key] for key in keys])
 
     def extract_structured_features(self, issues: List[Dict], fit: bool = False) -> np.ndarray:
         if not self.structured_fields:
@@ -103,20 +132,48 @@ class JiraLabelInference:
     # -------- Model Setup --------
     def _init_model(self):
         if self.model_type == "random_forest":
-            base = RandomForestClassifier(n_estimators=200, random_state=42)
+            base = RandomForestClassifier(
+                n_estimators=300,
+                class_weight="balanced_subsample",
+                n_jobs=-1,
+                random_state=self.RANDOM_STATE,
+            )
         elif self.model_type == "logistic":
-            base = LogisticRegression(max_iter=2000)
+            base = LogisticRegression(
+                max_iter=2000,
+                class_weight="balanced",
+                random_state=self.RANDOM_STATE,
+            )
         elif self.model_type == "mlp":
-            base = MLPClassifier(hidden_layer_sizes=(256, 128), max_iter=1000)
+            base = MLPClassifier(
+                hidden_layer_sizes=(256, 128),
+                max_iter=1000,
+                early_stopping=True,
+                n_iter_no_change=20,
+                random_state=self.RANDOM_STATE,
+            )
         elif self.model_type == "gbt":
-            base = GradientBoostingClassifier(n_estimators=200)
+            base = GradientBoostingClassifier(
+                n_estimators=200,
+                random_state=self.RANDOM_STATE,
+            )
         elif self.model_type == "svm":
-            # base = LinearSVC()
-            # base =  CalibratedClassifierCV(LinearSVC())
-            # base = CalibratedClassifierCV(LinearSVC(), method='isotonic', cv=5)
-            base = CalibratedClassifierCV(LinearSVC(), method='isotonic')
+            base = CalibratedClassifierCV(
+                LinearSVC(
+                    class_weight="balanced",
+                    random_state=self.RANDOM_STATE,
+                ),
+                method="sigmoid",
+                cv=2,
+            )
         elif self.model_type == "sgd":
-            base = SGDClassifier(loss="log_loss")  # logistic regression with SGD
+            base = SGDClassifier(
+                loss="log_loss",
+                class_weight="balanced",
+                max_iter=2000,
+                tol=1e-3,
+                random_state=self.RANDOM_STATE,
+            )
         else:
             raise ValueError(f"Unsupported model_type: {self.model_type}")
 
@@ -169,8 +226,11 @@ class JiraLabelInference:
         # print("[DEBUG] np.unique(y_encoded):", np.unique(y_encoded))
         try:
             self.model.fit(X, y_encoded)
-        except Exception as e:
-            print(f"[DEBUG] exception: {e}")
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed to train model '{self.model_type}' "
+                f"for field '{target_field}'"
+            ) from exc
 
         # --- Compute label centroids (for interpretability) ---
         if self.multi_label and hasattr(self, "mlb"):
@@ -197,7 +257,7 @@ class JiraLabelInference:
             return []
 
         # Encode token embeddings (text-only)
-        token_embs = self.bert_model.encode(tokens, normalize_embeddings=True)
+        token_embs = self._get_bert_model().encode(tokens, normalize_embeddings=True, show_progress_bar=False)
         emb_dim = token_embs.shape[1]
 
         influential_terms = []
@@ -380,36 +440,47 @@ class JiraLabelInference:
 
 
 def compute_accuracy(target_field, test_data, predictions):
-    # predictions.append((issue["key"], [label], float(round(conf, 3))))
+    """Compute exact holdout accuracy (no substring matching)."""
+    from ml.metrics import as_label_set
+
     pass_count = 0
-    confidence_sum = 0
+    confidence_sum = 0.0
     test_status_dict = {}
     for test in test_data:
         key = test["key"]
-
-        cur_predictions = list(filter(lambda x: x[0] == key, predictions))
-        cur_prediction = cur_predictions[0] if cur_predictions else None
+        cur_prediction = next(
+            (item for item in predictions if item[0] == key), None
+        )
         predicted_value = cur_prediction[1] if cur_prediction else None
-        # print("[DEBUG] predicted_value:", predicted_value)
-        # print("[DEBUG] test[target_field]:", test[target_field])
-        if target_field in ["components", "labels"] or "[]" in str(predicted_value):
-            is_pass = predicted_value and predicted_value in test[target_field]
-            predicted_value_str = str(predicted_value).replace('[', '').replace(']', '')
-            expected_value_str = str(test[target_field]).replace('[', '').replace(']', '')
-            is_pass = is_pass or  predicted_value_str in expected_value_str
+        expected_value = test[target_field]
+
+        if isinstance(expected_value, (list, tuple, set)) or isinstance(
+            predicted_value, (list, tuple, set)
+        ):
+            is_pass = as_label_set(expected_value) == as_label_set(
+                predicted_value
+            )
         else:
-            is_pass = str(test[target_field]) == str(predicted_value)
-            is_pass = is_pass or str(test[target_field]) in str(predicted_value)
-        pass_count += 1 if is_pass else 0
-        confidence_sum += cur_prediction[2]
-        # print(f"Key: {key} | Actual value: {test[target_field]} | Predicted value: {predicted_value}")
+            is_pass = (
+                str(expected_value).strip()
+                == str(predicted_value).strip()
+            )
+
+        pass_count += int(is_pass)
+        confidence = float(cur_prediction[2]) if cur_prediction else 0.0
+        confidence_sum += confidence
         test_status_dict[key] = {
-            "expected": str(test[target_field]),
-            "predicted": str(predicted_value),
-            "confidence": cur_prediction[2]
+            "expected": expected_value,
+            "predicted": predicted_value,
+            "confidence": confidence,
         }
 
-    return pass_count / len(test_data), confidence_sum / len(test_data), test_status_dict
+    denominator = len(test_data) or 1
+    return (
+        pass_count / denominator,
+        confidence_sum / denominator,
+        test_status_dict,
+    )
 
 def infer_using_model(
         jira_issues,
