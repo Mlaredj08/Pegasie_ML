@@ -26,6 +26,7 @@ from nlp.centroid_manager import (
     list_items_to_boolean_fields, boolean_fields_to_list, compute_predictions_accuracy
 )
 from ml.model_selection import SupportedModels, infer_using_model
+from ml.evaluation import evaluate_model_cv
 from services.test_service import generate_test_results_json, select_random_issues_from_train_issues_to_test_inference
 from services.iteration_service import (
     get_iterations_field_summary, generate_iteration_file, register_new_iteration_record,
@@ -901,7 +902,7 @@ def get_ml_predictions(request_args_dict, inference_progress_dict, result_queue)
         return
 
     for target_field, predictions_per_model in predictions_per_field_per_model.items():
-        best_ml_score = 0
+        best_ml_score = None
         accuracy_per_field_per_model[target_field] = {}
         fi_score_per_field_per_model[target_field] = {}
         optimal_f1_score_per_field_per_model[target_field] = {}
@@ -916,30 +917,149 @@ def get_ml_predictions(request_args_dict, inference_progress_dict, result_queue)
             perf_metrics = compute_predictions_accuracy(
                 ml_predictions[0],
                 25,
-                # int(acceptable_accuracy) / 100
+                int(acceptable_accuracy) / 100,
             )
-            accuracy_per_field_per_model[target_field][ml_model] = perf_metrics.get("basic_accuracy", None)
-            fi_score_per_field_per_model[target_field][ml_model] = perf_metrics.get("f1_score", None)
-            optimal_confidence_per_field_per_model[target_field][ml_model] = perf_metrics.get("optimal_confidence", None)
-            optimal_f1_score_per_field_per_model[target_field][ml_model] = perf_metrics.get("optimal_f1_score", None)
-            optimal_precent_per_field_per_model[target_field][ml_model] = perf_metrics.get("optimal_confidence_predictions_precent", None)
 
-            accuracy_per_confidence = perf_metrics.get("accuracy_per_confidence", None)
+            # During benchmark/test runs, use out-of-fold CV to choose the
+            # winning classifier. The legacy 80/20 split remains available for
+            # the UI test report, but no longer decides model selection alone.
+            cv_metrics = None
+            if request_args_dict.get("isSplitDataToTest", "false") == "true":
+                try:
+                    with open(
+                        request_args_dict["projectJson"],
+                        "r",
+                        encoding="utf-8",
+                    ) as cv_file:
+                        cv_issues = json.load(cv_file)
 
+                    selected_types = request_args_dict.get(
+                        "selected_target_grid", {}
+                    ).get(target_field, [])
+                    if selected_types:
+                        cv_issues = [
+                            issue
+                            for issue in cv_issues
+                            if issue.get("issuetype") in selected_types
+                        ]
+
+                    struct_fields = [
+                        field.strip()
+                        for field in request_args_dict.get(
+                            "sFields", ""
+                        ).split(",")
+                        if field.strip()
+                        and field.strip() != target_field
+                    ]
+                    cv_metrics = evaluate_model_cv(
+                        cv_issues,
+                        model_type=SupportedModels[ml_model].value,
+                        target_field=target_field,
+                        structured_fields=struct_fields,
+                        n_splits=5,
+                        target_score=int(acceptable_accuracy) / 100,
+                    )
+                    if cv_metrics.get("status") != "ok":
+                        cv_metrics = None
+                except Exception as exc:
+                    Logger.error(
+                        "Cross-validation failed for "
+                        f"{target_field}/{ml_model}: {exc}"
+                    )
+
+            if cv_metrics:
+                cv_base = cv_metrics["metrics"]
+                reported_accuracy = cv_base.get(
+                    "jaccard_samples",
+                    cv_base.get("balanced_accuracy")
+                    or cv_base.get("accuracy"),
+                )
+                reported_f1 = cv_base.get(
+                    "f1_macro",
+                    cv_base.get("f1_micro", 0.0),
+                )
+                optimal_confidence = cv_metrics[
+                    "optimal_confidence"
+                ]
+                optim_f1_score = reported_f1
+                optim_percent = 100 * cv_metrics["coverage"]
+                meets_target = cv_metrics["meets_target"]
+                # Business objective: meet quality first, then maximise
+                # automation coverage, then F1 and balanced/Jaccard accuracy.
+                ml_score = (
+                    int(meets_target),
+                    cv_metrics["coverage"],
+                    reported_f1,
+                    reported_accuracy or 0.0,
+                )
+            else:
+                reported_accuracy = perf_metrics.get(
+                    "basic_accuracy", 0.0
+                )
+                reported_f1 = perf_metrics.get("f1_score", 0.0)
+                optimal_confidence = perf_metrics.get(
+                    "optimal_confidence", 0.0
+                )
+                optim_f1_score = perf_metrics.get(
+                    "optimal_f1_score", 0.0
+                )
+                optim_percent = perf_metrics.get(
+                    "optimal_confidence_predictions_precent",
+                    0.0,
+                )
+                meets_target = perf_metrics.get(
+                    "meets_target_accuracy", False
+                )
+                ml_score = (
+                    int(bool(meets_target)),
+                    optim_percent / 100,
+                    optim_f1_score,
+                    reported_accuracy or 0.0,
+                )
+
+            accuracy_per_field_per_model[target_field][
+                ml_model
+            ] = reported_accuracy
+            fi_score_per_field_per_model[target_field][
+                ml_model
+            ] = reported_f1
+            optimal_confidence_per_field_per_model[target_field][
+                ml_model
+            ] = optimal_confidence
+            optimal_f1_score_per_field_per_model[target_field][
+                ml_model
+            ] = optim_f1_score
+            optimal_precent_per_field_per_model[target_field][
+                ml_model
+            ] = optim_percent
+
+            accuracy_per_confidence = perf_metrics.get(
+                "accuracy_per_confidence", None
+            )
             first_ml_model = next(iter(predictions_per_model))
-            first_ml_predictions_per_field[target_field] = ml_predictions if ml_model == first_ml_model else first_ml_predictions_per_field
-            optim_f1_score = perf_metrics.get("optimal_f1_score", 0)
-            optim_percent = perf_metrics.get("optimal_confidence_predictions_precent", 0)
-            ml_score = (100 * optim_f1_score) + optim_percent / 2
-            if ml_score > best_ml_score:
+            first_ml_predictions_per_field[target_field] = (
+                ml_predictions
+                if ml_model == first_ml_model
+                else first_ml_predictions_per_field
+            )
+            if best_ml_score is None or ml_score > best_ml_score:
                 best_ml_score = ml_score
-                best_ml_predictions_per_field[target_field] = ml_predictions
+                best_ml_predictions_per_field[
+                    target_field
+                ] = ml_predictions
                 best_model_per_field[target_field] = {
                     "ml_model": ml_model,
-                    "optimal_confidence": perf_metrics.get("optimal_confidence", -1),
-                    "optimal_confidence_f1_score": optim_f1_score,
-                    "confident_predictions_percentage": optim_percent,
-                    "accuracy_per_confidence": accuracy_per_confidence
+                    "optimal_confidence": optimal_confidence,
+                    "optimal_confidence_f1_score": (
+                        optim_f1_score
+                    ),
+                    "confident_predictions_percentage": (
+                        optim_percent
+                    ),
+                    "accuracy_per_confidence": (
+                        accuracy_per_confidence
+                    ),
+                    "cross_validation": cv_metrics,
                 }
 
         if best_ml_predictions_per_field.get(target_field, None) is None:
@@ -1224,12 +1344,14 @@ def get_ml_predictions__(request_args, progress_dict=None, proc_index=None):
                     new_item.update({
                         "issue_key": inheritance_prediction[0],
                         "prediction": inheritance_prediction[1],
-                        "confidence": 1.1
+                        "confidence": 1.0,
+                        "prediction_source": "inheritance_rule"
                     })
                     i_prediction_list.append(new_item)
                 else:
                     Logger.debug(f"[DEBUG] {inheritance_prediction[0]} already exists")
-                    match_list[0]["confidence"] = 1.1
+                    match_list[0]["confidence"] = 1.0
+                    match_list[0]["prediction_source"] = "inheritance_rule"
 
             prediction_list.extend(i_prediction_list)
             if is_split_data_to_test:
@@ -1305,7 +1427,11 @@ def get_ml_predictions_(
     is_apply_inheritance = request_args.get("isApplyInheritanceRules", "false") == "true"
     is_apply_inheritance_by_caller = is_apply_inheritance
     Logger.debug(f"is_apply_inheritance: {is_apply_inheritance}")
-    struct_fields = request_args.get("sFields", "").split(',')
+    struct_fields = [
+        field.strip()
+        for field in request_args.get("sFields", "").split(",")
+        if field.strip()
+    ]
     struct_fields.sort()
     Logger.debug(f"struct_fields: {struct_fields}")
     is_split_data_to_test = request_args.get("isSplitDataToTest", "false") == "true"
