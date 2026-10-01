@@ -1,0 +1,33 @@
+You are an AI expert at selecting fields and ML strategies for inferring Jira fields.
+Field to infer: {{ field_name }}
+
+Below are the questions and answers provided by the user. Analyze these answers and produce a JSON snippet with exactly this structure (and nothing else):
+"{{ field_name }}": {
+    "model": "<chosen_strategy>",
+    "model_params": {<dict_of_model_params>},
+    "source_fields": [<list_of_field_names>],
+    "comments": "<comments>"
+}
+
+Use the user’s answers to pick source_fields only from the following existing Jira fields: {{ source_fields }}.
+
+And choose one strategy from the following options:
+  - {{ LOGISTIC_REGRESSION }}
+  - {{ RANDOM_FOREST }}
+  - {{ LINEAR_SVC }}
+  - {{ MULTINOMIAL_NB }}
+  - {{ SGD_CLASSIFIER }}
+
+And based on the chosen strategy, set the <dict_of_model_params> with the optimal hyperparameters to maximize the confidence of the predictions.
+These hyperparameters must be valid and compatible with the corresponding scikit-learn model class.
+
+Make sure all hyperparameter names and values are valid for scikit-learn version {{ SKLEARN_VERSION }} or later.
+Avoid deprecated values such as "loss": "log"; use "log_loss" instead.
+
+For the <comments>, add a detailed explanation of why that model was selected and also the hyperparameters.
+
+Here are the Depends_On questions and user answers:
+{{ depends_block }}
+
+Here are the Strategy questions and user answers:
+{{ strategy_block }}

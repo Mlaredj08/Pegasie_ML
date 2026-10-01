@@ -1,0 +1,19 @@
+{
+    "data": {
+        "components": [
+            "Bug",
+            "Story"
+        ]
+    },
+    "metadata": {
+        "acceptable_labeled_data_ratio": 30,
+        "min_test_data_size": 1,
+        "disabled_fields": [
+            "labels",
+            "assignee",
+            "sprint",
+            "story_points"
+        ],
+        "accuracy_per_field": {}
+    }
+}

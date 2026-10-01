@@ -1,0 +1,450 @@
+{
+    "output_folder": "JFIP_20260925_094615",
+    "params": {
+        "project": "JFIP",
+        "input_json": "databases/JFIP_20260925_094615.json",
+        "inference_json": "predictions/review/JFIP_20260925_094615.json",
+        "output_folder": "JFIP_20260925_094615",
+        "inferred_fields": [
+            "components"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "components: 'ML Model'",
+                "components: 'LLM Model'"
+            ],
+            "total": 2,
+            "in_progress": "components: 'LLM Model'",
+            "elapsed_time": 0,
+            "metadata": {
+                "components": {
+                    "min_confidence": 0.9899770173646578,
+                    "ml_model": "MLP",
+                    "iteration_count": 1,
+                    "selected_target_grid": [
+                        "Bug",
+                        "Story"
+                    ]
+                }
+            }
+        },
+        "selected_types_per_filed": {
+            "components": [
+                "Bug",
+                "Story"
+            ]
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 3,
+    "iteration_information": {
+        "components": {
+            "issue_count": 56,
+            "avg_accuracy": 0.9511
+        },
+        "total_issue_count": 56,
+        "confidence_avg": 0.9980234604105572,
+        "orphan_count": 32
+    },
+    "iter_count": 1,
+    "question_json": {
+        "ML Model": [
+            {
+                "field_name": "components",
+                "question": "Using 'JFIP-245' as the representative of the cluster, recommendation is to add 'ML Model' as 'components'.",
+                "keywords": "json jira project",
+                "centroid": null,
+                "cluster_issues_count": 15,
+                "list_of_issues": [
+                    [
+                        "JFIP-255_Project viewer shows \"Target Fields\" that cannot be predicted",
+                        "JFIP-252_After setting yes or no, user cannot undo and select a custom value",
+                        "JFIP-251_Cannot run Iteration with only custom values",
+                        "JFIP-250_Jira export for \"Sprint\" includes all details of sprint",
+                        "JFIP-247_Project Viewer gives FileNotFoundError [jira_components_priorities.json]",
+                        "JFIP-245_Jira Viewer ignores prediction selection",
+                        "JFIP-244_Tool predicts values for Resolved/Closed Work Items",
+                        "JFIP-240_Clicking \"Run Iteration\" navigates to \"Jira Viewer\"",
+                        "JFIP-231_Select Iteration is not filtered by JSON",
+                        "JFIP-221_JSON file creation needs option to exclude old data",
+                        "JFIP-217_Projects with single targeted field should be supported",
+                        "JFIP-204_Confirm and push fails",
+                        "JFIP-202_Pushing data to Jira includes older data",
+                        "JFIP-163_ML should not use project name as keywords",
+                        "JFIP-97_Jira Field types to analyze and implement"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6984,
+                "cluster_centroid": "JFIP-245"
+            },
+            {
+                "field_name": "components",
+                "question": "Using 'JFIP-257' as the representative of the cluster, recommendation is to add 'ML Model' as 'components'.",
+                "keywords": "push iteration confirm",
+                "centroid": null,
+                "cluster_issues_count": 7,
+                "list_of_issues": [
+                    [
+                        "JFIP-261_Run Iteration fails",
+                        "JFIP-257_Confirm and push should be available any time predictions are ready to send",
+                        "JFIP-254_Predictions fails when dataset is large",
+                        "JFIP-243_ML Inference takes a significant amount of time for large projects and fails",
+                        "JFIP-242_\"Stop\" button does not stop the ML inference",
+                        "JFIP-216_\"Confirm and Push\" includes items previously pushed",
+                        "JFIP-215_Confirm & Push is only available once 2 questions are answered yes"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7501,
+                "cluster_centroid": "JFIP-257"
+            }
+        ],
+        "LLM Model": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "dor purpose link",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "JFIP-149_Validate that all mandatory DoR elements (Purpose, Epic Link, ACs, Dependencies) are populated."
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "JFIP-149"
+            },
+            {
+                "field_name": "components",
+                "question": "Using 'JFIP-151' as the representative of the cluster, recommendation is to add 'LLM Model' as 'components'.",
+                "keywords": "story value business",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "JFIP-151_Maintain optimal story granularity through AC count balance (2\u20137).",
+                        "JFIP-147_Require every story to express tangible business value or success metric."
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8934,
+                "cluster_centroid": "JFIP-151"
+            }
+        ],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "components",
+                    "list_of_values": [
+                        "Dashboard",
+                        "Decision Tree",
+                        "Documentation",
+                        "GenAI",
+                        "Gold DB",
+                        "LLM Model",
+                        "ML Model",
+                        "Non-product",
+                        "Profiles",
+                        "Python script",
+                        "Traceability"
+                    ]
+                }
+            ],
+            "not_predictable": [
+                {
+                    "key": "JFIP-218",
+                    "summary": "Review and add new cache files to the manager module",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9972727272727273
+                },
+                {
+                    "key": "JFIP-207",
+                    "summary": "Jira cloud functionality review",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9972727272727273
+                },
+                {
+                    "key": "JFIP-194",
+                    "summary": "Cached file management",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9905454545454546
+                },
+                {
+                    "key": "JFIP-181",
+                    "summary": "Phase 1 - Documentation of Function",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9995454545454545
+                },
+                {
+                    "key": "JFIP-107",
+                    "summary": "Configurability - Description Field Sub-Section Titles",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9922727272727272
+                },
+                {
+                    "key": "JFIP-106",
+                    "summary": "Configurability - Work Item Internal Types",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9928181818181817
+                }
+            ],
+            "rejected_predictions": [],
+            "unconfident_predictions": [
+                {
+                    "key": "JFIP-256",
+                    "summary": "Activities that take a long time should not require the browser page to remain open",
+                    "field": "components",
+                    "prediction": [
+                        "Dashboard"
+                    ],
+                    "confidence": 0.774
+                },
+                {
+                    "key": "JFIP-249",
+                    "summary": "Exporting Jira data needs a cancel button",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.974
+                },
+                {
+                    "key": "JFIP-248",
+                    "summary": "Open Source DB Field Completion Rate page shows no configuration files",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.862
+                },
+                {
+                    "key": "JFIP-246",
+                    "summary": "usernames should be case insensitve",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.952
+                },
+                {
+                    "key": "JFIP-241",
+                    "summary": "Field Completion rate fails when dataset is large",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.96
+                },
+                {
+                    "key": "JFIP-234",
+                    "summary": "Field Completion Rate: Table to be exportable",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.942
+                },
+                {
+                    "key": "JFIP-233",
+                    "summary": "Field Completion Rate table should be filtered and populated with appropriate data",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.965
+                },
+                {
+                    "key": "JFIP-232",
+                    "summary": "Field Completion Rate: Showing the list of available projects & iterations",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.588
+                },
+                {
+                    "key": "JFIP-229",
+                    "summary": "Sanity check end points",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.958
+                },
+                {
+                    "key": "JFIP-228",
+                    "summary": "Field Completion Rate button non-functional",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.944
+                },
+                {
+                    "key": "JFIP-226",
+                    "summary": "sub-tasks cannot be added to an Epic",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.958
+                },
+                {
+                    "key": "JFIP-213",
+                    "summary": "Comments are extracted although comment is not seleted",
+                    "field": "components",
+                    "prediction": [
+                        "Python script"
+                    ],
+                    "confidence": 0.864
+                },
+                {
+                    "key": "JFIP-211",
+                    "summary": "Roles and permissions for JFIP",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.989
+                },
+                {
+                    "key": "JFIP-208",
+                    "summary": "Automating endpoint tests in pipeline",
+                    "field": "components",
+                    "prediction": [
+                        "Non-product"
+                    ],
+                    "confidence": 0.604
+                },
+                {
+                    "key": "JFIP-206",
+                    "summary": "Multiple field pushing with epic link fail",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.881
+                },
+                {
+                    "key": "JFIP-205",
+                    "summary": "Messaging accumulates when confirm and push",
+                    "field": "components",
+                    "prediction": [
+                        "Dashboard"
+                    ],
+                    "confidence": 0.76
+                },
+                {
+                    "key": "JFIP-201",
+                    "summary": "Clusters that add no info should be skipped",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.955
+                },
+                {
+                    "key": "JFIP-199",
+                    "summary": "Decision tree answers JSON need to include prompt",
+                    "field": "components",
+                    "prediction": [
+                        "Decision Tree"
+                    ],
+                    "confidence": 0.984
+                },
+                {
+                    "key": "JFIP-197",
+                    "summary": "Field Completion Rate function is not working",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.988
+                },
+                {
+                    "key": "JFIP-182",
+                    "summary": "Phase 1 - Test Cases",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.957
+                },
+                {
+                    "key": "JFIP-175",
+                    "summary": "Inheritance rules should consider all linkage types",
+                    "field": "components",
+                    "prediction": [
+                        "LLM Model"
+                    ],
+                    "confidence": 0.925
+                },
+                {
+                    "key": "JFIP-172",
+                    "summary": "Permission error when creating juson file",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.96
+                },
+                {
+                    "key": "JFIP-160",
+                    "summary": "Test the jira pushing with multiple field population ",
+                    "field": "components",
+                    "prediction": [
+                        "ML Model"
+                    ],
+                    "confidence": 0.728
+                },
+                {
+                    "key": "JFIP-159",
+                    "summary": "Update security to permit access to public jira DBs without user/pass",
+                    "field": "components",
+                    "prediction": [
+                        "Gold DB"
+                    ],
+                    "confidence": 0.63
+                },
+                {
+                    "key": "JFIP-154",
+                    "summary": "Support issue links rules",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.98
+                },
+                {
+                    "key": "JFIP-148",
+                    "summary": "Ensure all dependencies are explicit or inferable",
+                    "field": "components",
+                    "prediction": [
+                        "LLM Model"
+                    ],
+                    "confidence": 0.83
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,102 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Questions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/jfip-theme.css">
+    <style>
+        .card.collapsed .card-body { display: none; }
+        .confidence-option { margin-left: 10px; }
+        .card { transition: all 0.4s ease-in-out; border-radius: 1rem; box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1); }
+        .card-header { background: linear-gradient(90deg, #2c3a49, #59709b); color: white; font-size: large; border-top-left-radius: 1rem; border-top-right-radius: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .reopen-btn { font-size: 0.85rem; background: rgba(255,255,255,0.2); color: white; border: none; padding: 0.2rem 0.6rem; border-radius: 0.5rem; display: none; }
+        .card.collapsed .reopen-btn { display: inline-block; }
+
+        /* Footer meta row for each question card */
+        .card-footer.meta-footer {
+            font-size: 0.9rem;
+        }
+        .card-footer.meta-footer .meta-item {
+            white-space: nowrap;
+        }
+        .card-footer.meta-footer .meta-keywords {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1 1 auto;
+            min-width: 200px;
+        }
+
+</style>
+</head>
+
+<body class="bg-light">
+<div class="container py-4">
+        <h2 class="mb-4">Review and Confirm Inferred Assignments</h2>
+        <div class="mb-3">
+        <h3 class="mb-4" id="iterationMonitor">Iteration#{{iter}} Confidence: {{avg}} Questions: {{qst}} #Issues: {{total_issue}}</h3>
+        <h4 class="mb-4">
+            <span>
+                For each of the following statements, you'll be shown: <br>
+                <br>
+                A field name (e.g., components, priority, link),<br>
+                
+                A predicted value for that field (e.g., 'COMPONENT NAME A'), and<br>
+
+                <br>
+                In each section, you will find a group of related issues. You can expand the group by clicking the + button to view all its issues.
+                For every group, confirm or deny whether the proposed field value is appropriate by validating the predicted value of the group’s most representative issue.
+            </span>
+        </h4>
+        </div>
+    <div id="questions-container"></div>
+    <form>
+        <div class="row">
+            <div class="col-4 mb-3">
+                <label for="userNameInput" class="form-label">JIRA User</label>
+                <span id="verifyStatus" class="align-self-center small text-muted"></span>
+                <select id="userNameInput" required class="form-select">
+                  <option value=""></option>
+                  {% for jira_user in jira_users %}
+                    <option value="{{ jira_user }}">{{ jira_user }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label for="userPasswordInput" class="form-label">JIRA Password / API Token</label>
+                <input id="userPasswordInput" type="password" class="form-control" autocomplete="current-password" required>
+                <div class="form-text">  </div>
+                 <button type="button" id="verifyUserBtn" class="btn btn-outline-primary">Verify</button>
+            </div>
+
+            <input type="hidden" id="jiraUrl" value="{{ jira_base_url }}">
+
+        </div>
+        <!-- Use button, not <a> -->
+        <button type="submit" id="submitAll" class="btn btn-primary mt-4" disabled>
+            Confirm All Changes
+        </button>
+    </form>
+    <button id="backToCsv" class="btn btn-primary mt-4">Back</button>
+</div>
+<script src="{{ url_for('static', filename='js/confirmation.js') }}"></script>
+<script>
+
+    window.pageData = {
+    iteration: {{ iter|tojson }},
+    avg: {{ avg|tojson }},
+    questionCount: {{ qst|tojson }},
+    totalIssue: {{ total_issue|tojson }},
+    jiraUsers: {{ jira_users|tojson }},
+    jiraBaseUrl: {{ jira_base_url|tojson }},
+    iteration_information: {{ iteration_information|tojson }}
+  };
+</script>
+<script src="/static/js/jfip-notifications.js"></script>
+</body>
+</html>

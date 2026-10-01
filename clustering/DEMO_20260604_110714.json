@@ -1,0 +1,1586 @@
+{
+    "output_folder": "DEMO_20260604_110714",
+    "params": {
+        "project": "DEMO",
+        "input_json": "databases/DEMO_20260604_110714.json",
+        "inference_json": "predictions/review/DEMO_20260604_110714.json",
+        "output_folder": "DEMO_20260604_110714",
+        "inferred_fields": [
+            "components",
+            "epic_link",
+            "team"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "components: '#Word'",
+                "epic_link: 'DEMO-1'",
+                "epic_link: 'DEMO-2'",
+                "epic_link: 'DEMO-4'",
+                "epic_link: 'OFFL-3'",
+                "team: 'Frontend Team'",
+                "team: 'DevOps Team'",
+                "team: 'QA Team'"
+            ],
+            "total": 8,
+            "in_progress": "team: 'QA Team'",
+            "elapsed_time": 0,
+            "metadata": {
+                "components": {
+                    "min_confidence": 0.73,
+                    "ml_model": " LOGISTIC"
+                },
+                "epic_link": {
+                    "min_confidence": 0.83,
+                    "ml_model": " SGD"
+                },
+                "team": {
+                    "min_confidence": 0.62,
+                    "ml_model": "RANDOM_FOREST"
+                }
+            }
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 34,
+    "iteration_information": {
+        "components": {
+            "issue_count": 410,
+            "avg_accuracy": 0.7061
+        },
+        "epic_link": {
+            "issue_count": 432,
+            "avg_accuracy": 0.8825
+        },
+        "team": {
+            "issue_count": 5,
+            "avg_accuracy": 0.752
+        },
+        "total_issue_count": 847,
+        "confidence_avg": 0.8818183229813664,
+        "orphan_count": 494
+    },
+    "iter_count": 1,
+    "question_json": {
+        "#Word": [
+            {
+                "field_name": "components",
+                "question": "'DEMO-108' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be '#Word'?",
+                "keywords": "print close open",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "DEMO-214_Off-P-Open",
+                        "DEMO-172_Powerpoint-Close",
+                        "DEMO-171_Powerpoint-Print Preview",
+                        "DEMO-109_E-Print Preview",
+                        "DEMO-108_E-Quick Print",
+                        "DEMO-85_E-Close",
+                        "DEMO-84_E-Print",
+                        "DEMO-81_E-Open",
+                        "DEMO-18_E-Close"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6998,
+                "cluster_centroid": "DEMO-108"
+            },
+            {
+                "field_name": "components",
+                "question": "'DEMO-138' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be '#Word'?",
+                "keywords": "paste cut copy",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "DEMO-212_Off-W-Copy",
+                        "DEMO-211_Off-W-Cut",
+                        "DEMO-210_Off-W-Paste Special",
+                        "DEMO-209_Off-W-Paste",
+                        "DEMO-157_Word-Copy",
+                        "DEMO-156_Word-Cut",
+                        "DEMO-155_Word-Paste Special",
+                        "DEMO-154_Word-Paste",
+                        "DEMO-141_W-Copy",
+                        "DEMO-140_W-Cut",
+                        "DEMO-139_W-Paste Special",
+                        "DEMO-138_W-Paste",
+                        "DEMO-136_W-Cut",
+                        "DEMO-135_W-Paste Special",
+                        "DEMO-134_W-Paste",
+                        "DEMO-116_E-Copy"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7784,
+                "cluster_centroid": "DEMO-138"
+            }
+        ],
+        "DEMO-1": [
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-176' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "powerpoint select 923",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "DEMO-180_Powerpoint-Select Text",
+                        "DEMO-179_Powerpoint-Select Objects",
+                        "DEMO-178_Powerpoint-Select All",
+                        "DEMO-176_Powerpoint-Copy",
+                        "DEMO-175_Powerpoint-Cut",
+                        "DEMO-174_Powerpoint-Paste Special",
+                        "DEMO-172_Powerpoint-Close",
+                        "DEMO-167_Powerpoint-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8345,
+                "cluster_centroid": "DEMO-176"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-139' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "paste special 1143",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "DEMO-298_W-PASTE-SPECIAL",
+                        "DEMO-248_DEF-W- Cant paste an image",
+                        "DEMO-210_Off-W-Paste Special",
+                        "DEMO-209_Off-W-Paste",
+                        "DEMO-155_Word-Paste Special",
+                        "DEMO-154_Word-Paste",
+                        "DEMO-141_W-Copy",
+                        "DEMO-139_W-Paste Special",
+                        "DEMO-138_W-Paste",
+                        "DEMO-135_W-Paste Special",
+                        "DEMO-134_W-Paste",
+                        "DEMO-131_P-Paste Special",
+                        "DEMO-127_P-Paste Special",
+                        "DEMO-63_W-Paste Special",
+                        "DEMO-62_W-Paste",
+                        "DEMO-41_P-Paste Special"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8215,
+                "cluster_centroid": "DEMO-139"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-584' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "button def quick",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO-611_2025 - DEF-W- Button Quick print does not appear",
+                        "DEMO-595_2025 - DEF-W- Can not click on Quick print button",
+                        "DEMO-584_DEF-W- Can not click on Quick print button 2025",
+                        "DEMO-257_DEF-W- Can not select an image",
+                        "DEMO-246_DEF-W- Button Quick print does not appear"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8665,
+                "cluster_centroid": "DEMO-584"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-204' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "print copy open",
+                "centroid": null,
+                "cluster_issues_count": 14,
+                "list_of_issues": [
+                    [
+                        "DEMO-214_Off-P-Open",
+                        "DEMO-212_Off-W-Copy",
+                        "DEMO-211_Off-W-Cut",
+                        "DEMO-208_Off-W-Exit Word",
+                        "DEMO-207_Off-W-Close",
+                        "DEMO-206_Off-W-Print Preview",
+                        "DEMO-205_Off-W-Quick Print",
+                        "DEMO-204_Off-W-Print",
+                        "DEMO-203_Off-W-Save",
+                        "DEMO-202_Off-W-Open",
+                        "DEMO-201_Off-W-New",
+                        "DEMO-101_W-Print",
+                        "DEMO-65_W-Copy",
+                        "DEMO-60_W-Print"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7613,
+                "cluster_centroid": "DEMO-204"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-445' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "demo 100 open",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "DEMO-552_IA Result: Jeremy 2024-07-05 11:21:10",
+                        "DEMO-495_IA Result: Armando 2024-05-09 14:22:21",
+                        "DEMO-480_IA Result: Armando 2024-04-24 12:12:13",
+                        "DEMO-445_IA Result: Armando 2024-04-17 14:38:46"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9296,
+                "cluster_centroid": "DEMO-445"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-58' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "cut save select",
+                "centroid": null,
+                "cluster_issues_count": 11,
+                "list_of_issues": [
+                    [
+                        "DEMO-200_CommonLibrary-Select All",
+                        "DEMO-140_W-Cut",
+                        "DEMO-136_W-Cut",
+                        "DEMO-102_W-Save As",
+                        "DEMO-67_W-Select All",
+                        "DEMO-66_W-Font",
+                        "DEMO-64_W-Cut",
+                        "DEMO-61_W-Close",
+                        "DEMO-59_W-Save",
+                        "DEMO-58_W-Open",
+                        "DEMO-57_W-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7118,
+                "cluster_centroid": "DEMO-58"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-160' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "word select 804",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "DEMO-160_Word-Select Text",
+                        "DEMO-159_Word-Select Objects",
+                        "DEMO-158_Word-Select All",
+                        "DEMO-153_Word-Word Options"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8569,
+                "cluster_centroid": "DEMO-160"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-150' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "word print preview",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "DEMO-186_Excel-Print Preview",
+                        "DEMO-163_Word-Rotate",
+                        "DEMO-157_Word-Copy",
+                        "DEMO-156_Word-Cut",
+                        "DEMO-152_Word-Close",
+                        "DEMO-151_Word-Print Preview",
+                        "DEMO-150_Word-Quick Print",
+                        "DEMO-149_Word-Print",
+                        "DEMO-148_Word-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7596,
+                "cluster_centroid": "DEMO-150"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-244' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-1'?",
+                "keywords": "def save file",
+                "centroid": null,
+                "cluster_issues_count": 6,
+                "list_of_issues": [
+                    [
+                        "DEMO-270_DEF-W- Can not save as Word 97",
+                        "DEMO-244_DEF-W- Can Not save Word document",
+                        "DEMO-242_DEF-W- Can not save as Word 2003",
+                        "DEMO-241_DEF-W- Can not save as pdf",
+                        "DEMO-240_DEF-W- Can not open a file",
+                        "DEMO-239_DEF-W- Can not create a new file"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8398,
+                "cluster_centroid": "DEMO-244"
+            }
+        ],
+        "DEMO-2": [
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-121' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "662 copy 663",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-121_E-Paste Special",
+                        "DEMO-120_E-Copy"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9308,
+                "cluster_centroid": "DEMO-121"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-589' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "story sprinttest 2025",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "DEMO-599_2025 - [SprintTest] Story 068",
+                        "DEMO-589_[SprintTest] Story 004 - 2025",
+                        "DEMO-436_[SprintTest] Story 120",
+                        "DEMO-433_[SprintTest] Story 117",
+                        "DEMO-425_[SprintTest] Story 109",
+                        "DEMO-418_[SprintTest] Story 102",
+                        "DEMO-409_[SprintTest] Story 099",
+                        "DEMO-360_[SprintTest] Story 050",
+                        "DEMO-358_[SprintTest] Story 048"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9449,
+                "cluster_centroid": "DEMO-589"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-34' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "print 517 371",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO-266_DEF-P- The Print page does not appear",
+                        "DEMO-105_P-Quick Print",
+                        "DEMO-79_P-Text Box",
+                        "DEMO-69_P-Open",
+                        "DEMO-34_P-Print"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7641,
+                "cluster_centroid": "DEMO-34"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-309' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "hoc ad execution",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO-310_Ad-hoc execution for DEMO-206",
+                        "DEMO-309_Ad-hoc execution for DEMO-218",
+                        "DEMO-307_Ad-hoc execution for DEMO-117",
+                        "DEMO-300_Ad-hoc execution for DEMO-62",
+                        "DEMO-289_Ad-hoc execution for DEMO-163"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9714,
+                "cluster_centroid": "DEMO-309"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-221' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "1336 1335 1334",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO-223_Off-E-Save",
+                        "DEMO-222_Off-E-Open",
+                        "DEMO-221_Off-E-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8956,
+                "cluster_centroid": "DEMO-221"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-251' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "unformatted 24 text",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-596_2025 - DEF-W- Cant paste an unformatted text",
+                        "DEMO-251_DEF-W- Cant paste an unformatted text"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9704,
+                "cluster_centroid": "DEMO-251"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-572' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "develop support fr",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-573_Develop - FR Language support",
+                        "DEMO-572_Develop - ESP lang support"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9362,
+                "cluster_centroid": "DEMO-572"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-185' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "excel print 963",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-185_Excel-Quick Print",
+                        "DEMO-184_Excel-Print"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9643,
+                "cluster_centroid": "DEMO-185"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-82' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "save 444 443",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO-91_E-Delete",
+                        "DEMO-85_E-Close",
+                        "DEMO-84_E-Print",
+                        "DEMO-83_E-Save As",
+                        "DEMO-82_E-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8231,
+                "cluster_centroid": "DEMO-82"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-80' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "new 440 370",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-80_E-New",
+                        "DEMO-68_P-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8956,
+                "cluster_centroid": "DEMO-80"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-224' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "1364 1361 close",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-226_Off-E-Cut",
+                        "DEMO-224_Off-E-Close"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9281,
+                "cluster_centroid": "DEMO-224"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-586' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "01 test story",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-586_TEST story 01 - 2025",
+                        "DEMO-274_TEST story 01"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9782,
+                "cluster_centroid": "DEMO-586"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-417' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "ab demo 02",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO-605_2025 - DEMO AB-01",
+                        "DEMO-556_DEMO AB 24-10-31",
+                        "DEMO-417_DEMO AB-02"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9206,
+                "cluster_centroid": "DEMO-417"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-284' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "test issue testing",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO-555_Language test ZH : \u6d4b\u8bd5\u4f60\u597d",
+                        "DEMO-294_Testing 236",
+                        "DEMO-284_[Test Issue]"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7918,
+                "cluster_centroid": "DEMO-284"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-491' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "demo 100 paste",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-491_IA Result: Jeremy 2024-05-03 11:26:31",
+                        "DEMO-483_IA Result: Armando 2024-04-24 14:25:18"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9737,
+                "cluster_centroid": "DEMO-491"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-119' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "cut 656 661",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-119_E-Cut",
+                        "DEMO-115_E-Cut"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.96,
+                "cluster_centroid": "DEMO-119"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "testex paste up_001",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO-296_P - Paste TestEx"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO-296"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-287' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "test plan execution",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-440_Test Execution for Test Plan DEMO-439",
+                        "DEMO-287_Test Execution for Test Plan DEMO-285"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9863,
+                "cluster_centroid": "DEMO-287"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-108' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-2'?",
+                "keywords": "print 622 623",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO-108_E-Quick Print",
+                        "DEMO-107_E-Print",
+                        "DEMO-86_E-Format Painter"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.884,
+                "cluster_centroid": "DEMO-108"
+            }
+        ],
+        "DEMO-4": [
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-269' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-4'?",
+                "keywords": "def object excel",
+                "centroid": null,
+                "cluster_issues_count": 7,
+                "list_of_issues": [
+                    [
+                        "DEMO-603_2025 - DEF-E- Cant paste an Object",
+                        "DEMO-564_CLONE - DEF-W- Cant paste a table",
+                        "DEMO-562_Error when selecting object",
+                        "DEMO-414_Orph - DEF-W- Cant paste a text which copied from Excel",
+                        "DEMO-291_Excel : Copy Cut Paste",
+                        "DEMO-269_DEF-E- Cant paste an Object",
+                        "DEMO-183_Excel-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6953,
+                "cluster_centroid": "DEMO-269"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-122' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-4'?",
+                "keywords": "paste copy cut",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "DEMO-288_Off-C-Cut 2",
+                        "DEMO-237_Off-C-Copy",
+                        "DEMO-236_Off-C-Paste Special",
+                        "DEMO-235_Off-Off-C-Paste",
+                        "DEMO-145_C-Cut",
+                        "DEMO-144_C-Copy",
+                        "DEMO-143_C-Paste Special",
+                        "DEMO-142_C-Paste",
+                        "DEMO-125_C-Cut",
+                        "DEMO-124_C-Copy",
+                        "DEMO-123_C-Paste Special",
+                        "DEMO-122_C-Paste",
+                        "DEMO-113_C-Cut",
+                        "DEMO-112_C-Copy",
+                        "DEMO-111_C-Paste Special",
+                        "DEMO-110_C-Paste"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7916,
+                "cluster_centroid": "DEMO-122"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-98' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-4'?",
+                "keywords": "select 546 delete",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO-258_DEF-W- Can not select a table",
+                        "DEMO-100_C-Select Text",
+                        "DEMO-99_C-Select Objects",
+                        "DEMO-98_C-Select All",
+                        "DEMO-78_P-Delete"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7365,
+                "cluster_centroid": "DEMO-98"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO-229' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO-4'?",
+                "keywords": "file save new",
+                "centroid": null,
+                "cluster_issues_count": 13,
+                "list_of_issues": [
+                    [
+                        "DEMO-234_Off-C-Open File",
+                        "DEMO-233_Off-C-Save As",
+                        "DEMO-232_Off-C-New File",
+                        "DEMO-231_Off-C-Print File",
+                        "DEMO-230_Off-C-Close File",
+                        "DEMO-229_Off-C-Save File",
+                        "DEMO-194_CommonLibrary-New File",
+                        "DEMO-97_C-Open File",
+                        "DEMO-96_C-Save As",
+                        "DEMO-95_C-New File",
+                        "DEMO-94_C-Print File",
+                        "DEMO-93_C-Close File",
+                        "DEMO-92_C-Save File"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7527,
+                "cluster_centroid": "DEMO-229"
+            }
+        ],
+        "OFFL-3": [
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "DEMO-32_P-New"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "DEMO-32"
+            }
+        ],
+        "Frontend Team": [
+            {
+                "field_name": "team",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "DEMO-613_#Powerpoint-Epic"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "DEMO-613"
+            }
+        ],
+        "DevOps Team": [
+            {
+                "field_name": "team",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "DEMO-422_[SprintTest] Story 106"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "DEMO-422"
+            }
+        ],
+        "QA Team": [
+            {
+                "field_name": "team",
+                "question": "'DEMO-287' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'QA Team'?",
+                "keywords": "test execution demo",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO-289_Ad-hoc execution for DEMO-163",
+                        "DEMO-287_Test Execution for Test Plan DEMO-285"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.881,
+                "cluster_centroid": "DEMO-287"
+            },
+            {
+                "field_name": "team",
+                "question": "ORPHANED",
+                "keywords": "paste copy cut",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO-290_Excel : Copy Cut Paste"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO-290"
+            }
+        ],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "components",
+                    "list_of_values": [
+                        "#CommonLibrary",
+                        "#Excel",
+                        "#Power Point",
+                        "#Word"
+                    ]
+                },
+                {
+                    "field_name": "epic_link",
+                    "list_of_values": [
+                        "DEMO-1",
+                        "DEMO-2",
+                        "DEMO-4",
+                        "DEMO-558",
+                        "OFFL-1",
+                        "OFFL-3"
+                    ]
+                },
+                {
+                    "field_name": "team",
+                    "list_of_values": [
+                        "Backend Team",
+                        "DevOps Team",
+                        "Frontend Team",
+                        "QA Team"
+                    ]
+                }
+            ],
+            "not_predictable": [
+                {
+                    "key": "DEMO-588",
+                    "field": "components",
+                    "accuracy": 0.752
+                },
+                {
+                    "key": "DEMO-436",
+                    "field": "components",
+                    "accuracy": 0.745
+                },
+                {
+                    "key": "DEMO-435",
+                    "field": "components",
+                    "accuracy": 0.75375
+                },
+                {
+                    "key": "DEMO-434",
+                    "field": "components",
+                    "accuracy": 0.75075
+                },
+                {
+                    "key": "DEMO-433",
+                    "field": "components",
+                    "accuracy": 0.7505
+                },
+                {
+                    "key": "DEMO-432",
+                    "field": "components",
+                    "accuracy": 0.75
+                },
+                {
+                    "key": "DEMO-431",
+                    "field": "components",
+                    "accuracy": 0.749
+                },
+                {
+                    "key": "DEMO-430",
+                    "field": "components",
+                    "accuracy": 0.7515000000000001
+                },
+                {
+                    "key": "DEMO-429",
+                    "field": "components",
+                    "accuracy": 0.7484999999999999
+                },
+                {
+                    "key": "DEMO-428",
+                    "field": "components",
+                    "accuracy": 0.75425
+                },
+                {
+                    "key": "DEMO-427",
+                    "field": "components",
+                    "accuracy": 0.7535000000000001
+                },
+                {
+                    "key": "DEMO-426",
+                    "field": "components",
+                    "accuracy": 0.7494999999999999
+                },
+                {
+                    "key": "DEMO-425",
+                    "field": "components",
+                    "accuracy": 0.75075
+                },
+                {
+                    "key": "DEMO-424",
+                    "field": "components",
+                    "accuracy": 0.744
+                },
+                {
+                    "key": "DEMO-423",
+                    "field": "components",
+                    "accuracy": 0.7404999999999999
+                },
+                {
+                    "key": "DEMO-422",
+                    "field": "components",
+                    "accuracy": 0.744
+                },
+                {
+                    "key": "DEMO-421",
+                    "field": "components",
+                    "accuracy": 0.73875
+                },
+                {
+                    "key": "DEMO-420",
+                    "field": "components",
+                    "accuracy": 0.75225
+                },
+                {
+                    "key": "DEMO-419",
+                    "field": "components",
+                    "accuracy": 0.7515000000000001
+                },
+                {
+                    "key": "DEMO-418",
+                    "field": "components",
+                    "accuracy": 0.7435
+                },
+                {
+                    "key": "DEMO-417",
+                    "field": "components",
+                    "accuracy": 0.739
+                },
+                {
+                    "key": "DEMO-416",
+                    "field": "components",
+                    "accuracy": 0.73775
+                },
+                {
+                    "key": "DEMO-411",
+                    "field": "components",
+                    "accuracy": 0.7424999999999999
+                },
+                {
+                    "key": "DEMO-410",
+                    "field": "components",
+                    "accuracy": 0.73625
+                },
+                {
+                    "key": "DEMO-409",
+                    "field": "components",
+                    "accuracy": 0.7495
+                },
+                {
+                    "key": "DEMO-408",
+                    "field": "components",
+                    "accuracy": 0.7484999999999999
+                },
+                {
+                    "key": "DEMO-407",
+                    "field": "components",
+                    "accuracy": 0.74425
+                },
+                {
+                    "key": "DEMO-406",
+                    "field": "components",
+                    "accuracy": 0.747
+                },
+                {
+                    "key": "DEMO-405",
+                    "field": "components",
+                    "accuracy": 0.74225
+                },
+                {
+                    "key": "DEMO-404",
+                    "field": "components",
+                    "accuracy": 0.7455
+                },
+                {
+                    "key": "DEMO-403",
+                    "field": "components",
+                    "accuracy": 0.7494999999999999
+                },
+                {
+                    "key": "DEMO-402",
+                    "field": "components",
+                    "accuracy": 0.74925
+                },
+                {
+                    "key": "DEMO-401",
+                    "field": "components",
+                    "accuracy": 0.7484999999999999
+                },
+                {
+                    "key": "DEMO-400",
+                    "field": "components",
+                    "accuracy": 0.7515
+                },
+                {
+                    "key": "DEMO-399",
+                    "field": "components",
+                    "accuracy": 0.75225
+                },
+                {
+                    "key": "DEMO-398",
+                    "field": "components",
+                    "accuracy": 0.7505
+                },
+                {
+                    "key": "DEMO-397",
+                    "field": "components",
+                    "accuracy": 0.7457499999999999
+                },
+                {
+                    "key": "DEMO-396",
+                    "field": "components",
+                    "accuracy": 0.74875
+                },
+                {
+                    "key": "DEMO-395",
+                    "field": "components",
+                    "accuracy": 0.7435
+                },
+                {
+                    "key": "DEMO-394",
+                    "field": "components",
+                    "accuracy": 0.74725
+                },
+                {
+                    "key": "DEMO-393",
+                    "field": "components",
+                    "accuracy": 0.751
+                },
+                {
+                    "key": "DEMO-392",
+                    "field": "components",
+                    "accuracy": 0.7494999999999999
+                },
+                {
+                    "key": "DEMO-391",
+                    "field": "components",
+                    "accuracy": 0.74925
+                },
+                {
+                    "key": "DEMO-390",
+                    "field": "components",
+                    "accuracy": 0.75325
+                },
+                {
+                    "key": "DEMO-389",
+                    "field": "components",
+                    "accuracy": 0.7495
+                },
+                {
+                    "key": "DEMO-388",
+                    "field": "components",
+                    "accuracy": 0.7477499999999999
+                },
+                {
+                    "key": "DEMO-387",
+                    "field": "components",
+                    "accuracy": 0.7434999999999999
+                },
+                {
+                    "key": "DEMO-386",
+                    "field": "components",
+                    "accuracy": 0.746
+                },
+                {
+                    "key": "DEMO-385",
+                    "field": "components",
+                    "accuracy": 0.74025
+                },
+                {
+                    "key": "DEMO-384",
+                    "field": "components",
+                    "accuracy": 0.7437499999999999
+                },
+                {
+                    "key": "DEMO-383",
+                    "field": "components",
+                    "accuracy": 0.748
+                },
+                {
+                    "key": "DEMO-382",
+                    "field": "components",
+                    "accuracy": 0.7477499999999999
+                },
+                {
+                    "key": "DEMO-381",
+                    "field": "components",
+                    "accuracy": 0.747
+                },
+                {
+                    "key": "DEMO-379",
+                    "field": "components",
+                    "accuracy": 0.7495
+                },
+                {
+                    "key": "DEMO-378",
+                    "field": "components",
+                    "accuracy": 0.74825
+                },
+                {
+                    "key": "DEMO-377",
+                    "field": "components",
+                    "accuracy": 0.74325
+                },
+                {
+                    "key": "DEMO-376",
+                    "field": "components",
+                    "accuracy": 0.7455
+                },
+                {
+                    "key": "DEMO-375",
+                    "field": "components",
+                    "accuracy": 0.74075
+                },
+                {
+                    "key": "DEMO-374",
+                    "field": "components",
+                    "accuracy": 0.74475
+                },
+                {
+                    "key": "DEMO-373",
+                    "field": "components",
+                    "accuracy": 0.749
+                },
+                {
+                    "key": "DEMO-372",
+                    "field": "components",
+                    "accuracy": 0.748
+                },
+                {
+                    "key": "DEMO-371",
+                    "field": "components",
+                    "accuracy": 0.74625
+                },
+                {
+                    "key": "DEMO-370",
+                    "field": "components",
+                    "accuracy": 0.75
+                },
+                {
+                    "key": "DEMO-369",
+                    "field": "components",
+                    "accuracy": 0.7457499999999999
+                },
+                {
+                    "key": "DEMO-368",
+                    "field": "components",
+                    "accuracy": 0.744
+                },
+                {
+                    "key": "DEMO-367",
+                    "field": "components",
+                    "accuracy": 0.7395
+                },
+                {
+                    "key": "DEMO-366",
+                    "field": "components",
+                    "accuracy": 0.742
+                },
+                {
+                    "key": "DEMO-365",
+                    "field": "components",
+                    "accuracy": 0.73625
+                },
+                {
+                    "key": "DEMO-364",
+                    "field": "components",
+                    "accuracy": 0.74025
+                },
+                {
+                    "key": "DEMO-363",
+                    "field": "components",
+                    "accuracy": 0.744
+                },
+                {
+                    "key": "DEMO-362",
+                    "field": "components",
+                    "accuracy": 0.74325
+                },
+                {
+                    "key": "DEMO-361",
+                    "field": "components",
+                    "accuracy": 0.74225
+                },
+                {
+                    "key": "DEMO-360",
+                    "field": "components",
+                    "accuracy": 0.75425
+                },
+                {
+                    "key": "DEMO-359",
+                    "field": "components",
+                    "accuracy": 0.75
+                },
+                {
+                    "key": "DEMO-358",
+                    "field": "components",
+                    "accuracy": 0.748
+                },
+                {
+                    "key": "DEMO-357",
+                    "field": "components",
+                    "accuracy": 0.74225
+                },
+                {
+                    "key": "DEMO-356",
+                    "field": "components",
+                    "accuracy": 0.74475
+                },
+                {
+                    "key": "DEMO-355",
+                    "field": "components",
+                    "accuracy": 0.739
+                },
+                {
+                    "key": "DEMO-354",
+                    "field": "components",
+                    "accuracy": 0.7444999999999999
+                },
+                {
+                    "key": "DEMO-353",
+                    "field": "components",
+                    "accuracy": 0.74675
+                },
+                {
+                    "key": "DEMO-352",
+                    "field": "components",
+                    "accuracy": 0.74675
+                },
+                {
+                    "key": "DEMO-351",
+                    "field": "components",
+                    "accuracy": 0.7454999999999999
+                },
+                {
+                    "key": "DEMO-350",
+                    "field": "components",
+                    "accuracy": 0.74825
+                },
+                {
+                    "key": "DEMO-349",
+                    "field": "components",
+                    "accuracy": 0.75425
+                },
+                {
+                    "key": "DEMO-348",
+                    "field": "components",
+                    "accuracy": 0.75225
+                },
+                {
+                    "key": "DEMO-347",
+                    "field": "components",
+                    "accuracy": 0.7477499999999999
+                },
+                {
+                    "key": "DEMO-346",
+                    "field": "components",
+                    "accuracy": 0.75
+                },
+                {
+                    "key": "DEMO-345",
+                    "field": "components",
+                    "accuracy": 0.7444999999999999
+                },
+                {
+                    "key": "DEMO-344",
+                    "field": "components",
+                    "accuracy": 0.7494999999999999
+                },
+                {
+                    "key": "DEMO-343",
+                    "field": "components",
+                    "accuracy": 0.752
+                },
+                {
+                    "key": "DEMO-342",
+                    "field": "components",
+                    "accuracy": 0.7517499999999999
+                },
+                {
+                    "key": "DEMO-341",
+                    "field": "components",
+                    "accuracy": 0.75125
+                },
+                {
+                    "key": "DEMO-340",
+                    "field": "components",
+                    "accuracy": 0.7545
+                },
+                {
+                    "key": "DEMO-339",
+                    "field": "components",
+                    "accuracy": 0.7555
+                },
+                {
+                    "key": "DEMO-338",
+                    "field": "components",
+                    "accuracy": 0.7537499999999999
+                },
+                {
+                    "key": "DEMO-337",
+                    "field": "components",
+                    "accuracy": 0.74875
+                },
+                {
+                    "key": "DEMO-336",
+                    "field": "components",
+                    "accuracy": 0.75125
+                },
+                {
+                    "key": "DEMO-335",
+                    "field": "components",
+                    "accuracy": 0.74625
+                },
+                {
+                    "key": "DEMO-334",
+                    "field": "components",
+                    "accuracy": 0.751
+                },
+                {
+                    "key": "DEMO-333",
+                    "field": "components",
+                    "accuracy": 0.7537499999999999
+                },
+                {
+                    "key": "DEMO-332",
+                    "field": "components",
+                    "accuracy": 0.75275
+                },
+                {
+                    "key": "DEMO-331",
+                    "field": "components",
+                    "accuracy": 0.75275
+                },
+                {
+                    "key": "DEMO-330",
+                    "field": "components",
+                    "accuracy": 0.7555
+                },
+                {
+                    "key": "DEMO-329",
+                    "field": "components",
+                    "accuracy": 0.7545
+                },
+                {
+                    "key": "DEMO-328",
+                    "field": "components",
+                    "accuracy": 0.7525
+                },
+                {
+                    "key": "DEMO-327",
+                    "field": "components",
+                    "accuracy": 0.7477499999999999
+                },
+                {
+                    "key": "DEMO-326",
+                    "field": "components",
+                    "accuracy": 0.75075
+                },
+                {
+                    "key": "DEMO-325",
+                    "field": "components",
+                    "accuracy": 0.74325
+                },
+                {
+                    "key": "DEMO-324",
+                    "field": "components",
+                    "accuracy": 0.7497499999999999
+                },
+                {
+                    "key": "DEMO-323",
+                    "field": "components",
+                    "accuracy": 0.75275
+                },
+                {
+                    "key": "DEMO-322",
+                    "field": "components",
+                    "accuracy": 0.752
+                },
+                {
+                    "key": "DEMO-321",
+                    "field": "components",
+                    "accuracy": 0.7515
+                },
+                {
+                    "key": "DEMO-320",
+                    "field": "components",
+                    "accuracy": 0.75525
+                },
+                {
+                    "key": "DEMO-319",
+                    "field": "components",
+                    "accuracy": 0.754
+                },
+                {
+                    "key": "DEMO-318",
+                    "field": "components",
+                    "accuracy": 0.75125
+                },
+                {
+                    "key": "DEMO-317",
+                    "field": "components",
+                    "accuracy": 0.74625
+                },
+                {
+                    "key": "DEMO-316",
+                    "field": "components",
+                    "accuracy": 0.75075
+                },
+                {
+                    "key": "DEMO-315",
+                    "field": "components",
+                    "accuracy": 0.742
+                },
+                {
+                    "key": "DEMO-314",
+                    "field": "components",
+                    "accuracy": 0.74875
+                },
+                {
+                    "key": "DEMO-313",
+                    "field": "components",
+                    "accuracy": 0.7525
+                },
+                {
+                    "key": "DEMO-312",
+                    "field": "components",
+                    "accuracy": 0.753
+                },
+                {
+                    "key": "DEMO-311",
+                    "field": "components",
+                    "accuracy": 0.7517499999999999
+                },
+                {
+                    "key": "DEMO-294",
+                    "field": "components",
+                    "accuracy": 0.73775
+                },
+                {
+                    "key": "DEMO-293",
+                    "field": "components",
+                    "accuracy": 0.73775
+                },
+                {
+                    "key": "DEMO-292",
+                    "field": "components",
+                    "accuracy": 0.73775
+                }
+            ]
+        }
+    }
+}

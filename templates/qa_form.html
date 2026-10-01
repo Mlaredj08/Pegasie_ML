@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 700px;">
+
+  <div class="page-header d-flex align-items-center justify-content-between">
+    <div>
+      <h1><i class="bi bi-file-earmark-arrow-up me-2" style="color:var(--primary);"></i>Upload Profile</h1>
+      <p class="subtitle mb-0">Select a profile Excel file to generate</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-1"></i>Home
+    </a>
+  </div>
+
+  <div class="jfip-card-flat animate-fade-in">
+    <form method="post">
+      <div class="mb-3">
+        <label for="excel_file" class="form-label"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Select Profile Excel File</label>
+        <select class="form-select" name="excel_file" id="excel_file" required>
+          <option value="" disabled selected>— Choose a file —</option>
+          {% for f in files %}
+            <option value="{{ f }}">{{ f }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-gear me-1"></i>Generate Profile
+      </button>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

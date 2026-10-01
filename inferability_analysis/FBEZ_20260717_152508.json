@@ -1,0 +1,25 @@
+{
+    "predictable_fields": [
+        "epic_link",
+        "components",
+        "team"
+    ],
+    "labeled_data_per_field": {
+        "epic_link": {
+            "labeled_count": 44,
+            "unlabeled_count": 186,
+            "labeled_percentage": 19.130434782608695
+        },
+        "components": {
+            "labeled_count": 82,
+            "unlabeled_count": 148,
+            "labeled_percentage": 35.65217391304348
+        },
+        "team": {
+            "labeled_count": 74,
+            "unlabeled_count": 156,
+            "labeled_percentage": 32.17391304347826
+        }
+    },
+    "labeled_min_percentage": 10
+}

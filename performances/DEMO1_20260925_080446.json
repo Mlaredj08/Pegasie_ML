@@ -1,0 +1,171 @@
+{
+    "accuracy": {
+        "components": {
+            "LOGISTIC": null,
+            "SGD": null,
+            "RANDOM_FOREST": null,
+            "MLP": null,
+            "LINEAR_SVC": null
+        },
+        "labels": {
+            "LOGISTIC": null,
+            "RANDOM_FOREST": null,
+            "SGD": null,
+            "MLP": null,
+            "LINEAR_SVC": null
+        },
+        "epic_link": {
+            "LOGISTIC": 0.9230769230769231,
+            "RANDOM_FOREST": 0.9230769230769231,
+            "SGD": 0.9230769230769231,
+            "MLP": 0.9230769230769231,
+            "LINEAR_SVC": 0.9230769230769231
+        }
+    },
+    "f1_score": {
+        "components": {
+            "LOGISTIC": null,
+            "SGD": null,
+            "RANDOM_FOREST": null,
+            "MLP": null,
+            "LINEAR_SVC": null
+        },
+        "labels": {
+            "LOGISTIC": null,
+            "RANDOM_FOREST": null,
+            "SGD": null,
+            "MLP": null,
+            "LINEAR_SVC": null
+        },
+        "epic_link": {
+            "LOGISTIC": 0.923076923076923,
+            "RANDOM_FOREST": 0.923076923076923,
+            "SGD": 0.923076923076923,
+            "MLP": 0.923076923076923,
+            "LINEAR_SVC": 0.923076923076923
+        }
+    },
+    "optimal_confidence": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 0,
+            "RANDOM_FOREST": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "labels": {
+            "LOGISTIC": 0,
+            "RANDOM_FOREST": 0,
+            "SGD": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "epic_link": {
+            "LOGISTIC": 0.48176884422110555,
+            "RANDOM_FOREST": 0.45565326633165826,
+            "SGD": 0.8910427135678392,
+            "MLP": 0.9079924623115577,
+            "LINEAR_SVC": 0.808502512562814
+        }
+    },
+    "optimal_confidence_f1": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 0,
+            "RANDOM_FOREST": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "labels": {
+            "LOGISTIC": 0,
+            "RANDOM_FOREST": 0,
+            "SGD": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "epic_link": {
+            "LOGISTIC": 0.923076923076923,
+            "RANDOM_FOREST": 0.923076923076923,
+            "SGD": 0.923076923076923,
+            "MLP": 0.923076923076923,
+            "LINEAR_SVC": 0.923076923076923
+        }
+    },
+    "confident_predictions_percentage": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 0,
+            "RANDOM_FOREST": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "labels": {
+            "LOGISTIC": 0,
+            "RANDOM_FOREST": 0,
+            "SGD": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        },
+        "epic_link": {
+            "LOGISTIC": 0,
+            "RANDOM_FOREST": 0,
+            "SGD": 0,
+            "MLP": 0,
+            "LINEAR_SVC": 0
+        }
+    },
+    "best_model_per_field": {
+        "epic_link": {
+            "ml_model": "LOGISTIC",
+            "optimal_confidence": 0.48176884422110555,
+            "optimal_confidence_f1_score": 0.923076923076923,
+            "confident_predictions_percentage": 0,
+            "accuracy_per_confidence": {
+                "65": {
+                    "f1_score": 1.0,
+                    "accuracy": 1.0,
+                    "basic_accuracy": 1.0,
+                    "confident_predictions_percentage": 3.116883116883117,
+                    "test_data_size": 13
+                },
+                "60": {
+                    "f1_score": 0.8,
+                    "accuracy": 0.8666666666666667,
+                    "basic_accuracy": 0.8,
+                    "confident_predictions_percentage": 9.090909090909092,
+                    "test_data_size": 13
+                },
+                "55": {
+                    "f1_score": 0.8333333333333333,
+                    "accuracy": 0.8888888888888888,
+                    "basic_accuracy": 0.8333333333333334,
+                    "confident_predictions_percentage": 19.74025974025974,
+                    "test_data_size": 13
+                },
+                "50": {
+                    "f1_score": 0.888888888888889,
+                    "accuracy": 0.9259259259259259,
+                    "basic_accuracy": 0.8888888888888888,
+                    "confident_predictions_percentage": 31.68831168831169,
+                    "test_data_size": 13
+                }
+            }
+        }
+    },
+    "selected_types_per_field": {
+        "components": [
+            "Bug",
+            "Story",
+            "Test",
+            "Epic"
+        ],
+        "labels": [
+            "Epic"
+        ],
+        "epic_link": [
+            "Bug",
+            "Story",
+            "Test"
+        ]
+    }
+}

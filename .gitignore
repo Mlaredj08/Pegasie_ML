@@ -1,0 +1,41 @@
+# Python caches / environments
+__pycache__/
+.venv/
+venv/
+
+# IDE/Editor
+.idea/
+
+# Timestamped client exports & environments (CIA_2025..., DEMO_..., etc.)
+/*_[0-9][0-9][0-9][0-9][0-9][0-9]_*/
+
+# Generated datasets, DB dumps, and settings
+/databases/
+/databases_settings/
+/database_updated/
+/update_jira_csv/
+
+# Dependency and iteration artifacts
+/dependency_model/
+/multi_dependency_model/
+/iterations/
+
+# Mock/demo payloads
+/mock/
+/templates/*_audit.html
+/templates/*_inferred.html
+/*/*_audit.json
+/*/*_inferred.json
+
+# Batch update outputs (CSV/XLS/JSON/ZIP) but keep scripts
+/batch_updates/**/*.csv
+/batch_updates/**/*.xlsx
+/batch_updates/**/*.json
+/batch_updates/**/*.zip
+
+# Misc. generated assets
+*.zip
+*.iml
+inference_test_results.json
+version.json
+prompts/settings.json

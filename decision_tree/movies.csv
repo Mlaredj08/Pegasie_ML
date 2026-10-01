@@ -1,0 +1,23 @@
+id,type,prompt,next,options,options_from_answer_of,split,use_answer_from,effects,source,item_var,after
+start_path,single_select,Pick a plan for training:,branch_path,"[""Movie Night (Indoors)"", ""Picnic (Outdoors)""]",,,,,,,
+branch_path,branch,,"[{""when"": {""equals"": ""Movie Night (Indoors)""}, ""goto"": ""movie_q1""}, {""when"": {""equals"": ""Picnic (Outdoors)""}, ""goto"": ""picnic_q1""}, {""default"": true, ""goto"": ""end""}]",,,,start_path,,,,
+movie_q1,yes_no,Do you already have a projector or large screen?,movie_q2,,,,,,,,
+movie_q2,single_select,Pick your streaming source:,movie_q3,"[""Netflix"", ""Prime Video"", ""Disney+"", ""Local files / USB""]",,,,,,,
+movie_q3,multi_select,Choose snacks to prepare:,movie_friends_list,"[""Popcorn"", ""Nachos"", ""Chocolate"", ""Fruit"", ""Soda"", ""Water""]",,,,,,,
+movie_friends_list,list,List 2–5 friends you might invite (comma-separated).,movie_for_each_friend,,,,,,,,
+movie_for_each_friend,for_each,,movie_friend_pref,,,,,,movie_friends_list,friend,movie_snack_branch
+movie_friend_pref,text,"Any notes for '{{answers.__movie_for_each_friend.current}}' (dietary needs, seat preference)?",movie_for_each_friend,,,,,,,,
+movie_snack_branch,branch,,"[{""when"": {""contains_any"": [""Popcorn""]}, ""goto"": ""movie_popcorn_butter""}, {""default"": true, ""goto"": ""movie_q5""}]",,,,movie_q3,,,,
+movie_popcorn_butter,yes_no,"If serving popcorn, should we offer buttered and plain options?",movie_q5,,,,,,,,
+movie_q5,text,"Any accessibility or comfort needs (seating, captions, lighting)?",end,,,,,,,,
+picnic_q1,yes_no,Do you need a park permit for your picnic spot?,picnic_q2,,,,,,,,
+picnic_q2,single_select,What time of day works best?,picnic_q3,"[""Morning"", ""Afternoon"", ""Evening""]",,,,,,,
+picnic_q3,multi_select,Select outdoor activities/games:,picnic_foods_list,"[""Frisbee"", ""Soccer"", ""Cards"", ""Reading"", ""Photography""]",,,,,,,
+picnic_foods_list,list,List foods you plan to bring (comma-separated).,picnic_for_each_food,,,,,,,,
+picnic_for_each_food,for_each,,picnic_food_q,,,,,,picnic_foods_list,food,picnic_time_branch
+picnic_food_q,yes_no,Does '{{answers.__picnic_for_each_food.current}}' need a cooler?,picnic_for_each_food,,,,,,,,
+picnic_time_branch,branch,,"[{""when"": {""equals"": ""Evening""}, ""goto"": ""picnic_blankets""}, {""default"": true, ""goto"": ""picnic_sunscreen""}]",,,,picnic_q2,,,,
+picnic_blankets,text,Evening tends to be cooler—how many blankets should we bring?,picnic_final_note,,,,,,,,
+picnic_sunscreen,text,Who will bring sunscreen and bug spray?,picnic_final_note,,,,,,,,
+picnic_final_note,text,Any dietary restrictions or allergies to consider?,end,,,,,,,,
+end,end,Review & Submit,,,,,,,,,

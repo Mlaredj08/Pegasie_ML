@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+  .scroll-table {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+  }
+  .scroll-table .table th, .scroll-table .table td { vertical-align: middle; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="bi bi-microsoft me-2" style="color:var(--primary);"></i>Azure DevOps Connector</h1>
+    <p class="subtitle mb-0">Connect and export work items from Azure DevOps</p>
+  </div>
+
+  {% if error %}
+    <div class="alert alert-danger animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+    </div>
+  {% endif %}
+
+  <!-- Connection Form -->
+  <div class="jfip-card-flat mb-4 animate-fade-in">
+    <form method="post" action="/fields_azure">
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="org_url" class="form-label"><i class="bi bi-building me-1"></i>Organization URL</label>
+          <input type="text" name="org_url" id="org_url" value="{{ org_url or '' }}" required class="form-control" placeholder="https://dev.azure.com/yourorg">
+        </div>
+
+        <div class="col-md-6">
+          <label for="project" class="form-label"><i class="bi bi-folder me-1"></i>Project Name</label>
+          <input type="text" name="project" id="project" value="{{ project or '' }}" required class="form-control">
+        </div>
+
+        <div class="col-md-6">
+          <label for="pat" class="form-label"><i class="bi bi-key me-1"></i>Personal Access Token</label>
+          <input type="password" name="pat" id="pat" value="{{ pat or '' }}" required class="form-control">
+        </div>
+
+        <div class="col-12 pt-1">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-plug me-1"></i>Connect to Azure DevOps
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {% if work_item_types %}
+  <!-- Work Item Types Selection -->
+  <div class="jfip-card-flat animate-slide-up">
+    <form method="post" action="/generate_azure" id="generateForm">
+      <input type="hidden" name="org_url" value="{{ org_url }}">
+      <input type="hidden" name="project" value="{{ project }}">
+      <input type="hidden" name="pat" value="{{ pat }}">
+
+      <label class="form-label"><i class="bi bi-list-check me-1"></i>Select Work Item Types to Include:</label>
+      <div id="witypeAlert" class="alert alert-danger d-none" role="alert" aria-live="polite">
+        Please select <strong>at least one</strong> Work Item Type.
+      </div>
+
+      <div id="witypeBox" class="scroll-table mb-3">
+        <table class="table table-striped table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="width: 50px;">
+                <input type="checkbox" class="form-check-input select-all" data-group="witype">
+              </th>
+              <th scope="col">Work Item Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for witype in work_item_types %}
+            <tr>
+              <td>
+                <input type="checkbox" name="witype" value="{{ witype }}" id="{{ witype }}" class="form-check-input group-witype">
+              </td>
+              <td>
+                <label for="{{ witype }}">{{ witype }}</label>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-file-earmark-code me-1"></i>Generate JSON
+      </button>
+    </form>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/export_jira.js') }}"></script>
+{% endblock %}

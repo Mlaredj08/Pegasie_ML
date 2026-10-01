@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>JFIP – Decision Tree Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/jfip-theme.css">
+  <style>
+    :root{
+      --node-bg:var(--card);--node-border:var(--ink-300);--node-selected:var(--primary);
+      --branch-color:var(--accent);--foreach-color:#8b5cf6;--end-color:var(--success)}
+    html,body{height:100%;margin:0;font-family:var(--font-main)}
+    /* Layout */
+    .editor-layout{display:flex;height:calc(100vh - 0px);overflow:hidden}
+    .sidebar{width:380px;min-width:320px;max-width:480px;background:var(--card);border-right:1px solid var(--card-border);
+      display:flex;flex-direction:column;overflow:hidden;z-index:10}
+    .sidebar-header{padding:12px 16px;background:linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);color:#fff;
+      flex-shrink:0;border-bottom:3px solid var(--primary)}
+    .sidebar-body{flex:1;overflow-y:auto;padding:16px}
+    .sidebar-footer{padding:12px 16px;border-top:1px solid var(--card-border);flex-shrink:0;background:var(--card)}
+    .canvas-area{flex:1;position:relative;overflow:hidden;background:
+      radial-gradient(circle,var(--ink-200) 1px,transparent 1px);background-size:24px 24px;background-color:var(--bg)}
+    /* Flow canvas */
+    #flowCanvas{width:100%;height:100%;position:absolute;top:0;left:0}
+    /* Node cards on canvas */
+    .flow-node{position:absolute;min-width:180px;max-width:260px;background:var(--node-bg);
+      border:2px solid var(--node-border);border-radius:var(--radius-md);padding:10px 14px;cursor:grab;
+      font-size:.82rem;box-shadow:var(--shadow-sm);transition:border-color var(--transition-fast),box-shadow var(--transition-fast);user-select:none}
+    .flow-node:hover{box-shadow:var(--shadow-md)}
+    .flow-node.selected{border-color:var(--node-selected);box-shadow:var(--shadow-glow)}
+    .flow-node .node-type{font-size:.65rem;text-transform:uppercase;font-weight:700;letter-spacing:.05em;
+      padding:2px 6px;border-radius:4px;display:inline-block;margin-bottom:4px}
+    .flow-node .node-type.t-yes_no{background:var(--info-light);color:#1e40af}
+    .flow-node .node-type.t-text{background:var(--success-light);color:#166534}
+    .flow-node .node-type.t-list{background:var(--warning-light);color:#854d0e}
+    .flow-node .node-type.t-single_select{background:#fce7f3;color:#9d174d}
+    .flow-node .node-type.t-multi_select{background:#ede9fe;color:#5b21b6}
+    .flow-node .node-type.t-branch{background:var(--accent-light);color:var(--accent-dark)}
+    .flow-node .node-type.t-for_each{background:#f3e8ff;color:#6b21a8}
+    .flow-node .node-type.t-end{background:var(--success-light);color:#065f46}
+    .flow-node .node-id{font-weight:600;font-size:.78rem;word-break:break-all;color:var(--navy)}
+    .flow-node .node-prompt{color:var(--ink-500);font-size:.72rem;margin-top:2px;
+      max-height:40px;overflow:hidden;text-overflow:ellipsis}
+    .flow-node .delete-node{position:absolute;top:-8px;right:-8px;width:20px;height:20px;
+      border-radius:50%;background:var(--danger);color:#fff;border:none;font-size:11px;
+      display:none;align-items:center;justify-content:center;cursor:pointer;line-height:1;
+      transition:transform var(--transition-fast)}
+    .flow-node .delete-node:hover{transform:scale(1.15)}
+    .flow-node:hover .delete-node{display:flex}
+    /* Connection dots */
+    .flow-node .port{width:10px;height:10px;border-radius:50%;background:var(--primary);
+      position:absolute;cursor:crosshair;border:2px solid #fff;box-shadow:0 0 0 1px var(--primary)}
+    .flow-node .port.port-out{bottom:-6px;left:50%;transform:translateX(-50%)}
+    .flow-node .port.port-in{top:-6px;left:50%;transform:translateX(-50%)}
+    /* Properties panel styles */
+    .prop-section{margin-bottom:16px}
+    .prop-section>label{font-size:.78rem;font-weight:700;color:var(--ink-500);margin-bottom:6px;display:block;
+      text-transform:uppercase;letter-spacing:.03em}
+    .prop-section .form-control,.prop-section .form-select{font-size:.82rem}
+    /* Minimap */
+    .minimap{position:absolute;bottom:12px;right:12px;width:180px;height:120px;background:var(--card);
+      border:1px solid var(--card-border);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);overflow:hidden;z-index:5}
+    .minimap canvas{width:100%;height:100%}
+    /* Toolbar */
+    .canvas-toolbar{position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:5}
+    .canvas-toolbar .btn{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius-sm);
+      padding:6px 10px;font-size:.8rem;box-shadow:var(--shadow-sm);transition:all var(--transition-fast)}
+    .canvas-toolbar .btn:hover{background:var(--bg-subtle);border-color:var(--ink-300);transform:translateY(-1px)}
+    /* Effects editor */
+    .effect-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+    .effect-row .form-control,.effect-row .form-select{font-size:.78rem;padding:4px 8px}
+    /* Branch rules editor */
+    .rule-row{border:1px solid var(--card-border);border-radius:var(--radius-sm);padding:8px;margin-bottom:8px;
+      background:var(--bg-subtle);transition:border-color var(--transition-fast)}
+    .rule-row:hover{border-color:var(--primary-light)}
+    .rule-row .form-control,.rule-row .form-select{font-size:.78rem;padding:4px 8px}
+    /* Toast */
+    .editor-toast{position:fixed;top:20px;right:20px;z-index:9999}
+    .btn-brand{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:600}
+    .btn-brand:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff;
+      box-shadow:0 4px 12px rgba(74,144,226,.35);transform:translateY(-1px)}
+    pre.json-preview{background:var(--navy);color:#e5e7eb;border-radius:var(--radius-md);padding:14px;
+      font-size:.75rem;max-height:300px;overflow:auto;border:1px solid var(--navy-light)}
+    hr{border-color:var(--ink-200);opacity:.5}
+    #noNodeSelected .text-muted{color:var(--ink-400) !important}
+  </style>
+</head>
+<body>
+
+<!-- Toast container -->
+<div class="editor-toast" id="toastContainer"></div>
+
+<div class="editor-layout">
+  <!-- LEFT SIDEBAR: Node properties -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <h1 class="h6 mb-0"><i class="bi bi-diagram-3" style="color:var(--accent);"></i> Decision Tree Editor</h1>
+          <div class="small opacity-75" id="editorTreeName">New tree</div>
+        </div>
+        <a href="/" class="btn btn-sm btn-outline-light"><i class="bi bi-house"></i></a>
+      </div>
+    </div>
+    <div class="sidebar-body" id="sidebarBody">
+      <!-- File operations -->
+      <div class="prop-section">
+        <label><i class="bi bi-folder2-open"></i> Tree File</label>
+        <div class="d-flex gap-2 mb-2">
+          <select class="form-select form-select-sm" id="treeFileSelect">
+            <option value="">— New tree —</option>
+          </select>
+          <button class="btn btn-sm btn-outline-primary" id="btnLoadTree" title="Load"><i class="bi bi-download"></i></button>
+        </div>
+        <div class="d-flex gap-2 mb-2">
+          <input type="text" class="form-control form-control-sm" id="treeSaveName" placeholder="my_tree.json">
+          <button class="btn btn-sm btn-brand" id="btnSaveTree" title="Save"><i class="bi bi-save"></i> Save</button>
+        </div>
+        <div class="d-flex gap-2">
+          <input type="text" class="form-control form-control-sm" id="treeStartNode" placeholder="Start node ID">
+          <button class="btn btn-sm btn-outline-secondary" id="btnSetStart" title="Set start node"><i class="bi bi-play-circle"></i></button>
+        </div>
+      </div>
+      <hr>
+      <!-- Add node -->
+      <div class="prop-section">
+        <label><i class="bi bi-plus-circle"></i> Add Node</label>
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-sm btn-outline-primary add-node-btn" data-type="text" title="Text question"><i class="bi bi-fonts"></i> Text</button>
+          <button class="btn btn-sm btn-outline-primary add-node-btn" data-type="yes_no" title="Yes/No question"><i class="bi bi-toggle-on"></i> Yes/No</button>
+          <button class="btn btn-sm btn-outline-primary add-node-btn" data-type="list" title="List question"><i class="bi bi-list-ul"></i> List</button>
+          <button class="btn btn-sm btn-outline-primary add-node-btn" data-type="single_select" title="Single select"><i class="bi bi-ui-radios"></i> Select</button>
+          <button class="btn btn-sm btn-outline-primary add-node-btn" data-type="multi_select" title="Multi select"><i class="bi bi-ui-checks"></i> Multi</button>
+          <button class="btn btn-sm btn-outline-warning add-node-btn" data-type="branch" title="Branch node"><i class="bi bi-signpost-split"></i> Branch</button>
+          <button class="btn btn-sm btn-outline-info add-node-btn" data-type="for_each" title="For Each loop"><i class="bi bi-arrow-repeat"></i> ForEach</button>
+          <button class="btn btn-sm btn-outline-success add-node-btn" data-type="end" title="End node"><i class="bi bi-stop-circle"></i> End</button>
+        </div>
+      </div>
+      <hr>
+      <!-- Node properties (shown when a node is selected) -->
+      <div id="nodePropsPanel" style="display:none">
+        <div class="prop-section">
+          <label><i class="bi bi-gear"></i> Node Properties</label>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">ID</label>
+            <input type="text" class="form-control form-control-sm" id="propNodeId" placeholder="node_id">
+          </div>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Type</label>
+            <select class="form-select form-select-sm" id="propNodeType">
+              <option value="text">text</option>
+              <option value="yes_no">yes_no</option>
+              <option value="list">list</option>
+              <option value="single_select">single_select</option>
+              <option value="multi_select">multi_select</option>
+              <option value="branch">branch</option>
+              <option value="for_each">for_each</option>
+              <option value="end">end</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Prompt</label>
+            <textarea class="form-control form-control-sm" id="propNodePrompt" rows="3" placeholder="Question text... Use {{ '{{' }}answers.node_id{{ '}}' }} for parametrized text"></textarea>
+            <div class="form-text" style="font-size:.65rem">Use <code>{{ '{{' }}answers.node_id{{ '}}' }}</code> to insert answers from other nodes</div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Next (direct link)</label>
+            <select class="form-select form-select-sm" id="propNodeNext">
+              <option value="">— none —</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Options (for select types) -->
+        <div class="prop-section" id="propOptionsSection" style="display:none">
+          <label><i class="bi bi-list-check"></i> Options</label>
+          <div id="propOptionsList"></div>
+          <div class="d-flex gap-2 mt-1">
+            <input type="text" class="form-control form-control-sm" id="propNewOption" placeholder="New option">
+            <button class="btn btn-sm btn-outline-primary" id="btnAddOption"><i class="bi bi-plus"></i></button>
+          </div>
+          <div class="mt-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Options from answer of</label>
+            <select class="form-select form-select-sm" id="propOptionsFromAnswer">
+              <option value="">— none —</option>
+            </select>
+          </div>
+          <div class="mt-1">
+            <label class="form-label mb-0" style="font-size:.72rem">Split delimiter</label>
+            <input type="text" class="form-control form-control-sm" id="propSplit" placeholder=",">
+          </div>
+        </div>
+
+        <!-- Branch rules -->
+        <div class="prop-section" id="propBranchSection" style="display:none">
+          <label><i class="bi bi-signpost-split"></i> Branch Rules</label>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Use answer from</label>
+            <select class="form-select form-select-sm" id="propUseAnswerFrom">
+              <option value="">— previous node —</option>
+            </select>
+          </div>
+          <div id="propBranchRules"></div>
+          <button class="btn btn-sm btn-outline-warning mt-1" id="btnAddBranchRule"><i class="bi bi-plus"></i> Add Rule</button>
+        </div>
+
+        <!-- For Each config -->
+        <div class="prop-section" id="propForEachSection" style="display:none">
+          <label><i class="bi bi-arrow-repeat"></i> For Each Config</label>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Source (node ID whose answer provides the list)</label>
+            <select class="form-select form-select-sm" id="propSource">
+              <option value="">— select —</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">Item variable name</label>
+            <input type="text" class="form-control form-control-sm" id="propItemVar" placeholder="item">
+          </div>
+          <div class="mb-2">
+            <label class="form-label mb-0" style="font-size:.72rem">After (node to go to when loop finishes)</label>
+            <select class="form-select form-select-sm" id="propAfter">
+              <option value="">— select —</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Effects -->
+        <div class="prop-section" id="propEffectsSection">
+          <label><i class="bi bi-lightning"></i> Effects</label>
+          <div id="propEffectsList"></div>
+          <button class="btn btn-sm btn-outline-secondary mt-1" id="btnAddEffect"><i class="bi bi-plus"></i> Add Effect</button>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-sm btn-brand flex-grow-1" id="btnApplyProps"><i class="bi bi-check-lg"></i> Apply Changes</button>
+          <button class="btn btn-sm btn-outline-danger" id="btnDeleteNode"><i class="bi bi-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- No node selected -->
+      <div id="noNodeSelected">
+        <div class="text-muted text-center mt-4" style="font-size:.85rem">
+          <i class="bi bi-cursor" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.4"></i>
+          Click a node on the canvas to edit its properties, or add a new node above.
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm btn-outline-secondary flex-grow-1" id="btnPreviewJson"><i class="bi bi-code-slash"></i> Preview JSON</button>
+        <button class="btn btn-sm btn-outline-secondary" id="btnAutoLayout" title="Auto-layout nodes"><i class="bi bi-grid-3x3-gap"></i></button>
+        <button class="btn btn-sm btn-outline-secondary" id="btnFitView" title="Fit to view"><i class="bi bi-fullscreen"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Canvas area -->
+  <div class="canvas-area" id="canvasArea">
+    <div class="canvas-toolbar">
+      <button class="btn" id="btnZoomIn" title="Zoom in"><i class="bi bi-zoom-in"></i></button>
+      <button class="btn" id="btnZoomOut" title="Zoom out"><i class="bi bi-zoom-out"></i></button>
+      <button class="btn" id="btnZoomReset" title="Reset zoom"><i class="bi bi-aspect-ratio"></i></button>
+    </div>
+    <!-- SVG for connection lines -->
+    <svg id="flowCanvas" xmlns="http://www.w3.org/2000/svg"></svg>
+    <!-- Node elements are appended here dynamically -->
+    <div id="nodesContainer" style="position:absolute;top:0;left:0;width:0;height:0"></div>
+  </div>
+</div>
+
+<!-- JSON Preview Modal -->
+<div class="modal fade" id="jsonPreviewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tree JSON Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <pre class="json-preview" id="jsonPreviewContent"></pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" id="btnCopyJson"><i class="bi bi-clipboard"></i> Copy</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jfip-notifications.js"></script>
+<script src="{{ url_for('static', filename='js/tree_editor.js') }}"></script>
+</body>
+</html>

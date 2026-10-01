@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+  .scroll-table {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card);
+  }
+  .scroll-table .table th, .scroll-table .table td {
+    vertical-align: middle;
+  }
+  .open-source-fab {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 100;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+  }
+  .open-source-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="bi bi-cloud-download me-2" style="color:var(--primary);"></i>JIRA Connector</h1>
+    <p class="subtitle mb-0">Export JIRA project data as structured JSON</p>
+  </div>
+
+  {% if error %}
+    <div class="alert alert-danger animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+    </div>
+  {% endif %}
+
+  <!-- Connection Form -->
+  <div class="jfip-card-flat mb-4 animate-fade-in">
+    <form method="post" action="/fields" id="jiraConnectForm">
+      <input type="hidden" name="open_source" id="open_source" value="false">
+
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="jira_url" class="form-label"><i class="bi bi-link-45deg me-1"></i>JIRA URL</label>
+          <input type="text" name="jira_url" id="jira_url" value="{{ jira_url or '' }}" required class="form-control">
+        </div>
+
+        <div class="col-md-6">
+          <label for="username" class="form-label" id="usernameLabel"><i class="bi bi-person me-1"></i>Username</label>
+          <small id="usernameHelp" class="form-text text-muted d-none">For open source JIRA: enter project keys separated by commas (e.g., SPARK, KAFKA)</small>
+          <input type="text" name="username" id="username" value="{{ username or '' }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+          <label for="api_token" class="form-label"><i class="bi bi-key me-1"></i>API Token or Password</label>
+          <input type="password" name="api_token" id="api_token" value="{{ api_token or '' }}" class="form-control">
+        </div>
+
+        <div class="col-12 d-flex gap-2 pt-1">
+          <button type="submit" class="btn btn-primary" id="btnConnectJira">
+            <i class="bi bi-plug me-1"></i>Connect to JIRA
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Open Source FAB -->
+  <button type="button" class="btn btn-accent open-source-fab" id="btnOpenSource">
+    <i class="bi bi-globe me-1"></i>Open Source DB
+  </button>
+
+  <script>
+    (function() {
+      const form = document.getElementById('jiraConnectForm');
+      const openSourceField = document.getElementById('open_source');
+      const usernameInput = document.getElementById('username');
+      const usernameLabel = document.getElementById('usernameLabel');
+      const usernameHelp = document.getElementById('usernameHelp');
+      const apiTokenInput = document.getElementById('api_token');
+      const btnConnect = document.getElementById('btnConnectJira');
+      const btnOpenSource = document.getElementById('btnOpenSource');
+
+      btnConnect.addEventListener('click', function(e) {
+        openSourceField.value = 'false';
+        if (!usernameInput.value.trim() || !apiTokenInput.value.trim()) {
+          e.preventDefault();
+          jfipToast('Please enter Username and API Token/Password for regular JIRA connection.', 'warning');
+          return false;
+        }
+      });
+
+      btnOpenSource.addEventListener('click', function() {
+        if (!usernameInput.value.trim()) {
+          usernameLabel.innerHTML = '<i class="bi bi-person me-1"></i>Project Keys (comma-separated)';
+          usernameHelp.classList.remove('d-none');
+          usernameInput.placeholder = 'e.g., SPARK, KAFKA';
+          usernameInput.focus();
+          return;
+        }
+        openSourceField.value = 'true';
+        form.submit();
+      });
+    })();
+  </script>
+
+  {% if all_fields %}
+  <!-- Field Selection Form -->
+  <div class="jfip-card-flat animate-slide-up">
+    <form method="post" action="/generate_async?custom_fields={{custom_fields}}" id="generateForm">
+      <input type="hidden" name="jira_url" value="{{ jira_url }}">
+      <input type="hidden" name="username" value="{{ username }}">
+      <input type="hidden" name="api_token" value="{{ api_token }}">
+      <input type="hidden" name="open_source" value="{{ open_source or 'false' }}">
+
+      <div class="mb-3">
+        <label for="item_age" class="form-label"><i class="bi bi-clock me-1"></i>Select the age of items to include</label>
+        <select name="item_age" id="item_age" class="form-select">
+          <option value=""></option>
+          <option value="1"><= 1 year</option>
+          <option value="3"><= 3 years</option>
+          <option value="5" selected><= 5 years</option>
+          <option value="10"><= 10 years</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="project_key" class="form-label"><i class="bi bi-folder me-1"></i>Select the project to export</label>
+        <select name="project_key" id="project_key" required class="form-select">
+          {% for key in project_keys %}
+            <option value="{{ key }}">{{ key }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Issue Types Table -->
+      <label class="form-label"><i class="bi bi-list-check me-1"></i>Select Issue Types to Include:</label>
+      <div id="issuetypeAlert" class="alert alert-danger d-none" role="alert" aria-live="polite">
+        Please select <strong>at least one</strong> Issue Type.
+      </div>
+
+      <div id="issuetypeBox" class="scroll-table mb-3">
+        <table class="table table-striped table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="width: 50px;">
+                <input type="checkbox" class="form-check-input select-all" data-group="issuetype">
+              </th>
+              <th scope="col">Issue Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for issuetype in issue_types %}
+            <tr>
+              <td>
+                <input type="checkbox" name="issuetype" value="{{ issuetype }}" id="{{ issuetype }}" class="form-check-input group-issuetype">
+              </td>
+              <td>
+                <label for="{{ issuetype }}">{{ issuetype }}</label>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Custom Fields Table -->
+      <label class="form-label"><i class="bi bi-input-cursor-text me-1"></i>Select Custom Fields to Include:</label>
+      <div class="scroll-table mb-3">
+        <table class="table table-striped table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="width: 50px;">
+                <input type="checkbox" class="form-check-input select-all" data-group="fields">
+              </th>
+              <th scope="col">Field Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for field in all_fields %}
+            <tr>
+              <td>
+                <input type="checkbox" name="fields" value="{{ field.id }}" id="{{ field.id }}" class="form-check-input group-fields">
+              </td>
+              <td>
+                <label for="{{ field.id }}">{{ field.name }}</label>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-file-earmark-code me-1"></i>Generate JSON
+      </button>
+    </form>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Export Progress Modal -->
+<div class="modal fade" id="exportProgressModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-cloud-download me-2" style="color:var(--accent);"></i>Exporting JIRA Data</h5>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <div id="exportSpinner" class="spinner-border mb-3" style="color:var(--primary);width:2.5rem;height:2.5rem;" role="status"></div>
+          <div id="exportPhase" class="text-muted small mb-1"></div>
+          <pre id="exportMsg" class="fw-bold mb-3" style="color:var(--ink-500);font-size:.85rem;">Starting export...</pre>
+          <div class="progress mb-2" style="height:22px;border-radius:var(--radius-md);background:var(--ink-200);overflow:hidden;">
+            <div id="exportBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%;background:linear-gradient(90deg,var(--primary),var(--accent)) !important;font-weight:600;font-size:.78rem;transition:width .4s ease;">0%</div>
+          </div>
+          <div id="exportError" class="alert alert-danger d-none mt-3"></div>
+          <div id="exportCancelledMsg" class="alert alert-warning d-none mt-3">
+            <i class="bi bi-x-circle me-2"></i>Export cancelled. Any partial data has been removed.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" id="btnCancelExport" class="btn btn-danger">
+          <i class="bi bi-x-lg me-1"></i>Cancel Export
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/export_jira.js') }}"></script>
+{% endblock %}

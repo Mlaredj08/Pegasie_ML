@@ -1,0 +1,363 @@
+{
+  "start": "What_is_the_hierarchy_of_the_workitems_in_TMS_Epic_Feature_Story_Test_Bug",
+  "nodes": {
+    "What_is_the_hierarchy_of_the_workitems_in_TMS_Epic_Feature_Story_Test_Bug": {
+      "id": "What_is_the_hierarchy_of_the_workitems_in_TMS_Epic_Feature_Story_Test_Bug",
+      "type": "text",
+      "prompt": "What is the hierarchy of the workitems in TMS",
+      "next": "Do_you_use_priority_for_all_the_workitems_Story_Test_Bug"
+    },
+    "Do_you_use_priority_for_all_the_workitems_Story_Test_Bug": {
+      "id": "Do_you_use_priority_for_all_the_workitems_Story_Test_Bug",
+      "type": "list",
+      "prompt": "Do you use priority for all the workitems? List them:",
+      "next": "Bug_status_flow"
+    },
+    "Bug_status_flow": {
+      "id": "Bug_status_flow",
+      "type": "list",
+      "prompt": "Bug Status Flow",
+      "next": "Are_you_using_a_template_for_Epics_Features_Stories"
+    },
+    "Are_you_using_a_template_for_Epics_Features_Stories": {
+      "id": "Are_you_using_a_template_for_Epics_Features_Stories",
+      "type": "yes_no",
+      "prompt": "Are you using a template for Epics, Features, Stories:",
+      "next": "branch_template"
+    },
+    "branch_template": {
+      "id": "branch_template",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "is_false": true
+          },
+          "goto": "Are_Acceptance_Criteria_mandatory_for_all_stories_or_features"
+        },
+        {
+          "when": {
+            "is_true": true
+          },
+          "goto": "Are_there_differences_between_team_specific_templates"
+        },
+        {
+          "default": true,
+          "goto": "end"
+        }
+      ],
+      "use_answer_from": "Are_you_using_a_template_for_Epics_Features_Stories"
+    },
+    "Are_there_differences_between_team_specific_templates": {
+      "id": "Are_there_differences_between_team_specific_templates",
+      "type": "yes_no",
+      "prompt": "Are there differences between team-specific templates (e.g., QA vs. Dev)?",
+      "next": "What_are_the_Epic_sections"
+    },
+    "What_are_the_Epic_sections": {
+      "id": "What_are_the_Epic_sections",
+      "type": "list",
+      "prompt": "What are the Epic sections:",
+      "next": "What_are_the_Feature_sections"
+    },
+    "What_are_the_Feature_sections": {
+      "id": "What_are_the_Feature_sections",
+      "type": "list",
+      "prompt": "What are the Feature sections:",
+      "next": "What_are_the_Story_sections"
+    },
+    "What_are_the_Story_sections": {
+      "id": "What_are_the_Story_sections",
+      "type": "list",
+      "prompt": "What are the Story sections:",
+      "next": "What_are_the_Test_Case_sections"
+    },
+    "What_are_the_Test_Case_sections": {
+      "id": "What_are_the_Test_Case_sections",
+      "type": "list",
+      "prompt": "What are the Test Case sections:",
+      "next": "What_are_the_Bugs_description_sections"
+    },
+    "What_are_the_Bugs_description_sections": {
+      "id": "What_are_the_Bugs_description_sections",
+      "type": "list",
+      "prompt": "What are the Bugs description sections",
+      "next": "Do_you_use_province_acronyms"
+    },
+    "Do_you_use_province_acronyms": {
+      "id": "Do_you_use_province_acronyms",
+      "type": "list",
+      "prompt": "Do you use province acronyms? List them",
+      "next": "Do_you_use_credit_Card_acronyms"
+    },
+    "Do_you_use_credit_Card_acronyms": {
+      "id": "Do_you_use_credit_Card_acronyms",
+      "type": "list",
+      "prompt": "Do you use credit Card acronyms? List them",
+      "next": "What_are_the_Teams_StakeHolders"
+    },
+    "What_are_the_Teams_StakeHolders": {
+      "id": "What_are_the_Teams_StakeHolders",
+      "type": "list",
+      "prompt": "What are the Teams/StakeHolders?",
+      "next": "Are_Acceptance_Criteria_mandatory_for_all_stories_or_features"
+    },
+    "Are_Acceptance_Criteria_mandatory_for_all_stories_or_features": {
+      "id": "Are_Acceptance_Criteria_mandatory_for_all_stories_or_features",
+      "type": "text",
+      "prompt": "Are Acceptance Criteria mandatory for all stories or features?",
+      "next": "Is_the_acceptance_criteria_information_in_the_description_field"
+    },
+    "Is_the_acceptance_criteria_information_in_the_description_field": {
+      "id": "Is_the_acceptance_criteria_information_in_the_description_field",
+      "type": "yes_no",
+      "prompt": "Is the acceptance criteria information in the description field?",
+      "next": "Do_you_want_to_include_negative_test_in_the_acceptance_criteria"
+    },
+    "Do_you_want_to_include_negative_test_in_the_acceptance_criteria": {
+      "id": "Do_you_want_to_include_negative_test_in_the_acceptance_criteria",
+      "type": "yes_no",
+      "prompt": "Do you want to include negative test in the acceptance criteria?",
+      "next": "What_is_the_range_of_acceptance_criteria_items_one_to_ten"
+    },
+    "What_is_the_range_of_acceptance_criteria_items_one_to_ten": {
+      "id": "What_is_the_range_of_acceptance_criteria_items_one_to_ten",
+      "type": "text",
+      "prompt": "What is the range of acceptance criteria items?",
+      "next": "Are_you_expecting_to_have_one_test_case_per_acceptance_criteria"
+    },
+    "Are_you_expecting_to_have_one_test_case_per_acceptance_criteria": {
+      "id": "Are_you_expecting_to_have_one_test_case_per_acceptance_criteria",
+      "type": "yes_no",
+      "prompt": "Are you expecting to have one test case per acceptance criteria?",
+      "next": "Are_User_Stories_consistently_written_in_INVEST_format"
+    },
+    "Are_User_Stories_consistently_written_in_INVEST_format": {
+      "id": "Are_User_Stories_consistently_written_in_INVEST_format",
+      "type": "yes_no",
+      "prompt": "Are User Stories consistently written in INVEST format?",
+      "next": "Do_you_link_Epics_to_Features_to_Stories_to_Tests_to_Bugs"
+    },
+    "Do_you_link_Epics_to_Features_to_Stories_to_Tests_to_Bugs": {
+      "id": "Do_you_link_Epics_to_Features_to_Stories_to_Tests_to_Bugs",
+      "type": "yes_no",
+      "prompt": "Do you link Epics to Features to Stories to Tests to Bugs?",
+      "next": "Are_test_derived_from_Acceptance_Criteria_or_Use_Cases"
+    },
+    "Are_test_derived_from_Acceptance_Criteria_or_Use_Cases": {
+      "id": "Are_test_derived_from_Acceptance_Criteria_or_Use_Cases",
+      "type": "single_select",
+      "prompt": "Are test derived from Acceptance Criteria or Use Cases",
+      "next": "Do_you_have_a_field_to_document_components_or_subsystems_if_what_is_it_call",
+      "options": [
+        "Acceptance Criteria",
+        "Use Cases",
+        "Both"
+      ]
+    },
+    "Do_you_have_a_field_to_document_components_or_subsystems_if_what_is_it_call": {
+      "id": "Do_you_have_a_field_to_document_components_or_subsystems_if_what_is_it_call",
+      "type": "text",
+      "prompt": "Do you have a field to document components or subsystems, if yes, what is it call",
+      "next": "Do_you_use_Components_to_organize_tickets"
+    },
+    "Do_you_use_Components_to_organize_tickets": {
+      "id": "Do_you_use_Components_to_organize_tickets",
+      "type": "yes_no",
+      "prompt": "Do you use Components to organize tickets",
+      "next": "How_do_people_understand_or_use_Components_in_this_project"
+    },
+    "How_do_people_understand_or_use_Components_in_this_project": {
+      "id": "How_do_people_understand_or_use_Components_in_this_project",
+      "type": "text",
+      "prompt": "How do people understand or use Components in this project",
+      "next": "Are_there_rules_for_Component_selection"
+    },
+    "Are_there_rules_for_Component_selection": {
+      "id": "Are_there_rules_for_Component_selection",
+      "type": "text",
+      "prompt": "Are there rules for Component selection (only one, or must match Feature)?",
+      "next": "Where_do_you_the_component_field"
+    },
+    "Where_do_you_the_component_field": {
+      "id": "Where_do_you_the_component_field",
+      "type": "list",
+      "prompt": "Where do you use the component field?",
+      "next": "What_are_the_components_available"
+    },
+    "What_are_the_components_available": {
+      "id": "What_are_the_components_available",
+      "type": "list",
+      "prompt": "What are the components available?",
+      "next": "Epics_use_one_to_three_components"
+    },
+    "Epics_use_one_to_three_components": {
+      "id": "Epics_use_one_to_three_components",
+      "type": "yes_no",
+      "prompt": "Epics use one to three components?",
+      "next": "Features_use_one_to_two_components"
+    },
+    "Features_use_one_to_two_components": {
+      "id": "Features_use_one_to_two_components",
+      "type": "yes_no",
+      "prompt": "Features use one to two components?",
+      "next": "Stories_use_only_one_component"
+    },
+    "Stories_use_only_one_component": {
+      "id": "Stories_use_only_one_component",
+      "type": "yes_no",
+      "prompt": "Stories use only one component?",
+      "next": "Test_use_only_one_component"
+    },
+    "Test_use_only_one_component": {
+      "id": "Test_use_only_one_component",
+      "type": "yes_no",
+      "prompt": "Test use only one component?",
+      "next": "Defect_use_only_one_component"
+    },
+    "Defect_use_only_one_component": {
+      "id": "Defect_use_only_one_component",
+      "type": "yes_no",
+      "prompt": "Defect use only one component?",
+      "next": "Any_issues_found_with_Components"
+    },
+    "Any_issues_found_with_Components": {
+      "id": "Any_issues_found_with_Components",
+      "type": "text",
+      "prompt": "Any issues found with Components",
+      "next": "Do_you_use_labels"
+    },
+    "Do_you_use_labels": {
+      "id": "Do_you_use_labels",
+      "type": "yes_no",
+      "prompt": "Do you use labels?",
+      "next": "What_are_the_label_for_the_project"
+    },
+    "What_are_the_label_for_the_project": {
+      "id": "What_are_the_label_for_the_project",
+      "type": "list",
+      "prompt": "What are the label for the project?",
+      "next": "What_do_you_use_label_for"
+    },
+    "What_do_you_use_label_for": {
+      "id": "What_do_you_use_label_for",
+      "type": "text",
+      "prompt": "What do you use label for?",
+      "next": "Do_you_accept_new_labels"
+    },
+    "Do_you_accept_new_labels": {
+      "id": "Do_you_accept_new_labels",
+      "type": "yes_no",
+      "prompt": "Do you accept new labels?",
+      "next": "What_TMS_module_use_labels"
+    },
+    "What_TMS_module_use_labels": {
+      "id": "What_TMS_module_use_labels",
+      "type": "list",
+      "prompt": "What TMS module use labels?",
+      "next": "Do_you_document_root_cause_analysis_in_the_bugs"
+    },
+    "Do_you_document_root_cause_analysis_in_the_bugs": {
+      "id": "Do_you_document_root_cause_analysis_in_the_bugs",
+      "type": "yes_no",
+      "prompt": "Do you document root cause analysis in the bugs?",
+      "next": "Do_you_use_a_severity_field"
+    },
+    "Do_you_use_a_severity_field": {
+      "id": "Do_you_use_a_severity_field",
+      "type": "yes_no",
+      "prompt": "Do you use a severity field?",
+      "next": "branch_priority"
+    },
+    "branch_priority": {
+      "id": "branch_priority",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "is_false": true
+          },
+          "goto": "Do_you_use_a_priority_field"
+        },
+        {
+          "when": {
+            "is_true": true
+          },
+          "goto": "Do_you_use_the_same_severity_for_all_workitems"
+        },
+        {
+          "default": true,
+          "goto": "end"
+        }
+      ],
+      "use_answer_from": "Do_you_use_a_severity_field"
+    },
+    "Do_you_use_the_same_severity_for_all_workitems": {
+      "id": "Do_you_use_the_same_severity_for_all_workitems",
+      "type": "yes_no",
+      "prompt": "Do you use the same severity for all workitems?",
+      "next": "What_is_the_severity_hierarchy"
+    },
+    "What_is_the_severity_hierarchy": {
+      "id": "What_is_the_severity_hierarchy",
+      "type": "list",
+      "prompt": "What is the severity hierarchy?",
+      "next": "Do_you_have_custom_defined_fields"
+    },
+    "Do_you_use_a_priority_field": {
+      "id": "Do_you_use_a_priority_field",
+      "type": "yes_no",
+      "prompt": "Do you use a priority field?",
+      "next": "Do_you_use_the_same_priority_for_all_workitems"
+    },
+    "Do_you_use_the_same_priority_for_all_workitems": {
+      "id": "Do_you_use_the_same_priority_for_all_workitems",
+      "type": "yes_no",
+      "prompt": "Do you use the same priority for all workitems?",
+      "next": "What_is_the_priority_hierarchy"
+    },
+    "What_is_the_priority_hierarchy": {
+      "id": "What_is_the_priority_hierarchy",
+      "type": "list",
+      "prompt": "What is the priority hierarchy?",
+      "next": "Do_you_have_custom_defined_fields"
+    },
+    "Do_you_have_custom_defined_fields": {
+      "id": "Do_you_have_custom_defined_fields",
+      "type": "text",
+      "prompt": "Do you have custom defined fields? which ones",
+      "next": "What_workitems_used_the_defined_field"
+    },
+    "What_workitems_used_the_defined_field": {
+      "id": "What_workitems_used_the_defined_field",
+      "type": "list",
+      "prompt": "What workitems used the defined field?",
+      "next": "Do_you_use_subtasks_for_Stories"
+    },
+    "Do_you_use_subtasks_for_Stories": {
+      "id": "Do_you_use_subtasks_for_Stories",
+      "type": "yes_no",
+      "prompt": "Do you use subtasks for Stories",
+      "next": "What_do_Story_subtasks_represent_for_Dev"
+    },
+    "What_do_Story_subtasks_represent_for_Dev": {
+      "id": "What_do_Story_subtasks_represent_for_Dev",
+      "type": "text",
+      "prompt": "What do Story subtasks represent for Dev? give details",
+      "next": "What_do_Story_subtasks_for_QA_give_details"
+    },
+    "What_do_Story_subtasks_for_QA_give_details": {
+      "id": "What_do_Story_subtasks_for_QA_give_details",
+      "type": "list",
+      "prompt": "What do Story subtasks for QA? give details",
+      "next": "end"
+    },
+    "end": {
+      "id": "end",
+      "type": "end",
+      "prompt": "Thank you! Review and submit your answers."
+    }
+  }
+}

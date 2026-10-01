@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="bi bi-bar-chart-line me-2" style="color:var(--primary);"></i>Field Completion Rate</h1>
+    <p class="subtitle mb-0">Audit Jira field population across project issues</p>
+  </div>
+
+  {% if files %}
+    <div class="jfip-card-flat animate-fade-in">
+      <form method="post" action="/run_field_audit">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="filename" class="form-label"><i class="bi bi-database me-1"></i>Select Jira Database File (JSON)</label>
+            <select name="filename" id="filename" required class="form-select" onchange="populateIterations()">
+              <option value="">— Select project —</option>
+              {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="iteration" class="form-label"><i class="bi bi-arrow-repeat me-1"></i>Select Iteration To Include</label>
+            <select name="iteration" id="iteration" class="form-select">
+              <option value=""></option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input name="isIterations" type="checkbox" class="form-check-input" id="isIterations" disabled>
+              <label class="form-check-label" for="isIterations">Include All Iterations</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input name="isNoClosed" type="checkbox" class="form-check-input" id="isNoClosed">
+              <label class="form-check-label" for="isNoClosed">Exclude Closed & Resolved Issues</label>
+            </div>
+          </div>
+
+          <div class="col-12 pt-2">
+            <button name="audit" type="submit" class="btn btn-primary">
+              <i class="bi bi-speedometer2 me-1"></i>Show Completion Rate
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  {% else %}
+    <div class="alert alert-warning animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>No configuration files found. Please import a JIRA file first.
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+function populateIterations(){
+    let filename = document.getElementById("filename").value;
+    let project = filename.replace(".json", "");
+    const iteration = JSON.parse('{{ iterations | tojson }}');
+    const projIters = iteration.filter(function(iter) {return project != "" && iter.includes(project);});
+    let iterationEl = document.getElementById("iteration");
+    var options = projIters.length != 0 ? '<option value="">— Select iteration —</option>' : "";
+    projIters.forEach(iter => {
+      options += `<option value="${iter}">${iter}</option>`;
+    });
+    document.getElementById("iteration").innerHTML = options;
+
+    const iterCountStr = filename != "" ? ` (${projIters.length})` : "";
+    $('label[for="isIterations"]').html(`Include All Iterations${iterCountStr}`);
+    $('input[name="isIterations"]').prop("disabled", projIters.length == 0);
+
+}
+</script>
+{% endblock %}

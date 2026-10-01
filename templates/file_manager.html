@@ -1,0 +1,474 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+  .file-link {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+  .file-link:hover { color: var(--primary-dark); text-decoration: underline; }
+  #previewPanel { margin-top: 2rem; display: none; }
+  #previewContent {
+    background: var(--bg-subtle);
+    border: 1px solid var(--card-border);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+  }
+  .file-table tr { transition: background var(--transition-fast); }
+  .file-table tr:hover { background: var(--info-light); }
+  .badge-count { font-size: 0.75rem; }
+  #clearCacheList { max-height: 400px; overflow-y: auto; }
+  #clearCacheList .form-check { padding-left: 1.8rem; }
+  .category-header {
+    background-color: var(--bg-subtle);
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    margin-top: 6px;
+    color: var(--navy);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 950px;">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex align-items-center justify-content-between">
+    <div>
+      <h1><i class="bi bi-folder2-open me-2" style="color:var(--primary);"></i>File Manager</h1>
+      <p class="subtitle mb-0">Upload, preview, download, and manage project files</p>
+    </div>
+    <button class="btn btn-outline-danger" id="btnClearAllCache">
+      <i class="bi bi-trash3 me-1"></i>Clear All Cache
+    </button>
+  </div>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show animate-slide-down" role="alert">
+          <i class="bi bi-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Upload Form -->
+  <div class="jfip-card-flat mb-4 animate-fade-in">
+    <form action="/file_manager" method="post" enctype="multipart/form-data">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label class="form-label"><i class="bi bi-file-earmark-arrow-up me-1"></i>Select File</label>
+          <input type="file" name="json_file" accept=".json" class="form-control" required>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label"><i class="bi bi-folder-symlink me-1"></i>Destination Folder</label>
+          <select name="destination" class="form-select" required>
+            <option value="">— Select Destination —</option>
+            <option value="databases">Database</option>
+            <option value="dependency_model">Dependency Model</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-upload me-1"></i>Upload
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- File Lists with Tabs -->
+  <div class="jfip-card-flat animate-fade-in">
+    <h5 class="mb-3" style="color:var(--navy); font-weight:700;">
+      <i class="bi bi-files me-1"></i>Current Files
+    </h5>
+
+    <ul class="nav nav-tabs" id="fileTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-databases" data-bs-toggle="tab" data-bs-target="#content-databases" type="button" role="tab">
+          <i class="bi bi-database me-1"></i>Databases
+          <span class="badge bg-secondary badge-count ms-1">{{ file_data.databases|length }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-dependency" data-bs-toggle="tab" data-bs-target="#content-dependency" type="button" role="tab">
+          <i class="bi bi-diagram-2 me-1"></i>Dependency Models
+          <span class="badge bg-secondary badge-count ms-1">{{ file_data.dependency_model|length }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-completion" data-bs-toggle="tab" data-bs-target="#content-completion" type="button" role="tab">
+          <i class="bi bi-bar-chart-line me-1"></i>Field Completion
+          <span class="badge bg-secondary badge-count ms-1">{{ file_data.field_completion|length }}</span>
+        </button>
+      </li>
+
+      {% for cat_name, cat_files in cached_files.items() %}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#content-cache-{{ cat_name }}" type="button" role="tab">
+          <i class="bi bi-archive me-1"></i>{{ cat_name | replace('_', ' ') | title }}
+          <span class="badge bg-info badge-count ms-1">{{ cat_files|length }}</span>
+        </button>
+      </li>
+      {% endfor %}
+
+      {% if timestamp_folders %}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#content-output-folders" type="button" role="tab">
+          <i class="bi bi-folder me-1"></i>Output Folders
+          <span class="badge bg-warning text-dark badge-count ms-1">{{ timestamp_folders|length }}</span>
+        </button>
+      </li>
+      {% endif %}
+    </ul>
+
+    <div class="tab-content border border-top-0 rounded-bottom p-3" id="fileTabsContent" style="max-height: 320px; overflow-y: auto; background: var(--bg-subtle);">
+
+      <!-- Databases -->
+      <div class="tab-pane fade show active" id="content-databases" role="tabpanel">
+        <table class="table table-sm mb-0 file-table">
+          <tbody>
+            {% for file in file_data.databases %}
+              <tr>
+                <td><i class="bi bi-file-earmark-text me-2 text-muted"></i>{{ file }}</td>
+                <td style="width: 100px; text-align: center;">
+                  <a href="/download_file/databases/{{ file }}" class="btn btn-sm btn-outline-primary me-1" title="Download">
+                    <i class="bi bi-download"></i>
+                  </a>
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-btn" data-action="/delete_file/databases/{{ file }}" data-name="{{ file }}" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="2" class="text-muted fst-italic">No files</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Dependency Models -->
+      <div class="tab-pane fade" id="content-dependency" role="tabpanel">
+        <table class="table table-sm mb-0 file-table">
+          <tbody>
+            {% for file in file_data.dependency_model %}
+              <tr>
+                <td>
+                  <span class="file-link" data-folder="dependency_model" data-file="{{ file }}">
+                    <i class="bi bi-file-earmark-code me-2"></i>{{ file }}
+                  </span>
+                </td>
+                <td style="width: 100px; text-align: center;">
+                  <a href="/download_file/dependency_model/{{ file }}" class="btn btn-sm btn-outline-primary me-1" title="Download">
+                    <i class="bi bi-download"></i>
+                  </a>
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-btn" data-action="/delete_file/dependency_model/{{ file }}" data-name="{{ file }}" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="2" class="text-muted fst-italic">No files</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Field Completion -->
+      <div class="tab-pane fade" id="content-completion" role="tabpanel">
+        <table class="table table-sm mb-0 file-table">
+          <tbody>
+            {% for file in file_data.field_completion %}
+              <tr>
+                <td>
+                  <span class="file-link" data-folder="field_completion" data-file="{{ file }}">
+                    <i class="bi bi-file-earmark-code me-2"></i>{{ file }}
+                  </span>
+                </td>
+                <td style="width: 100px; text-align: center;">
+                  <a href="/download_file/field_completion/{{ file }}" class="btn btn-sm btn-outline-primary me-1" title="Download">
+                    <i class="bi bi-download"></i>
+                  </a>
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-btn" data-action="/delete_file/field_completion/{{ file }}" data-name="{{ file }}" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="2" class="text-muted fst-italic">No files</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Dynamic cached-folder tabs -->
+      {% for cat_name, cat_files in cached_files.items() %}
+      <div class="tab-pane fade" id="content-cache-{{ cat_name }}" role="tabpanel">
+        <table class="table table-sm mb-0 file-table">
+          <tbody>
+            {% for file in cat_files %}
+              <tr>
+                <td><i class="bi bi-file-earmark me-2 text-muted"></i>{{ file }}</td>
+                <td style="width: 60px; text-align: center;">
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-btn"
+                          data-action="/delete_cached_item/{{ cat_name }}/{{ file }}" data-name="{{ file }}" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="2" class="text-muted fst-italic">No files</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
+
+      <!-- Timestamp output folders -->
+      {% if timestamp_folders %}
+      <div class="tab-pane fade" id="content-output-folders" role="tabpanel">
+        <table class="table table-sm mb-0 file-table">
+          <tbody>
+            {% for folder in timestamp_folders %}
+              <tr>
+                <td><i class="bi bi-folder me-2 text-muted"></i>{{ folder }}/</td>
+                <td style="width: 60px; text-align: center;">
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-btn"
+                          data-action="/delete_cached_item/output_folders/{{ folder }}" data-name="{{ folder }}" title="Delete folder">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="2" class="text-muted fst-italic">No output folders</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- Preview Panel -->
+  <div id="previewPanel" class="jfip-card-flat mt-4">
+    <h5 style="color:var(--navy); font-weight:700;">
+      <i class="bi bi-eye me-1"></i>File Preview
+    </h5>
+    <div id="previewContent"><em class="text-muted">Select a file to preview its content.</em></div>
+  </div>
+
+</div>
+
+<!-- Clear All Cache Modal -->
+<div class="modal fade" id="clearCacheModal" tabindex="-1" aria-labelledby="clearCacheModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header modal-header-danger">
+        <h5 class="modal-title" id="clearCacheModalLabel">
+          <i class="bi bi-exclamation-triangle me-2" style="color: var(--danger);"></i>Clear All Cache
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The following files and folders will be <strong>permanently deleted</strong>. Uncheck any item you wish to keep.</p>
+        <div class="mb-2">
+          <button class="btn btn-sm btn-outline-secondary" id="btnSelectAll">Select All</button>
+          <button class="btn btn-sm btn-outline-secondary" id="btnDeselectAll">Deselect All</button>
+        </div>
+        <div id="clearCacheList">
+          <div class="text-center text-muted py-3"><em>Loading items...</em></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span id="clearCacheSummary" class="me-auto text-muted small"></span>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmClearCache">
+          <i class="bi bi-trash3 me-1"></i>Delete Selected
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+  $(document).ready(function() {
+
+    // ---- Preview click handler ----
+    $(".file-link").click(function() {
+      const folder = $(this).data("folder");
+      const file = $(this).data("file");
+
+      $("#previewPanel").show();
+      $("#previewContent").html("<em class='text-muted'>Loading preview...</em>");
+
+      $.get(`/preview_file/${folder}/${file}`, function(response) {
+        if (response.error) {
+          $("#previewContent").html(`<span class='text-danger'><i class="bi bi-exclamation-circle me-1"></i>Error: ${response.error}</span>`);
+        } else {
+          const content = JSON.stringify(response.content, null, 2);
+          const limitedMsg = response.limited ? "<br><em class='text-muted'>Showing first 100 rows only...</em>" : "";
+          $("#previewContent").html(`<strong>${response.filename}</strong>${limitedMsg}<br><pre>${content}</pre>`);
+          $('html, body').animate({ scrollTop: $('#previewPanel').offset().top - 80 }, 500);
+        }
+      });
+    });
+
+    // ---- Delete with custom confirm ----
+    $(".delete-btn").click(async function() {
+      const action = $(this).data("action");
+      const name = $(this).data("name");
+      const ok = await jfipConfirm(
+        `Are you sure you want to delete "${name}"?`,
+        { title: 'Delete File', confirmText: 'Delete', type: 'error' }
+      );
+      if (ok) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = action;
+        document.body.appendChild(form);
+        form.submit();
+      }
+    });
+
+    // ---- Clear All Cache: category labels ----
+    const CATEGORY_LABELS = {
+      databases: "Databases",
+      dependency_model: "Dependency Models",
+      predictions: "Predictions",
+      ml_models: "ML Models",
+      iterations: "Iterations",
+      updated_databases: "Updated Databases",
+      database_settings: "Database Settings",
+      questionnaires: "Questionnaires",
+      tree_history_logs: "Decision Tree History Logs",
+      output_folders: "Output Folders",
+      field_completion: "Field Completion"
+    };
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function updateClearSummary() {
+      const checked = $("#clearCacheList input:checked").length;
+      const total = $("#clearCacheList input[type=checkbox]").length;
+      $("#clearCacheSummary").text(`${checked} of ${total} items selected`);
+    }
+
+    // ---- Open modal and fetch items ----
+    $("#btnClearAllCache").click(function() {
+      $("#clearCacheList").html('<div class="text-center text-muted py-3"><em>Loading items...</em></div>');
+      var modal = new bootstrap.Modal(document.getElementById("clearCacheModal"));
+      modal.show();
+
+      $.getJSON("/api/clearable_items", function(items) {
+        if (!items.length) {
+          $("#clearCacheList").html('<div class="text-center text-muted py-3"><em>No cached items found.</em></div>');
+          updateClearSummary();
+          return;
+        }
+
+        const grouped = {};
+        items.forEach(function(item) {
+          if (!grouped[item.category]) grouped[item.category] = [];
+          grouped[item.category].push(item);
+        });
+
+        let html = "";
+        for (const [cat, catItems] of Object.entries(grouped)) {
+          const label = CATEGORY_LABELS[cat] || cat.replace(/_/g, " ");
+          html += `<div class="category-header mt-2 mb-1">${label} <span class="badge bg-secondary badge-count">${catItems.length}</span></div>`;
+          catItems.forEach(function(item, idx) {
+            const id = `chk_${cat}_${idx}`;
+            html += `
+              <div class="form-check">
+                <input class="form-check-input cache-item-chk" type="checkbox" id="${id}" checked
+                       data-path="${item.path.replace(/\\/g, '\\\\')}"
+                       data-isdir="${item.is_dir}">
+                <label class="form-check-label" for="${id}">
+                  ${item.label} <span class="text-muted small">(${formatSize(item.size)})</span>
+                </label>
+              </div>`;
+          });
+        }
+        $("#clearCacheList").html(html);
+        updateClearSummary();
+
+        $("#clearCacheList").on("change", "input", updateClearSummary);
+      });
+    });
+
+    $("#btnSelectAll").click(function() {
+      $("#clearCacheList input[type=checkbox]").prop("checked", true);
+      updateClearSummary();
+    });
+    $("#btnDeselectAll").click(function() {
+      $("#clearCacheList input[type=checkbox]").prop("checked", false);
+      updateClearSummary();
+    });
+
+    // ---- Execute cache deletion ----
+    $("#btnConfirmClearCache").click(async function() {
+      const selected = [];
+      $("#clearCacheList input:checked").each(function() {
+        selected.push({
+          path: $(this).data("path"),
+          is_dir: $(this).data("isdir") === true || $(this).data("isdir") === "True"
+        });
+      });
+      if (!selected.length) {
+        await jfipConfirm("No items selected.", { title: 'Clear Cache', confirmText: 'OK', type: 'info' });
+        return;
+      }
+
+      const ok = await jfipConfirm(
+        `Are you sure you want to delete ${selected.length} item(s)? This cannot be undone.`,
+        { title: 'Clear All Cache', confirmText: 'Delete All', type: 'error' }
+      );
+      if (!ok) return;
+
+      const btn = $(this);
+      btn.prop("disabled", true).html('<span class="spinner-border spinner-border-sm me-1"></span>Deleting...');
+
+      $.ajax({
+        url: "/clear_all_cache",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ items: selected }),
+        success: function(resp) {
+          let msg = `${resp.deleted} item(s) deleted.`;
+          if (resp.errors && resp.errors.length) {
+            msg += ` ${resp.errors.length} error(s).`;
+          }
+          jfipConfirm(msg, { title: 'Cache Cleared', confirmText: 'OK', type: 'success' }).then(function() {
+            location.reload();
+          });
+        },
+        error: function() {
+          jfipConfirm("Failed to clear cache. Check server logs.", { title: 'Error', confirmText: 'OK', type: 'error' });
+          btn.prop("disabled", false).html('<i class="bi bi-trash3 me-1"></i>Delete Selected');
+        }
+      });
+    });
+
+  });
+</script>
+{% endblock %}

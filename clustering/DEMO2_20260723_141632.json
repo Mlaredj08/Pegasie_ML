@@ -1,0 +1,2315 @@
+{
+    "output_folder": "DEMO2_20260723_141632",
+    "params": {
+        "project": "DEMO2",
+        "input_json": "databases/DEMO2_20260723_141632.json",
+        "inference_json": "predictions/review/DEMO2_20260723_141632.json",
+        "output_folder": "DEMO2_20260723_141632",
+        "inferred_fields": [
+            "components",
+            "epic_link",
+            "team"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "components: '#CommonLibrary'",
+                "components: '#Excel'",
+                "components: '#Power Point'",
+                "epic_link: 'DEMO2-2'",
+                "epic_link: 'DEMO2-5'",
+                "epic_link: 'DEMO2-1'",
+                "team: 'Frontend Team'",
+                "team: 'QA Team'"
+            ],
+            "total": 8,
+            "in_progress": "team: 'QA Team'",
+            "elapsed_time": 0,
+            "metadata": {
+                "components": {
+                    "min_confidence": 0.81,
+                    "ml_model": "LINEAR_SVC"
+                },
+                "epic_link": {
+                    "min_confidence": 0.93,
+                    "ml_model": "SGD"
+                },
+                "team": {
+                    "min_confidence": 0.95,
+                    "ml_model": "MLP"
+                }
+            }
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 7,
+    "iteration_information": {
+        "components": {
+            "issue_count": 116,
+            "avg_accuracy": 0.7202
+        },
+        "epic_link": {
+            "issue_count": 147,
+            "avg_accuracy": 0.9833
+        },
+        "team": {
+            "issue_count": 64,
+            "avg_accuracy": 0.9563
+        },
+        "total_issue_count": 327,
+        "confidence_avg": 0.9844797979797979,
+        "orphan_count": 140
+    },
+    "iter_count": 3,
+    "question_json": {
+        "#CommonLibrary": [
+            {
+                "field_name": "components",
+                "question": "'DEMO2-270' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be '#CommonLibrary'?",
+                "keywords": "paste numbers def",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO2-551_DEF-W- Button Quick print wont appear",
+                        "DEMO2-274_DEF-W- Cant paste the numbers",
+                        "DEMO2-270_DEF-P- Cant paste the numbers",
+                        "DEMO2-269_DEF-P- Cant paste an image",
+                        "DEMO2-268_DEF-P- The Print page does not appear"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.801,
+                "cluster_centroid": "DEMO2-270"
+            },
+            {
+                "field_name": "components",
+                "question": "'DEMO2-262' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be '#CommonLibrary'?",
+                "keywords": "select text starting",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO2-264_DEF-W- Can not select a text which is starting with a small letter",
+                        "DEMO2-263_DEF-W- Can not select a text which is starting with a capital letter",
+                        "DEMO2-262_DEF-W- Can not select a text which is starting with number",
+                        "DEMO2-261_DEF-W- Can not select a number",
+                        "DEMO2-258_DEF-W- Can not select a text"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9202,
+                "cluster_centroid": "DEMO2-262"
+            }
+        ],
+        "#Excel": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "DEMO2-38_P-Save"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "DEMO2-38"
+            }
+        ],
+        "#Power Point": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "DEMO2-27_E-Cut"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "DEMO2-27"
+            }
+        ],
+        "DEMO2-2": [
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "117 sprinttest story",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-426_[SprintTest] Story 117"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-426"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "demo ab 01",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-575_2025 - DEMO AB-01"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-575"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "demo2 100 paste",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-412_[SprintTest] Story 103"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-412"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "issue test description",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-278_[Test Issue]"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-278"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "01 test story",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-556_TEST story 01 - 2025"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-556"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "068 2025 sprinttest",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-569_2025 - [SprintTest] Story 068"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-569"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "demo ab 02",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-410_DEMO AB-02"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-410"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'DEMO2-305' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'DEMO2-2'?",
+                "keywords": "sprinttest 001 108",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO2-417_[SprintTest] Story 108",
+                        "DEMO2-305_[SprintTest] Story 001"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9874,
+                "cluster_centroid": "DEMO2-305"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "002 2025 sprinttest",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-557_[SprintTest] Story 002 - 2025"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-557"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "050 sprinttest story",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "DEMO2-354_[SprintTest] Story 050"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "DEMO2-354"
+            }
+        ],
+        "DEMO2-5": [],
+        "DEMO2-1": [],
+        "Frontend Team": [
+            {
+                "field_name": "team",
+                "question": "'DEMO2-539' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "paste def numbers",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "DEMO2-573_2025 - DEF-E- Cant paste an Object",
+                        "DEMO2-566_2025 - DEF-W- Cant paste an unformatted text",
+                        "DEMO2-552_DEF-W- Cant paste an formatted text",
+                        "DEMO2-550_DEF-E- Cant paste any Object",
+                        "DEMO2-540_DEF-W- Cant paste the numbers",
+                        "DEMO2-539_DEF-W- Cant paste an object",
+                        "DEMO2-538_DEF-P- Cant paste the numbers 2",
+                        "DEMO2-534_CLONE - DEF-W- Cant paste a table",
+                        "DEMO2-408_Orph - DEF-W- Cant paste a text which copied from Excel",
+                        "DEMO2-275_DEF-W- Cant paste a table",
+                        "DEMO2-273_DEF-W- Cant paste an image",
+                        "DEMO2-269_DEF-P- Cant paste an image",
+                        "DEMO2-252_DEF-W- Cant paste a table",
+                        "DEMO2-251_DEF-W- Cant paste the numbers",
+                        "DEMO2-250_DEF-W- Cant paste an image",
+                        "DEMO2-249_DEF-W- Cant paste a text which copied from Excel"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8119,
+                "cluster_centroid": "DEMO2-539"
+            },
+            {
+                "field_name": "team",
+                "question": "'DEMO2-256' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "select letter 20",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO2-261_DEF-W- Can not select a number",
+                        "DEMO2-260_DEF-W- Can not select a table",
+                        "DEMO2-257_DEF-W- Can not Change the case to UPPERCASE",
+                        "DEMO2-256_DEF-W- Can not copy a text with more than 20 letter",
+                        "DEMO2-255_DEF-W- Can not cut a text with more than 20 letter"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7938,
+                "cluster_centroid": "DEMO2-256"
+            },
+            {
+                "field_name": "team",
+                "question": "'DEMO2-554' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "print quick button",
+                "centroid": null,
+                "cluster_issues_count": 7,
+                "list_of_issues": [
+                    [
+                        "DEMO2-581_2025 - DEF-W- Button Quick print does not appear",
+                        "DEMO2-565_2025 - DEF-W- Can not click on Quick print button",
+                        "DEMO2-554_DEF-W- Can not click on Quick print button 2025",
+                        "DEMO2-551_DEF-W- Button Quick print wont appear",
+                        "DEMO2-268_DEF-P- The Print page does not appear",
+                        "DEMO2-259_DEF-W- Can not select an image",
+                        "DEMO2-5_#Powerpoint-Epic"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7621,
+                "cluster_centroid": "DEMO2-554"
+            },
+            {
+                "field_name": "team",
+                "question": "'DEMO2-272' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "save word file",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "DEMO2-272_DEF-W- Can not save as Word 97",
+                        "DEMO2-267_DEF-P- Can not save as pdf",
+                        "DEMO2-266_DEF-P- Can not open a file",
+                        "DEMO2-265_DEF-P- Can not create a new file",
+                        "DEMO2-246_DEF-W- Can Not save Word document",
+                        "DEMO2-244_DEF-W- Can not save as Word 2003",
+                        "DEMO2-243_DEF-W- Can not save as pdf",
+                        "DEMO2-241_DEF-W- Can not create a new file"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8004,
+                "cluster_centroid": "DEMO2-272"
+            }
+        ],
+        "QA Team": [],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "components",
+                    "list_of_values": [
+                        "#CommonLibrary",
+                        "#Excel",
+                        "#Power Point",
+                        "#Word"
+                    ]
+                },
+                {
+                    "field_name": "epic_link",
+                    "list_of_values": [
+                        "DEMO2-1",
+                        "DEMO2-2",
+                        "DEMO2-3",
+                        "DEMO2-4",
+                        "DEMO2-5"
+                    ]
+                },
+                {
+                    "field_name": "team",
+                    "list_of_values": [
+                        "Backend Team",
+                        "DevOps Team",
+                        "Frontend Team",
+                        "QA Team"
+                    ]
+                }
+            ],
+            "rejected_predictions": [],
+            "unconfident_predictions": [
+                {
+                    "key": "DEMO2-558",
+                    "summary": "[SprintTest] Story 003 - 2025",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.742
+                },
+                {
+                    "key": "DEMO2-556",
+                    "summary": "TEST story 01 - 2025",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.701
+                },
+                {
+                    "key": "DEMO2-554",
+                    "summary": "DEF-W- Can not click on Quick print button 2025",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Word"
+                    ],
+                    "confidence": 0.673
+                },
+                {
+                    "key": "DEMO2-552",
+                    "summary": "DEF-W- Cant paste an formatted text",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.56
+                },
+                {
+                    "key": "DEMO2-550",
+                    "summary": "DEF-E- Cant paste any Object",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.636
+                },
+                {
+                    "key": "DEMO2-535",
+                    "summary": "P-New 2",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.707
+                },
+                {
+                    "key": "DEMO2-532",
+                    "summary": "Error when selecting object",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.764
+                },
+                {
+                    "key": "DEMO2-429",
+                    "summary": "[SprintTest] Story 120",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.509
+                },
+                {
+                    "key": "DEMO2-428",
+                    "summary": "[SprintTest] Story 119",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.721
+                },
+                {
+                    "key": "DEMO2-427",
+                    "summary": "[SprintTest] Story 118",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.524
+                },
+                {
+                    "key": "DEMO2-426",
+                    "summary": "[SprintTest] Story 117",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.502
+                },
+                {
+                    "key": "DEMO2-425",
+                    "summary": "[SprintTest] Story 116",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.53
+                },
+                {
+                    "key": "DEMO2-424",
+                    "summary": "[SprintTest] Story 115",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.504
+                },
+                {
+                    "key": "DEMO2-423",
+                    "summary": "[SprintTest] Story 114",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.715
+                },
+                {
+                    "key": "DEMO2-422",
+                    "summary": "[SprintTest] Story 113",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.714
+                },
+                {
+                    "key": "DEMO2-421",
+                    "summary": "[SprintTest] Story 112",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.525
+                },
+                {
+                    "key": "DEMO2-420",
+                    "summary": "[SprintTest] Story 111",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.698
+                },
+                {
+                    "key": "DEMO2-419",
+                    "summary": "[SprintTest] Story 110",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-418",
+                    "summary": "[SprintTest] Story 109",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.523
+                },
+                {
+                    "key": "DEMO2-417",
+                    "summary": "[SprintTest] Story 108",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.532
+                },
+                {
+                    "key": "DEMO2-416",
+                    "summary": "[SprintTest] Story 107",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.514
+                },
+                {
+                    "key": "DEMO2-415",
+                    "summary": "[SprintTest] Story 106",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.527
+                },
+                {
+                    "key": "DEMO2-414",
+                    "summary": "[SprintTest] Story 105",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.532
+                },
+                {
+                    "key": "DEMO2-413",
+                    "summary": "[SprintTest] Story 104",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.539
+                },
+                {
+                    "key": "DEMO2-412",
+                    "summary": "[SprintTest] Story 103",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.51
+                },
+                {
+                    "key": "DEMO2-411",
+                    "summary": "[SprintTest] Story 102",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.722
+                },
+                {
+                    "key": "DEMO2-410",
+                    "summary": "DEMO AB-02",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.678
+                },
+                {
+                    "key": "DEMO2-409",
+                    "summary": "DEMO AB-01",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.757
+                },
+                {
+                    "key": "DEMO2-405",
+                    "summary": "[SprintTest] Story 101",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.512
+                },
+                {
+                    "key": "DEMO2-404",
+                    "summary": "[SprintTest] Story 100",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.514
+                },
+                {
+                    "key": "DEMO2-403",
+                    "summary": "[SprintTest] Story 099",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-402",
+                    "summary": "[SprintTest] Story 098",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.694
+                },
+                {
+                    "key": "DEMO2-401",
+                    "summary": "[SprintTest] Story 097",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-400",
+                    "summary": "[SprintTest] Story 096",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.506
+                },
+                {
+                    "key": "DEMO2-399",
+                    "summary": "[SprintTest] Story 095",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-398",
+                    "summary": "[SprintTest] Story 094",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.698
+                },
+                {
+                    "key": "DEMO2-397",
+                    "summary": "[SprintTest] Story 093",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.702
+                },
+                {
+                    "key": "DEMO2-396",
+                    "summary": "[SprintTest] Story 092",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.714
+                },
+                {
+                    "key": "DEMO2-395",
+                    "summary": "[SprintTest] Story 091",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-394",
+                    "summary": "[SprintTest] Story 090",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-393",
+                    "summary": "[SprintTest] Story 089",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.508
+                },
+                {
+                    "key": "DEMO2-392",
+                    "summary": "[SprintTest] Story 088",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.516
+                },
+                {
+                    "key": "DEMO2-391",
+                    "summary": "[SprintTest] Story 087",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.505
+                },
+                {
+                    "key": "DEMO2-390",
+                    "summary": "[SprintTest] Story 086",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.522
+                },
+                {
+                    "key": "DEMO2-389",
+                    "summary": "[SprintTest] Story 085",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.517
+                },
+                {
+                    "key": "DEMO2-388",
+                    "summary": "[SprintTest] Story 084",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.505
+                },
+                {
+                    "key": "DEMO2-387",
+                    "summary": "[SprintTest] Story 083",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-386",
+                    "summary": "[SprintTest] Story 082",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-385",
+                    "summary": "[SprintTest] Story 081",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.514
+                },
+                {
+                    "key": "DEMO2-384",
+                    "summary": "[SprintTest] Story 080",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.52
+                },
+                {
+                    "key": "DEMO2-383",
+                    "summary": "[SprintTest] Story 079",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.699
+                },
+                {
+                    "key": "DEMO2-382",
+                    "summary": "[SprintTest] Story 078",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-381",
+                    "summary": "[SprintTest] Story 077",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.709
+                },
+                {
+                    "key": "DEMO2-380",
+                    "summary": "[SprintTest] Story 076",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.508
+                },
+                {
+                    "key": "DEMO2-379",
+                    "summary": "[SprintTest] Story 075",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.694
+                },
+                {
+                    "key": "DEMO2-378",
+                    "summary": "[SprintTest] Story 074",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.71
+                },
+                {
+                    "key": "DEMO2-377",
+                    "summary": "[SprintTest] Story 073",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.71
+                },
+                {
+                    "key": "DEMO2-376",
+                    "summary": "[SprintTest] Story 072",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-375",
+                    "summary": "[SprintTest] Story 071",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.708
+                },
+                {
+                    "key": "DEMO2-373",
+                    "summary": "[SprintTest] Story 069",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.525
+                },
+                {
+                    "key": "DEMO2-372",
+                    "summary": "[SprintTest] Story 068",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.526
+                },
+                {
+                    "key": "DEMO2-371",
+                    "summary": "[SprintTest] Story 067",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.524
+                },
+                {
+                    "key": "DEMO2-370",
+                    "summary": "[SprintTest] Story 066",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.53
+                },
+                {
+                    "key": "DEMO2-369",
+                    "summary": "[SprintTest] Story 065",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.528
+                },
+                {
+                    "key": "DEMO2-368",
+                    "summary": "[SprintTest] Story 064",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.519
+                },
+                {
+                    "key": "DEMO2-367",
+                    "summary": "[SprintTest] Story 063",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.517
+                },
+                {
+                    "key": "DEMO2-366",
+                    "summary": "[SprintTest] Story 062",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.507
+                },
+                {
+                    "key": "DEMO2-365",
+                    "summary": "[SprintTest] Story 061",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.528
+                },
+                {
+                    "key": "DEMO2-364",
+                    "summary": "[SprintTest] Story 060",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.528
+                },
+                {
+                    "key": "DEMO2-363",
+                    "summary": "[SprintTest] Story 059",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.508
+                },
+                {
+                    "key": "DEMO2-362",
+                    "summary": "[SprintTest] Story 058",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.523
+                },
+                {
+                    "key": "DEMO2-361",
+                    "summary": "[SprintTest] Story 057",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.511
+                },
+                {
+                    "key": "DEMO2-360",
+                    "summary": "[SprintTest] Story 056",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.527
+                },
+                {
+                    "key": "DEMO2-359",
+                    "summary": "[SprintTest] Story 055",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.514
+                },
+                {
+                    "key": "DEMO2-358",
+                    "summary": "[SprintTest] Story 054",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.504
+                },
+                {
+                    "key": "DEMO2-357",
+                    "summary": "[SprintTest] Story 053",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-356",
+                    "summary": "[SprintTest] Story 052",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-355",
+                    "summary": "[SprintTest] Story 051",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.515
+                },
+                {
+                    "key": "DEMO2-354",
+                    "summary": "[SprintTest] Story 050",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.521
+                },
+                {
+                    "key": "DEMO2-353",
+                    "summary": "[SprintTest] Story 049",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.513
+                },
+                {
+                    "key": "DEMO2-352",
+                    "summary": "[SprintTest] Story 048",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.524
+                },
+                {
+                    "key": "DEMO2-351",
+                    "summary": "[SprintTest] Story 047",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.516
+                },
+                {
+                    "key": "DEMO2-350",
+                    "summary": "[SprintTest] Story 046",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.528
+                },
+                {
+                    "key": "DEMO2-349",
+                    "summary": "[SprintTest] Story 045",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.52
+                },
+                {
+                    "key": "DEMO2-348",
+                    "summary": "[SprintTest] Story 044",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.512
+                },
+                {
+                    "key": "DEMO2-347",
+                    "summary": "[SprintTest] Story 043",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.508
+                },
+                {
+                    "key": "DEMO2-346",
+                    "summary": "[SprintTest] Story 042",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.694
+                },
+                {
+                    "key": "DEMO2-345",
+                    "summary": "[SprintTest] Story 041",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.511
+                },
+                {
+                    "key": "DEMO2-344",
+                    "summary": "[SprintTest] Story 040",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.52
+                },
+                {
+                    "key": "DEMO2-343",
+                    "summary": "[SprintTest] Story 039",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.703
+                },
+                {
+                    "key": "DEMO2-342",
+                    "summary": "[SprintTest] Story 038",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.709
+                },
+                {
+                    "key": "DEMO2-341",
+                    "summary": "[SprintTest] Story 037",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.71
+                },
+                {
+                    "key": "DEMO2-340",
+                    "summary": "[SprintTest] Story 036",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.694
+                },
+                {
+                    "key": "DEMO2-339",
+                    "summary": "[SprintTest] Story 035",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.696
+                },
+                {
+                    "key": "DEMO2-338",
+                    "summary": "[SprintTest] Story 034",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.737
+                },
+                {
+                    "key": "DEMO2-337",
+                    "summary": "[SprintTest] Story 033",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.737
+                },
+                {
+                    "key": "DEMO2-336",
+                    "summary": "[SprintTest] Story 032",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.718
+                },
+                {
+                    "key": "DEMO2-335",
+                    "summary": "[SprintTest] Story 031",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.713
+                },
+                {
+                    "key": "DEMO2-334",
+                    "summary": "[SprintTest] Story 030",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.722
+                },
+                {
+                    "key": "DEMO2-333",
+                    "summary": "[SprintTest] Story 029",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.714
+                },
+                {
+                    "key": "DEMO2-332",
+                    "summary": "[SprintTest] Story 028",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.697
+                },
+                {
+                    "key": "DEMO2-331",
+                    "summary": "[SprintTest] Story 027",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.712
+                },
+                {
+                    "key": "DEMO2-330",
+                    "summary": "[SprintTest] Story 026",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-329",
+                    "summary": "[SprintTest] Story 025",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.712
+                },
+                {
+                    "key": "DEMO2-328",
+                    "summary": "[SprintTest] Story 024",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.713
+                },
+                {
+                    "key": "DEMO2-327",
+                    "summary": "[SprintTest] Story 023",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.714
+                },
+                {
+                    "key": "DEMO2-326",
+                    "summary": "[SprintTest] Story 022",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.718
+                },
+                {
+                    "key": "DEMO2-325",
+                    "summary": "[SprintTest] Story 021",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.713
+                },
+                {
+                    "key": "DEMO2-324",
+                    "summary": "[SprintTest] Story 020",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.717
+                },
+                {
+                    "key": "DEMO2-323",
+                    "summary": "[SprintTest] Story 019",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-322",
+                    "summary": "[SprintTest] Story 018",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.699
+                },
+                {
+                    "key": "DEMO2-321",
+                    "summary": "[SprintTest] Story 017",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-320",
+                    "summary": "[SprintTest] Story 016",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.707
+                },
+                {
+                    "key": "DEMO2-319",
+                    "summary": "[SprintTest] Story 015",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-318",
+                    "summary": "[SprintTest] Story 014",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.729
+                },
+                {
+                    "key": "DEMO2-317",
+                    "summary": "[SprintTest] Story 013",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.729
+                },
+                {
+                    "key": "DEMO2-316",
+                    "summary": "[SprintTest] Story 012",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.715
+                },
+                {
+                    "key": "DEMO2-315",
+                    "summary": "[SprintTest] Story 011",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-314",
+                    "summary": "[SprintTest] Story 010",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.737
+                },
+                {
+                    "key": "DEMO2-313",
+                    "summary": "[SprintTest] Story 009",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.72
+                },
+                {
+                    "key": "DEMO2-312",
+                    "summary": "[SprintTest] Story 008",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.505
+                },
+                {
+                    "key": "DEMO2-311",
+                    "summary": "[SprintTest] Story 007",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.723
+                },
+                {
+                    "key": "DEMO2-310",
+                    "summary": "[SprintTest] Story 006",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.519
+                },
+                {
+                    "key": "DEMO2-309",
+                    "summary": "[SprintTest] Story 005",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.695
+                },
+                {
+                    "key": "DEMO2-308",
+                    "summary": "[SprintTest] Story 004",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.733
+                },
+                {
+                    "key": "DEMO2-307",
+                    "summary": "[SprintTest] Story 003",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.73
+                },
+                {
+                    "key": "DEMO2-306",
+                    "summary": "[SprintTest] Story 002",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.712
+                },
+                {
+                    "key": "DEMO2-305",
+                    "summary": "[SprintTest] Story 001",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.716
+                },
+                {
+                    "key": "DEMO2-278",
+                    "summary": "[Test Issue]",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-277",
+                    "summary": "[Testing] E-New",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.732
+                },
+                {
+                    "key": "DEMO2-276",
+                    "summary": "TEST story 01",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Power Point"
+                    ],
+                    "confidence": 0.522
+                },
+                {
+                    "key": "DEMO2-275",
+                    "summary": "DEF-W- Cant paste a table",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.615
+                },
+                {
+                    "key": "DEMO2-273",
+                    "summary": "DEF-W- Cant paste an image",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.708
+                },
+                {
+                    "key": "DEMO2-272",
+                    "summary": "DEF-W- Can not save as Word 97",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.534
+                },
+                {
+                    "key": "DEMO2-271",
+                    "summary": "DEF-E- Cant paste an Object",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.647
+                },
+                {
+                    "key": "DEMO2-267",
+                    "summary": "DEF-P- Can not save as pdf",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.515
+                },
+                {
+                    "key": "DEMO2-266",
+                    "summary": "DEF-P- Can not open a file",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.533
+                },
+                {
+                    "key": "DEMO2-265",
+                    "summary": "DEF-P- Can not create a new file",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.574
+                },
+                {
+                    "key": "DEMO2-260",
+                    "summary": "DEF-W- Can not select a table",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.711
+                },
+                {
+                    "key": "DEMO2-259",
+                    "summary": "DEF-W- Can not select an image",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Word"
+                    ],
+                    "confidence": 0.647
+                },
+                {
+                    "key": "DEMO2-257",
+                    "summary": "DEF-W- Can not Change the case to UPPERCASE",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.569
+                },
+                {
+                    "key": "DEMO2-254",
+                    "summary": "DEF-W- Cant paste an object",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.622
+                },
+                {
+                    "key": "DEMO2-253",
+                    "summary": "DEF-W- Cant paste an unformatted text",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.557
+                },
+                {
+                    "key": "DEMO2-252",
+                    "summary": "DEF-W- Cant paste a table",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.524
+                },
+                {
+                    "key": "DEMO2-251",
+                    "summary": "DEF-W- Cant paste the numbers",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.577
+                },
+                {
+                    "key": "DEMO2-247",
+                    "summary": "DEF-W- Can not click on Quick print button",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Word"
+                    ],
+                    "confidence": 0.681
+                },
+                {
+                    "key": "DEMO2-246",
+                    "summary": "DEF-W- Can Not save Word document",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.603
+                },
+                {
+                    "key": "DEMO2-245",
+                    "summary": "DEF-W- Can not save as Word 97",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.55
+                },
+                {
+                    "key": "DEMO2-244",
+                    "summary": "DEF-W- Can not save as Word 2003",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.541
+                },
+                {
+                    "key": "DEMO2-243",
+                    "summary": "DEF-W- Can not save as pdf",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.592
+                },
+                {
+                    "key": "DEMO2-242",
+                    "summary": "DEF-W- Can not open a file",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.528
+                },
+                {
+                    "key": "DEMO2-241",
+                    "summary": "DEF-W- Can not create a new file",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.501
+                },
+                {
+                    "key": "DEMO2-43",
+                    "summary": "P-Paste Special",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.743
+                },
+                {
+                    "key": "DEMO2-42",
+                    "summary": "P-Paste",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.744
+                },
+                {
+                    "key": "DEMO2-41",
+                    "summary": "P-Cut",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Power Point"
+                    ],
+                    "confidence": 0.666
+                },
+                {
+                    "key": "DEMO2-40",
+                    "summary": "P-Copy",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.702
+                },
+                {
+                    "key": "DEMO2-39",
+                    "summary": "P-Save As",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.605
+                },
+                {
+                    "key": "DEMO2-37",
+                    "summary": "P-Print Preview",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel",
+                        "#Word"
+                    ],
+                    "confidence": 0.553
+                },
+                {
+                    "key": "DEMO2-36",
+                    "summary": "P-Print",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.51
+                },
+                {
+                    "key": "DEMO2-35",
+                    "summary": "P-Open",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.545
+                },
+                {
+                    "key": "DEMO2-34",
+                    "summary": "P-New",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.706
+                },
+                {
+                    "key": "DEMO2-33",
+                    "summary": "P-Close",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel",
+                        "#Word"
+                    ],
+                    "confidence": 0.559
+                },
+                {
+                    "key": "DEMO2-32",
+                    "summary": "E-Paste Special",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.789
+                },
+                {
+                    "key": "DEMO2-31",
+                    "summary": "E-Paste",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.793
+                },
+                {
+                    "key": "DEMO2-30",
+                    "summary": "E-Font Size",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.551
+                },
+                {
+                    "key": "DEMO2-29",
+                    "summary": "E-Font Color",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.534
+                },
+                {
+                    "key": "DEMO2-28",
+                    "summary": "E-Font",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Excel"
+                    ],
+                    "confidence": 0.514
+                },
+                {
+                    "key": "DEMO2-26",
+                    "summary": "E-Copy",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.769
+                },
+                {
+                    "key": "DEMO2-25",
+                    "summary": "E-Save As",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.684
+                },
+                {
+                    "key": "DEMO2-24",
+                    "summary": "E-Save",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.641
+                },
+                {
+                    "key": "DEMO2-23",
+                    "summary": "E-Print",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.674
+                },
+                {
+                    "key": "DEMO2-22",
+                    "summary": "E-Open",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.561
+                },
+                {
+                    "key": "DEMO2-21",
+                    "summary": "E-New",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.723
+                },
+                {
+                    "key": "DEMO2-20",
+                    "summary": "E-Close",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel"
+                    ],
+                    "confidence": 0.643
+                },
+                {
+                    "key": "DEMO2-19",
+                    "summary": "C-Text Box",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.589
+                },
+                {
+                    "key": "DEMO2-18",
+                    "summary": "C-Select Text",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Power Point",
+                        "#Excel"
+                    ],
+                    "confidence": 0.603
+                },
+                {
+                    "key": "DEMO2-17",
+                    "summary": "C-Select Objects",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.586
+                },
+                {
+                    "key": "DEMO2-15",
+                    "summary": "C-Paste Special",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary",
+                        "#Power Point"
+                    ],
+                    "confidence": 0.567
+                },
+                {
+                    "key": "DEMO2-14",
+                    "summary": "C-Paste",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.7
+                },
+                {
+                    "key": "DEMO2-12",
+                    "summary": "C-Copy",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point"
+                    ],
+                    "confidence": 0.637
+                },
+                {
+                    "key": "DEMO2-11",
+                    "summary": "C-Save File",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.762
+                },
+                {
+                    "key": "DEMO2-10",
+                    "summary": "C-Save As",
+                    "field": "components",
+                    "prediction": [
+                        "#Power Point",
+                        "#Excel"
+                    ],
+                    "confidence": 0.542
+                },
+                {
+                    "key": "DEMO2-9",
+                    "summary": "C-Open File",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.717
+                },
+                {
+                    "key": "DEMO2-8",
+                    "summary": "C-New File",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.78
+                },
+                {
+                    "key": "DEMO2-7",
+                    "summary": "C-Close File",
+                    "field": "components",
+                    "prediction": [
+                        "#Word"
+                    ],
+                    "confidence": 0.607
+                },
+                {
+                    "key": "DEMO2-5",
+                    "summary": "#Powerpoint-Epic",
+                    "field": "components",
+                    "prediction": [
+                        "#Word"
+                    ],
+                    "confidence": 0.548
+                },
+                {
+                    "key": "DEMO2-4",
+                    "summary": "Implementing CIO - DashBoard",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.671
+                },
+                {
+                    "key": "DEMO2-3",
+                    "summary": "#COMMONLIBRARY-Epic",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.728
+                },
+                {
+                    "key": "DEMO2-2",
+                    "summary": "#EXCEL-Epic",
+                    "field": "components",
+                    "prediction": [
+                        "#CommonLibrary"
+                    ],
+                    "confidence": 0.705
+                },
+                {
+                    "key": "DEMO2-1",
+                    "summary": "#WORD-Epic",
+                    "field": "components",
+                    "prediction": [
+                        "#Excel",
+                        "#Word"
+                    ],
+                    "confidence": 0.617
+                },
+                {
+                    "key": "DEMO2-573",
+                    "summary": "2025 - DEF-E- Cant paste an Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.432
+                },
+                {
+                    "key": "DEMO2-571",
+                    "summary": "2025 - DEF-E- Cant paste an Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.432
+                },
+                {
+                    "key": "DEMO2-550",
+                    "summary": "DEF-E- Cant paste any Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.48
+                },
+                {
+                    "key": "DEMO2-543",
+                    "summary": "Develop - FR Language support",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.526
+                },
+                {
+                    "key": "DEMO2-542",
+                    "summary": "Develop - ESP lang support",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.868
+                },
+                {
+                    "key": "DEMO2-541",
+                    "summary": "Fix data in table LINKS",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.89
+                },
+                {
+                    "key": "DEMO2-540",
+                    "summary": "DEF-W- Cant paste the numbers",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.867
+                },
+                {
+                    "key": "DEMO2-533",
+                    "summary": "Error exporting to HTML format",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.596
+                },
+                {
+                    "key": "DEMO2-532",
+                    "summary": "Error when selecting object",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-3",
+                    "confidence": 0.894
+                },
+                {
+                    "key": "DEMO2-528",
+                    "summary": "Update wording of details section",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-3",
+                    "confidence": 0.595
+                },
+                {
+                    "key": "DEMO2-527",
+                    "summary": "DEMO AB 24-10-31",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.886
+                },
+                {
+                    "key": "DEMO2-526",
+                    "summary": "Language test ZH : \u6d4b\u8bd5\u4f60\u597d",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.92
+                },
+                {
+                    "key": "DEMO2-525",
+                    "summary": "Language Test JP: \u60e1\u306e\u83ef",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-2",
+                    "confidence": 0.92
+                },
+                {
+                    "key": "DEMO2-408",
+                    "summary": "Orph - DEF-W- Cant paste a text which copied from Excel",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.923
+                },
+                {
+                    "key": "DEMO2-274",
+                    "summary": "DEF-W- Cant paste the numbers",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.867
+                },
+                {
+                    "key": "DEMO2-273",
+                    "summary": "DEF-W- Cant paste an image",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-1",
+                    "confidence": 0.686
+                },
+                {
+                    "key": "DEMO2-271",
+                    "summary": "DEF-E- Cant paste an Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-5",
+                    "confidence": 0.414
+                },
+                {
+                    "key": "DEMO2-268",
+                    "summary": "DEF-P- The Print page does not appear",
+                    "field": "epic_link",
+                    "prediction": "DEMO2-5",
+                    "confidence": 0.877
+                },
+                {
+                    "key": "DEMO2-575",
+                    "summary": "2025 - DEMO AB-01",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.83
+                },
+                {
+                    "key": "DEMO2-572",
+                    "summary": "2025 - DEMO AB-01",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.83
+                },
+                {
+                    "key": "DEMO2-541",
+                    "summary": "Fix data in table LINKS",
+                    "field": "team",
+                    "prediction": "QA Team",
+                    "confidence": 0.875
+                },
+                {
+                    "key": "DEMO2-533",
+                    "summary": "Error exporting to HTML format",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.644
+                },
+                {
+                    "key": "DEMO2-532",
+                    "summary": "Error when selecting object",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.878
+                },
+                {
+                    "key": "DEMO2-531",
+                    "summary": "Error pasting on new document",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.61
+                },
+                {
+                    "key": "DEMO2-530",
+                    "summary": "Create Template (html, js, css files) for new CIO- Dashboard app",
+                    "field": "team",
+                    "prediction": "QA Team",
+                    "confidence": 0.843
+                },
+                {
+                    "key": "DEMO2-529",
+                    "summary": "Backend changes to calculate Cycle Time",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.892
+                },
+                {
+                    "key": "DEMO2-528",
+                    "summary": "Update wording of details section",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.542
+                },
+                {
+                    "key": "DEMO2-527",
+                    "summary": "DEMO AB 24-10-31",
+                    "field": "team",
+                    "prediction": "DevOps Team",
+                    "confidence": 0.868
+                },
+                {
+                    "key": "DEMO2-415",
+                    "summary": "[SprintTest] Story 106",
+                    "field": "team",
+                    "prediction": "DevOps Team",
+                    "confidence": 0.78
+                },
+                {
+                    "key": "DEMO2-409",
+                    "summary": "DEMO AB-01",
+                    "field": "team",
+                    "prediction": "DevOps Team",
+                    "confidence": 0.876
+                },
+                {
+                    "key": "DEMO2-278",
+                    "summary": "[Test Issue]",
+                    "field": "team",
+                    "prediction": "QA Team",
+                    "confidence": 0.932
+                },
+                {
+                    "key": "DEMO2-264",
+                    "summary": "DEF-W- Can not select a text which is starting with a small letter",
+                    "field": "team",
+                    "prediction": "QA Team",
+                    "confidence": 0.597
+                },
+                {
+                    "key": "DEMO2-263",
+                    "summary": "DEF-W- Can not select a text which is starting with a capital letter",
+                    "field": "team",
+                    "prediction": "QA Team",
+                    "confidence": 0.587
+                },
+                {
+                    "key": "DEMO2-262",
+                    "summary": "DEF-W- Can not select a text which is starting with number",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.837
+                },
+                {
+                    "key": "DEMO2-258",
+                    "summary": "DEF-W- Can not select a text",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.847
+                },
+                {
+                    "key": "DEMO2-242",
+                    "summary": "DEF-W- Can not open a file",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.874
+                }
+            ]
+        }
+    }
+}

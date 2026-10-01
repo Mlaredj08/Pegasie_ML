@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{project}} Inference Results</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/jfip-theme.css">
+	<link rel="stylesheet" href="/static/dataTables/css/dataTables-2.3.2.css"></link>
+	<script type="text/javascript" src="/static/jquery/js/jquery-3.7.1.js"></script>
+	<script type="text/javascript" src="/static/dataTables/js/dataTables-2.3.2.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<script>
+$( document ).ready(function() {
+
+    // Setup - add a text input to each footer cell
+    $('#example thead th').each(function (i) {
+        var title = $('#example thead th').eq($(this).index()).text();
+		if(title != ""){
+			$(this).html(
+				'<input type="text" placeholder="' + title + '" data-index="' + i + '" />'
+			);
+			}
+    });
+
+    //let table = new DataTable('#example', {footerCallback: myFooterCallback, ajax: '/data/{{output_folder}}?project={{project}}'});
+
+	let table = new DataTable('#example', {
+	    footerCallback: myFooterCallback,
+		//ajax: '/data/{{output_folder}}?project={{project}}',
+		ajax: '/load_json?path={{inference_table_json}}',
+		columns: [
+			{ data: 'key' },
+			{ data: 'issuetype' },
+			{ data: 'field' },
+			{ data: 'prediction', className: 'dt-control' },
+			{ data: 'accuracy' }
+		],
+	});
+
+	// Add event listener for opening and closing details
+	table.on('click', 'td.dt-control', function (e) {
+		let tr = e.target.closest('tr');
+		let row = table.row(tr);
+		if (row.child.isShown()) {
+			row.child.hide();
+		}
+		else {
+		    if(e.target.classList.contains("field")){
+		        row.child(formatPossibleValues(row.data())).show();
+		    }
+		    else{
+		        row.child(format(row.data())).show();
+		    }
+
+		}
+	});
+
+    // Filter event handler
+    $(table.table().container()).on('keyup_', 'thead input', function () {
+        table
+            .column($(this).data('index'))
+            .search(this.value)
+            .draw();
+    });
+
+	 // Filter event handler (range option: < and > ops)
+    $(table.table().container()).on('keyup', 'thead input', function () {
+		//table.column($(this).data('index')).search(this.value).draw();
+		var filterVal =  this.value.trim();
+		console.log("filterVal: " + filterVal);
+		var isLower = this.value.trim().startsWith("<") &&  this.value.trim().length > 1;
+		var isHigher = filterVal.startsWith(">") &&  filterVal.length > 1;
+		table.column($(this).data('index')).search.fixed('range', function (searchStr, data, index) {
+			if(isLower){
+				var isLowerOrEq = filterVal.includes("<=");
+				var maxVal = isLowerOrEq ? parseFloat(filterVal.split("<=")[1]) : parseFloat(filterVal.split("<")[1]);
+				return isLowerOrEq ? parseFloat(searchStr) <= maxVal : parseFloat(searchStr) < maxVal;
+			}
+			else if(isHigher){
+				var isHigherOrEq = filterVal.includes(">=");
+				var maxVal = isHigherOrEq ? parseFloat(filterVal.split(">=")[1]): parseFloat(filterVal.split(">")[1]);
+				return isHigherOrEq ? parseFloat(searchStr) >= maxVal : parseFloat(searchStr) > maxVal;
+			}
+			else{
+				return (searchStr.includes(filterVal));
+			}
+		}).draw();
+    });
+
+    // Highlight active filters
+	$("thead th input, .dt-input").on('keyup', function(e) {
+		const bgCass = "bg-warning";
+		var elt = $(e.target);
+		if(elt.val() == ""){
+			elt.removeClass(bgCass);
+			return;
+		}
+		if(!elt.hasClass(bgCass)){
+			elt.addClass(bgCass);
+		}
+	});
+
+});
+
+function myFooterCallback(row, data, start, end, display) {
+    let api = this.api();
+    let targetColumn = 4;
+    // Remove the formatting to get integer data for summation
+    let intVal = function (i) {
+        return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+    };
+    // Total over all pages
+    total = api.column(targetColumn).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+    // Total over this page
+    pageTotal = api.column(targetColumn, { page: 'all', filter: 'applied' }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+    // Calculate the average
+    var rowNumber = api.column(targetColumn, {page: 'all', filter: 'applied'}).data().length;
+    var average = pageTotal > 0 ? (pageTotal / rowNumber) : 0;
+    // Update footer
+    api.column(targetColumn).footer().innerHTML = "Average: " + (average.toFixed(2));
+}
+
+function format(d) {
+    // `d` is the original data object for the row
+    var value = `<b>Summary:</b><br>${d.summary}<br>`;
+    //value += `<br><b>Description:</b><br>${d.description}<br>`;
+    // Highlight keywords
+    var hl_text = d.text;
+    d.top_keywords.forEach((item, index) => {
+        hl_text = hl_text.replaceAll(item[0],`<mark>${item[0]}</mark>`);
+    });
+    value += `<br><b>Processed Text:</b><br>${hl_text}<br>`;
+	value += `<br><b>Prediction keywords:</b><br>`;
+	value += "<table class='table table-bordered table-hover'>";
+	var row1 = "<tr><td style='background-color: lightgrey;'>Keyword</td>";
+	var row2 = "<tr><td style='background-color: lightgrey;'>Coefficient</td>";
+	d.top_keywords.forEach((val, index) => {
+        //value +=  `${val[1]}: '${val[0]}'<br>`;
+        row1 += `<td>${val[0]}</td>`;
+        row2 += `<td>${val[1].toFixed(4)}</td>`;
+	});
+	value += `${row1}</tr>${row2}</tr></table>`;
+
+    return value;
+}
+
+function formatPossibleValues(d) {
+    // `d` is the original data object for the row
+	value = `<b>${d.field_possible_values.length} possible values:</b><br>`;
+	d.field_possible_values.forEach((val, index) => {
+        value +=  `${val}<br>`;
+	});
+    return value;
+}
+
+// Loading Spinner
+// Function to show the loading modal
+function showLoadingModal() {
+  $('#loadingModal').modal('show');
+}
+
+// Function to hide the loading modal
+function hideLoadingModal() {
+  $('#loadingModal').modal('hide');
+}
+</script>
+
+<body class="py-4">
+    <div class="container">
+        <h1 class="mb-4 text-primary text-center">
+            <span>{{project}} Inference Results</span><br>
+            <span><h5>Targets: {{target_fields}}</h5></span>
+        </h1><hr>
+		<table id="example" class="display">
+			<thead>
+				<tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Field</th>
+                <th>Prediction</th>
+                <th>Accuracy</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th colspan="4" style="text-align:left"></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+        <div class="mt-4 text-center">
+            <a href="/" class="btn btn-secondary">Home</a>
+            <a href="/get_test_report?inferenceJsonFile={{inference_table_json}}&project={{project}}" class="btn btn-primary">Inference Tests</a>
+<!--            <a href="/confirmation" class="btn btn-secondary">Confirmation Questions</a>-->
+
+            <!--change here to switch to old confirmation page-->
+<!--            <a href="/confirmation" class="btn btn-secondary" onclick="showLoadingModal()">Confirmation Questions</a>-->
+            <a href="/confirm_predictions" class="btn btn-secondary" onclick="showLoadingModal()">Confirmation Questions</a>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <p class="mt-3">Your request is being processed, please wait...</p>
+            <div class="spinner-border text-primary" role="status">
+    <!--          <span class="visually-hidden">Your request is being processed</span>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

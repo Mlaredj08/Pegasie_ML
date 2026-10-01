@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JFIP – Login</title>
+
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/jfip-theme.css">
+  <script src="/static/jquery/js/jquery-3.7.1.js"></script>
+  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #2C3E50 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(74, 144, 226, 0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(245, 176, 65, 0.08) 0%, transparent 50%);
+      animation: bgShift 15s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-5%, -3%); }
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 430px;
+      animation: slideUp 0.6s ease;
+    }
+
+    .login-brand {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .login-brand .logo {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, #357ABD 100%);
+      border-radius: var(--radius-lg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
+    }
+    .login-brand .logo i {
+      font-size: 1.6rem;
+      color: #fff;
+    }
+    .login-brand h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .login-brand p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .login-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 2rem 2.25rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .login-card .form-control {
+      height: 46px;
+      border-radius: var(--radius-sm);
+    }
+    .login-card .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .login-card .btn-primary {
+      height: 46px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--primary) 0%, #357ABD 100%);
+      border: none;
+      box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3);
+      transition: all 0.2s ease;
+    }
+    .login-card .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(74, 144, 226, 0.4);
+    }
+    .login-card .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 1.25rem;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.82rem;
+    }
+    .login-footer i { margin-right: 0.25rem; }
+
+    .input-icon-wrap {
+      position: relative;
+    }
+    .input-icon-wrap .bi {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-400);
+      font-size: 1rem;
+      pointer-events: none;
+      transition: color 0.15s ease;
+    }
+    .input-icon-wrap .form-control {
+      padding-left: 2.5rem;
+    }
+    .input-icon-wrap .form-control:focus ~ .bi,
+    .input-icon-wrap:focus-within .bi {
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+
+    <div class="login-brand">
+      <div class="logo"><i class="bi bi-grid-1x2-fill"></i></div>
+      <h1>JFIP</h1>
+      <p>Sign in with your Jira Server credentials</p>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mb-2 animate-slide-down" role="alert">
+              <i class="bi bi-{% if category == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="login-card">
+      <form method="post" action="{{ url_for('auth.login', next=request.args.get('next')) }}">
+
+        <!-- Jira URL -->
+        <div class="mb-3">
+          <label for="jira_url" class="form-label">Jira URL</label>
+          <div class="input-icon-wrap">
+            <input id="jira_url" name="jira_url" class="form-control" placeholder="http://192.168.10.172:8080" required>
+            <i class="bi bi-link-45deg"></i>
+          </div>
+          <div class="form-text">Example: http://your-jira:8080</div>
+        </div>
+
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Jira Username</label>
+          <div class="input-icon-wrap">
+            <input id="username" name="username" class="form-control" autocomplete="username" required>
+            <i class="bi bi-person"></i>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Jira Password</label>
+          <div class="input-icon-wrap">
+            <input id="password" name="password" type="password" class="form-control" autocomplete="current-password" required>
+            <i class="bi bi-lock"></i>
+          </div>
+        </div>
+
+        <!-- Remember -->
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember">
+          <label class="form-check-label" for="remember">Keep me signed in (8 hours)</label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+        </button>
+
+      </form>
+    </div>
+
+    <div class="login-footer">
+      <i class="bi bi-shield-lock"></i>Your credentials are verified but never stored.
+    </div>
+
+  </div>
+
+  <script src="/static/js/jfip-notifications.js"></script>
+</body>
+</html>

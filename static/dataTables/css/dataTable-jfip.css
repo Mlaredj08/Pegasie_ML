@@ -1,0 +1,72 @@
+        table.dataTable thead th {
+            background: var(--navy) !important;
+            color: #fff !important;
+            font-weight: 600;
+            border: none !important;
+            padding: 0.75rem 1rem !important;
+            white-space: nowrap;
+        }
+        table.dataTable tbody td {
+            padding: 0.65rem 1rem !important;
+            vertical-align: middle;
+            border-color: var(--ink-200) !important;
+        }
+        table.dataTable tbody tr:hover {
+            background: var(--info-light) !important;
+        }
+        table.dataTable thead th input {
+            width: 100%;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            border-radius: var(--radius-sm);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            transition: all var(--transition-fast);
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        table.dataTable thead th input::placeholder {
+            color: rgba(255,255,255,0.55);
+        }
+        table.dataTable thead th input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245,176,65,0.25);
+            outline: none;
+            background: rgba(255,255,255,0.22);
+        }
+        table.dataTable thead th input.bg-warning {
+            background: var(--accent) !important;
+            color: var(--navy) !important;
+        }
+        .dt-container .dt-search input {
+            border: 1.5px solid var(--ink-200) !important;
+            border-radius: var(--radius-sm) !important;
+            padding: 0.5rem 0.8rem !important;
+            transition: all var(--transition-fast);
+        }
+        .dt-container .dt-search input:focus {
+            border-color: var(--primary) !important;
+            box-shadow: var(--shadow-glow) !important;
+        }
+        .dt-container .dt-info {
+            color: var(--ink-500);
+            font-weight: 500;
+        }
+        .dt-container .dt-paging button {
+            border-radius: var(--radius-sm) !important;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        .dt-container .dt-paging button.current {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #fff !important;
+        }
+        td.dt-control {
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        td.dt-control:hover {
+            color: var(--primary-dark);
+        }

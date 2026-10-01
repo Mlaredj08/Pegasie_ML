@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<style>
+  .dashboard-hero {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+    animation: slideUp 0.5s ease;
+  }
+  .dashboard-hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .dashboard-hero .subtitle {
+    color: var(--ink-500);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .action-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none !important;
+    color: var(--ink-900);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .action-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    transform: scaleY(0);
+    transition: transform 0.25s ease;
+    border-radius: 0 4px 4px 0;
+  }
+  .action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+  }
+  .action-card:hover::before {
+    transform: scaleY(1);
+  }
+  .action-card:hover .action-icon {
+    background: var(--primary);
+    color: #fff;
+    transform: scale(1.08);
+  }
+  .action-card:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  .action-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-md);
+    background: var(--info-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+  .action-icon.accent {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+  }
+  .action-card:hover .action-icon.accent {
+    background: var(--accent-dark);
+    color: #fff;
+  }
+
+  .action-content h6 {
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+    color: var(--navy);
+    font-size: 0.95rem;
+  }
+  .action-content p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--ink-500);
+    line-height: 1.4;
+  }
+
+  .section-label {
+    text-align: center;
+    margin: 2.5rem auto 1.25rem;
+    max-width: 1100px;
+    padding: 0 1rem;
+  }
+  .section-label h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink-400);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .section-label h2::before,
+  .section-label h2::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 2px;
+    background: var(--ink-200);
+    border-radius: 2px;
+  }
+
+  /* Staggered card entrance */
+  .action-card { opacity: 0; animation: slideUp 0.4s ease forwards; }
+  .action-card:nth-child(1) { animation-delay: 0.05s; }
+  .action-card:nth-child(2) { animation-delay: 0.1s; }
+  .action-card:nth-child(3) { animation-delay: 0.15s; }
+  .action-card:nth-child(4) { animation-delay: 0.2s; }
+  .action-card:nth-child(5) { animation-delay: 0.25s; }
+  .action-card:nth-child(6) { animation-delay: 0.3s; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container" style="max-width:700px;">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show animate-slide-down" role="alert">
+          <i class="bi bi-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Hero Section -->
+<div class="dashboard-hero">
+  <h1><i class="bi bi-grid-1x2 me-2" style="color:var(--primary);"></i>JFIP Dashboard</h1>
+  <p class="subtitle">Jira Field Inference Platform — select a module to get started</p>
+</div>
+
+<!-- Main Actions -->
+<section class="action-grid">
+  <a href="/export_jira" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip.import }}">
+    <div class="action-icon"><i class="bi bi-cloud-download"></i></div>
+    <div class="action-content">
+      <h6>JIRA Connector</h6>
+      <p>Export JIRA data as a compact JSON file</p>
+    </div>
+  </a>
+
+  <a href="/export_azure" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip.import_azure }}">
+    <div class="action-icon"><i class="bi bi-microsoft"></i></div>
+    <div class="action-content">
+      <h6>Azure Connector</h6>
+      <p>Connect and import from Azure DevOps</p>
+    </div>
+  </a>
+
+  <a href="/field_completion" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip.completion }}">
+    <div class="action-icon"><i class="bi bi-bar-chart-line"></i></div>
+    <div class="action-content">
+      <h6>Field Completion Rate</h6>
+      <p>Audit field population across issues</p>
+    </div>
+  </a>
+
+  <a href="/jira_viewer" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip.jira_viewer }}">
+    <div class="action-icon"><i class="bi bi-eye"></i></div>
+    <div class="action-content">
+      <h6>Project Viewer</h6>
+      <p>Browse & inspect JIRA project data</p>
+    </div>
+  </a>
+
+  <a href="/file_manager" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="Manage, preview, download, and delete Jira or model JSON files.">
+    <div class="action-icon"><i class="bi bi-folder2-open"></i></div>
+    <div class="action-content">
+      <h6>File Manager</h6>
+      <p>Manage, preview & download project files</p>
+    </div>
+  </a>
+</section>
+
+<!-- Experimental Section -->
+<div class="section-label">
+  <h2>Experimental</h2>
+</div>
+
+<section class="action-grid" style="margin-bottom: 3rem;">
+  <a href="/questionnarie_decision_tree" class="action-card">
+    <div class="action-icon accent"><i class="bi bi-diagram-3"></i></div>
+    <div class="action-content">
+      <h6>Decision Tree</h6>
+      <p>Navigate questionnaire-based decision trees</p>
+    </div>
+  </a>
+
+  <a href="/tree_editor" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="Visually create, edit, or delete decision tree questionnaires and export them as JSON.">
+    <div class="action-icon accent"><i class="bi bi-pencil-square"></i></div>
+    <div class="action-content">
+      <h6>Tree Editor</h6>
+      <p>Create or edit decision tree questionnaires</p>
+    </div>
+  </a>
+
+  <a href="/data_analysis" class="action-card" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip.analysis }}">
+    <div class="action-icon accent"><i class="bi bi-graph-up-arrow"></i></div>
+    <div class="action-content">
+      <h6>Data Analysis</h6>
+      <p>Run preliminary data reports</p>
+    </div>
+  </a>
+</section>
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+  $(function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (el) { return new bootstrap.Tooltip(el); });
+  });
+</script>
+{% endblock %}

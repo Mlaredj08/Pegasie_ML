@@ -1,0 +1,476 @@
+{
+    "output_folder": "FBEX_20260925_082352",
+    "params": {
+        "project": "FBEX",
+        "input_json": "databases/FBEX_20260925_082352.json",
+        "inference_json": "predictions/review/FBEX_20260925_082352.json",
+        "output_folder": "FBEX_20260925_082352",
+        "inferred_fields": [
+            "epic_link",
+            "labels"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "labels: 'baggage,fare-rules,ux'",
+                "labels: 'baggage'",
+                "labels: 'api-integration,baggage'",
+                "labels: 'reservation,workflow'",
+                "labels: 'ux'",
+                "epic_link: 'FBEX-2'",
+                "epic_link: 'FBEX-1'",
+                "epic_link: 'FBEX-3'"
+            ],
+            "total": 8,
+            "in_progress": "epic_link: 'FBEX-3'",
+            "elapsed_time": 0,
+            "metadata": {
+                "epic_link": {
+                    "min_confidence": 0.22662962962962963,
+                    "ml_model": "LOGISTIC",
+                    "iteration_count": 1,
+                    "selected_target_grid": [
+                        "Test",
+                        "Story"
+                    ]
+                },
+                "labels": {
+                    "min_confidence": 0.8606235632183908,
+                    "ml_model": "SGD",
+                    "iteration_count": 1,
+                    "selected_target_grid": [
+                        "Test",
+                        "Story",
+                        "Epic"
+                    ]
+                }
+            }
+        },
+        "selected_types_per_filed": {
+            "labels": [
+                "Test",
+                "Story",
+                "Epic"
+            ],
+            "epic_link": [
+                "Test",
+                "Story"
+            ]
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 2,
+    "iteration_information": {
+        "labels": {
+            "issue_count": 13,
+            "avg_accuracy": 0.8881
+        },
+        "total_issue_count": 13,
+        "confidence_avg": 0.6602109375,
+        "orphan_count": 8
+    },
+    "iter_count": 1,
+    "question_json": {
+        "baggage,fare-rules,ux": [
+            {
+                "field_name": "labels",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-96_Compare baggage fees for different flight options"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-96"
+            }
+        ],
+        "baggage": [
+            {
+                "field_name": "labels",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-95_View included baggage and extra bag pricing"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-95"
+            }
+        ],
+        "api-integration,baggage": [
+            {
+                "field_name": "labels",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-94_Identify when corporate baggage waivers apply automatically"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-94"
+            }
+        ],
+        "reservation,workflow": [
+            {
+                "field_name": "labels",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-92_Link multiple reservations into a single trip view"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-92"
+            }
+        ],
+        "ux": [
+            {
+                "field_name": "labels",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-87_Retrieve reservation using booking reference and last name"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-87"
+            }
+        ],
+        "FBEX-2": [
+            {
+                "field_name": "epic_link",
+                "question": "Using 'FBEX-95' as the representative of the cluster, recommendation is to add 'FBEX-2' as 'epic_link'.",
+                "keywords": "baggage extra costs",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "FBEX-96_Compare baggage fees for different flight options",
+                        "FBEX-95_View included baggage and extra bag pricing"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9385,
+                "cluster_centroid": "FBEX-95"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "waivers automatically applied",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "FBEX-94_Identify when corporate baggage waivers apply automatically"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "FBEX-94"
+            }
+        ],
+        "FBEX-1": [
+            {
+                "field_name": "epic_link",
+                "question": "Using 'FBEX-87' as the representative of the cluster, recommendation is to add 'FBEX-1' as 'epic_link'.",
+                "keywords": "reservation booking reference",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "FBEX-91_As admin Add special service requests after completing booking",
+                        "FBEX-90_View complete reservation change and modification history",
+                        "FBEX-87_Retrieve reservation using booking reference and last name"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8271,
+                "cluster_centroid": "FBEX-87"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "multiple reservations single",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    [
+                        "FBEX-92_Link multiple reservations into a single trip view"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 1.0,
+                "cluster_centroid": "FBEX-92"
+            }
+        ],
+        "FBEX-3": [
+            {
+                "field_name": "epic_link",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEX-86_Cancel booking and receive refund or credit instantly"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEX-86"
+            }
+        ],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "epic_link",
+                    "list_of_values": [
+                        "FBEX-1",
+                        "FBEX-2",
+                        "FBEX-3",
+                        "FBEX-4",
+                        "FBEX-5",
+                        "FBEX-6",
+                        "FBEX-7",
+                        "FBEX-8",
+                        "FBEX-9"
+                    ]
+                },
+                {
+                    "field_name": "labels",
+                    "list_of_values": [
+                        "account-ui",
+                        "accounts",
+                        "agency-portal",
+                        "agents",
+                        "ancillary",
+                        "ancillary-engine",
+                        "ancillary-ui",
+                        "api-integration",
+                        "auth",
+                        "availability",
+                        "availability-cache",
+                        "b2b",
+                        "baggage",
+                        "baggage-engine",
+                        "bundle-pricer",
+                        "bundles",
+                        "cabin-layout",
+                        "cache",
+                        "campaign-manager",
+                        "campaigns",
+                        "change-cancel",
+                        "checkout",
+                        "commission",
+                        "commission-engine",
+                        "compliance",
+                        "coverage",
+                        "discounts",
+                        "fare-rules",
+                        "finance-calc",
+                        "fraud",
+                        "fraud-check",
+                        "gds",
+                        "gds-connector",
+                        "insurance",
+                        "insurance-api",
+                        "inventory",
+                        "itinerary",
+                        "itinerary-ui",
+                        "payment",
+                        "payment-router",
+                        "payments",
+                        "pci",
+                        "pci-module",
+                        "pnr-services",
+                        "policy-ui",
+                        "post-booking",
+                        "pricing",
+                        "profile-engine",
+                        "profiles",
+                        "promo-engine",
+                        "promotions",
+                        "reservation",
+                        "reservation-core",
+                        "schedule-engine",
+                        "seat",
+                        "seat-fees",
+                        "seat-map",
+                        "seat-selection",
+                        "security",
+                        "settlement",
+                        "travel",
+                        "user",
+                        "ux",
+                        "workflow"
+                    ]
+                }
+            ],
+            "not_predictable": [
+                {
+                    "key": "FBEX-86",
+                    "summary": "Cancel booking and receive refund or credit instantly",
+                    "field": "labels",
+                    "prediction": [],
+                    "confidence": 0.9829375
+                },
+                {
+                    "key": "FBEX-85",
+                    "summary": "Change flight dates within allowed fare rules",
+                    "field": "labels",
+                    "prediction": [],
+                    "confidence": 0.987953125
+                },
+                {
+                    "key": "FBEX-84",
+                    "summary": "View all upcoming trips in one itinerary view",
+                    "field": "labels",
+                    "prediction": [],
+                    "confidence": 0.980984375
+                }
+            ],
+            "rejected_predictions": [],
+            "unconfident_predictions": [
+                {
+                    "key": "FBEX-93",
+                    "summary": "Manage flight disruption rebooking options entirely online",
+                    "field": "epic_link",
+                    "prediction": "FBEX-1",
+                    "confidence": 0.174
+                },
+                {
+                    "key": "FBEX-89",
+                    "summary": "Resend e-ticket and confirmation email",
+                    "field": "epic_link",
+                    "prediction": "FBEX-1",
+                    "confidence": 0.196
+                },
+                {
+                    "key": "FBEX-88",
+                    "summary": "Agent updates contact details",
+                    "field": "epic_link",
+                    "prediction": "FBEX-1",
+                    "confidence": 0.137
+                },
+                {
+                    "key": "FBEX-85",
+                    "summary": "Change flight dates within allowed fare rules",
+                    "field": "epic_link",
+                    "prediction": "FBEX-1",
+                    "confidence": 0.172
+                },
+                {
+                    "key": "FBEX-84",
+                    "summary": "View all upcoming trips in one itinerary view",
+                    "field": "epic_link",
+                    "prediction": "FBEX-1",
+                    "confidence": 0.207
+                },
+                {
+                    "key": "FBEX-93",
+                    "summary": "Manage flight disruption rebooking options entirely online",
+                    "field": "labels",
+                    "prediction": [
+                        "reservation-core",
+                        "api-integration"
+                    ],
+                    "confidence": 0.756
+                },
+                {
+                    "key": "FBEX-91",
+                    "summary": "As admin Add special service requests after completing booking",
+                    "field": "labels",
+                    "prediction": [
+                        "workflow",
+                        "api-integration"
+                    ],
+                    "confidence": 0.821
+                },
+                {
+                    "key": "FBEX-90",
+                    "summary": "View complete reservation change and modification history",
+                    "field": "labels",
+                    "prediction": [
+                        "workflow",
+                        "ux",
+                        "itinerary-ui",
+                        "reservation"
+                    ],
+                    "confidence": 0.816
+                },
+                {
+                    "key": "FBEX-89",
+                    "summary": "Resend e-ticket and confirmation email",
+                    "field": "labels",
+                    "prediction": [
+                        "workflow",
+                        "ux",
+                        "api-integration",
+                        "pnr-services"
+                    ],
+                    "confidence": 0.812
+                },
+                {
+                    "key": "FBEX-88",
+                    "summary": "Agent updates contact details",
+                    "field": "labels",
+                    "prediction": [
+                        "ux"
+                    ],
+                    "confidence": 0.738
+                }
+            ]
+        }
+    }
+}

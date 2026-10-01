@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{project}} Data Pre-Analysis</title>
+	<link rel="stylesheet" href="/static/dataTables/css/dataTables-2.3.2.css">
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/jfip-theme.css">
+	<script type="text/javascript" src="/static/jquery/js/jquery-3.7.1.js"></script>
+	<script type="text/javascript" src="/static/dataTables/js/dataTables-2.3.2.js"></script>
+	<script src="/static/dataTables/js/sum()-2.3.2.js"></script>
+</head>
+
+<style>
+    .bg-danger.bg-gradient_ { background-color: #FFCCCB; }
+    .bg-success.bg-gradient_ { background-color: #66FF99; }
+</style>
+
+<body>
+<script>
+
+
+$( document ).ready(function() {
+
+    $('#example thead th').each(function (i) {
+        var title = $('#example thead th').eq($(this).index()).text();
+		$(this).html(
+			'<input type="text" placeholder="' + title + '" data-index="' + i + '" />'
+		);
+    });
+
+	let table = new DataTable('#example', {
+		ajax: '/load_json?path={{json_path}}',
+		columnDefs: [
+			{ className: 'dt-left', targets: [ 0, 1, 2 ] } // Applies dt-left to columns 0 and 2
+		],
+		columns: [
+			{ data: 'key' },
+			{ data: 'priority' },
+			{ data: 'blocked_count', className: 'dt-left dt-control' },
+			{ data: 'is_all_blocked_closed' },
+			{ data: 'is_assumption_ok' },
+
+		],
+	});
+
+	// Add event listener for opening and closing details
+	table.on('click', 'td.dt-control', function (e) {
+		let tr = e.target.closest('tr');
+		let row = table.row(tr);
+
+		if (row.child.isShown()) {
+			// This row is already open - close it
+			row.child.hide();
+		}
+		else {
+			row.child(format(row.data())).show();
+		}
+	});
+
+	 // Filter event handler
+    $(table.table().container()).on('keyup', 'thead input', function () {
+		//table.column($(this).data('index')).search(this.value).draw();
+		var filterVal =  this.value.trim();
+		console.log("filterVal: " + filterVal);
+		var isLower = this.value.trim().startsWith("<") &&  this.value.trim().length > 1;
+		var isHigher = filterVal.startsWith(">") &&  filterVal.length > 1;
+		table.column($(this).data('index')).search.fixed('range', function (searchStr, data, index) {
+			if(isLower){
+				var isLowerOrEq = filterVal.includes("<=");
+				var maxVal = isLowerOrEq ? parseFloat(filterVal.split("<=")[1]) : parseFloat(filterVal.split("<")[1]);
+				return isLowerOrEq ? parseFloat(searchStr) <= maxVal : parseFloat(searchStr) < maxVal;
+			}
+			else if(isHigher){
+				var isHigherOrEq = filterVal.includes(">=");
+				var maxVal = isHigherOrEq ? parseFloat(filterVal.split(">=")[1]): parseFloat(filterVal.split(">")[1]);
+				return isHigherOrEq ? parseFloat(searchStr) >= maxVal : parseFloat(searchStr) > maxVal;
+			}
+			else{
+				return (searchStr.includes(filterVal));
+			}
+		}).draw();
+    });
+
+
+	// Highlight fitered headers
+	$("thead th input, .dt-input").on('keyup', function(e) {
+		const bgClass = "bg-warning";
+		var elt = $(e.target);
+		if(elt.val() == ""){
+			elt.removeClass(bgClass);
+			return;
+		}
+		if(!elt.hasClass(bgClass)){
+			elt.addClass(bgClass);
+		}
+	});
+});
+
+function format(d) {
+	var value = ""
+	var table = $('#example').DataTable();
+	//sumTotals = table.column( 3 ).data().sum();
+	var totalCount = 0;
+	Object.keys(d.blocked_keys).forEach((index) => {
+		var blocked_priority = d.blocked_priorities[index];
+		var blocked_key = d.blocked_keys[index];
+		var blocked_status = d.blocked_statuses[index];
+		var val_status = `${blocked_key}: ${blocked_priority} [${blocked_status}]<br>`;
+		var val_no_status = `${blocked_key}: ${blocked_priority}<br>`;
+		cur_value = blocked_status != "Closed" ? `<mark>${val_no_status}</mark>` : `${val_status}`;
+		value += cur_value;
+    });
+    return `${value}`;
+}
+
+</script>
+
+    <div class="container">
+        <h1 class="mb-4 text-primary text-centeR">{{project}} Blocker-Blocked Priority Report</h1>
+
+		<table id="example" class="display">
+			<thead>
+				<tr>
+					<th>Blocker</th>
+					<th>Blocker Priority</th>
+					<th>Blocked</th>
+					<th>Is All Blocked Closed</th>
+					<th>Is Assumption OK</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "jira_server": {
+    "http://192.168.10.172:8080": {
+      "users": {
+        "ramona": {
+          "username": "ramona",
+          "projects": [
+            "DEMO1",
+            "DEMO2",
+            "FBEX",
+            "FBEZ",
+            "JFIP"
+          ],
+          "last_login": "2026-10-01T10:40:50"
+        }
+      }
+    }
+  },
+  "jira_cloud": {}
+}

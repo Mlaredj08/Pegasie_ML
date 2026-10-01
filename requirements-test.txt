@@ -1,0 +1,16 @@
+# Testing dependencies for JFIP Web UI
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+pytest-flask>=1.2.0
+pytest-xdist>=3.0.0
+pytest-timeout>=2.1.0
+pytest-benchmark>=4.0.0
+factory-boy>=3.2.0
+faker>=18.0.0
+freezegun>=1.2.0
+responses>=0.23.0
+coverage>=7.0.0
+mock>=5.0.0
+Werkzeug>=2.3.0
+Flask>=2.3.0

@@ -1,0 +1,1299 @@
+{
+    "output_folder": "DEMO1_20260925_080446",
+    "params": {
+        "project": "DEMO1",
+        "input_json": "databases/DEMO1_20260925_080446.json",
+        "inference_json": "predictions/review/DEMO1_20260925_080446.json",
+        "output_folder": "DEMO1_20260925_080446",
+        "inferred_fields": [
+            "epic_link"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "epic_link: 'DEMO1-1'",
+                "epic_link: 'DEMO1-2'",
+                "epic_link: 'DEMO1-3'"
+            ],
+            "total": 3,
+            "in_progress": "epic_link: 'DEMO1-3'",
+            "elapsed_time": 0,
+            "metadata": {
+                "epic_link": {
+                    "min_confidence": 0.48176884422110555,
+                    "ml_model": "LOGISTIC",
+                    "iteration_count": 1,
+                    "selected_target_grid": [
+                        "Bug",
+                        "Story",
+                        "Test"
+                    ]
+                }
+            }
+        },
+        "selected_types_per_filed": {
+            "components": [
+                "Bug",
+                "Story",
+                "Test",
+                "Epic"
+            ],
+            "labels": [
+                "Epic"
+            ],
+            "epic_link": [
+                "Bug",
+                "Story",
+                "Test"
+            ]
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 21,
+    "iteration_information": {
+        "epic_link": {
+            "issue_count": 30,
+            "avg_accuracy": 0.6504
+        },
+        "total_issue_count": 30,
+        "confidence_avg": 0.5453778801843319,
+        "orphan_count": -187
+    },
+    "iter_count": 1,
+    "question_json": {
+        "DEMO1-1": [
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-152' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "word print paste",
+                "centroid": null,
+                "cluster_issues_count": 14,
+                "list_of_issues": [
+                    [
+                        "DEMO1-165_Word-Rotate",
+                        "DEMO1-162_Word-Select Text",
+                        "DEMO1-161_Word-Select Objects",
+                        "DEMO1-159_Word-Copy",
+                        "DEMO1-158_Word-Cut",
+                        "DEMO1-157_Word-Paste Special",
+                        "DEMO1-156_Word-Paste",
+                        "DEMO1-155_Word-Word Options",
+                        "DEMO1-154_Word-Close",
+                        "DEMO1-153_Word-Print Preview",
+                        "DEMO1-152_Word-Quick Print",
+                        "DEMO1-151_Word-Print",
+                        "DEMO1-150_Word-Save",
+                        "DEMO1-149_Word-Open"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7525,
+                "cluster_centroid": "DEMO1-152"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-262' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "def text select",
+                "centroid": null,
+                "cluster_issues_count": 12,
+                "list_of_issues": [
+                    [
+                        "DEMO1-274_DEF-W- Cant paste the numbers",
+                        "DEMO1-264_DEF-W- Can not select a text which is starting with a small letter",
+                        "DEMO1-263_DEF-W- Can not select a text which is starting with a capital letter",
+                        "DEMO1-262_DEF-W- Can not select a text which is starting with number",
+                        "DEMO1-261_DEF-W- Can not select a number",
+                        "DEMO1-258_DEF-W- Can not select a text",
+                        "DEMO1-255_DEF-W- Can not cut a text with more than 20 letter",
+                        "DEMO1-254_DEF-W- Cant paste an object",
+                        "DEMO1-253_DEF-W- Cant paste an unformatted text",
+                        "DEMO1-250_DEF-W- Cant paste an image",
+                        "DEMO1-247_DEF-W- Can not click on Quick print button",
+                        "DEMO1-242_DEF-W- Can not open a file"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7641,
+                "cluster_centroid": "DEMO1-262"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-62' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "print quick save",
+                "centroid": null,
+                "cluster_issues_count": 11,
+                "list_of_issues": [
+                    [
+                        "DEMO1-581_2025 - DEF-W- Button Quick print does not appear",
+                        "DEMO1-248_DEF-W- Button Quick print does not appear",
+                        "DEMO1-208_Off-W-Print Preview",
+                        "DEMO1-207_Off-W-Quick Print",
+                        "DEMO1-206_Off-W-Print",
+                        "DEMO1-104_W-Save As",
+                        "DEMO1-103_W-Print",
+                        "DEMO1-68_W-Font",
+                        "DEMO1-67_W-Copy",
+                        "DEMO1-62_W-Print",
+                        "DEMO1-61_W-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7428,
+                "cluster_centroid": "DEMO1-62"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-141' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "paste special 679",
+                "centroid": null,
+                "cluster_issues_count": 10,
+                "list_of_issues": [
+                    [
+                        "DEMO1-292_W-PASTE-SPECIAL",
+                        "DEMO1-212_Off-W-Paste Special",
+                        "DEMO1-211_Off-W-Paste",
+                        "DEMO1-143_W-Copy",
+                        "DEMO1-141_W-Paste Special",
+                        "DEMO1-140_W-Paste",
+                        "DEMO1-137_W-Paste Special",
+                        "DEMO1-136_W-Paste",
+                        "DEMO1-65_W-Paste Special",
+                        "DEMO1-64_W-Paste"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8557,
+                "cluster_centroid": "DEMO1-141"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-69' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "select 337 804",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "DEMO1-202_CommonLibrary-Select All",
+                        "DEMO1-180_Powerpoint-Select All",
+                        "DEMO1-160_Word-Select All",
+                        "DEMO1-69_W-Select All"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7555,
+                "cluster_centroid": "DEMO1-69"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-213' as the representative of the cluster, recommendation is to add 'DEMO1-1' as 'epic_link'.",
+                "keywords": "cut new close",
+                "centroid": null,
+                "cluster_issues_count": 13,
+                "list_of_issues": [
+                    [
+                        "DEMO1-214_Off-W-Copy",
+                        "DEMO1-213_Off-W-Cut",
+                        "DEMO1-210_Off-W-Exit Word",
+                        "DEMO1-209_Off-W-Close",
+                        "DEMO1-205_Off-W-Save",
+                        "DEMO1-204_Off-W-Open",
+                        "DEMO1-203_Off-W-New",
+                        "DEMO1-142_W-Cut",
+                        "DEMO1-138_W-Cut",
+                        "DEMO1-66_W-Cut",
+                        "DEMO1-63_W-Close",
+                        "DEMO1-60_W-Open",
+                        "DEMO1-59_W-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.765,
+                "cluster_centroid": "DEMO1-213"
+            }
+        ],
+        "DEMO1-2": [
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-109' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "print 444 622",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO1-111_E-Print Preview",
+                        "DEMO1-110_E-Quick Print",
+                        "DEMO1-109_E-Print",
+                        "DEMO1-88_E-Format Painter",
+                        "DEMO1-86_E-Print"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8544,
+                "cluster_centroid": "DEMO1-109"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-70' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "new 119 370",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO1-82_E-New",
+                        "DEMO1-70_P-New",
+                        "DEMO1-34_P-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8569,
+                "cluster_centroid": "DEMO1-70"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-119' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "paste special 660",
+                "centroid": null,
+                "cluster_issues_count": 6,
+                "list_of_issues": [
+                    [
+                        "DEMO1-230_Off-E-Paste Special",
+                        "DEMO1-123_E-Paste Special",
+                        "DEMO1-120_E-Paste",
+                        "DEMO1-119_E-Paste Special",
+                        "DEMO1-92_E-Paste Special",
+                        "DEMO1-89_E-Paste"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9012,
+                "cluster_centroid": "DEMO1-119"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-228' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "1364 1361 close",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-228_Off-E-Cut",
+                        "DEMO1-226_Off-E-Close"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9281,
+                "cluster_centroid": "DEMO1-228"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-93' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "448 484 delete",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-93_E-Delete",
+                        "DEMO1-87_E-Close"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.873,
+                "cluster_centroid": "DEMO1-93"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-429' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "story sprinttest provided",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-429_[SprintTest] Story 120",
+                        "DEMO1-373_[SprintTest] Story 069"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9864,
+                "cluster_centroid": "DEMO1-429"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-409' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "demo ab 01",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-575_2025 - DEMO AB-01",
+                        "DEMO1-409_DEMO AB-01"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9554,
+                "cluster_centroid": "DEMO1-409"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-223' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "1334 1336 1335",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO1-225_Off-E-Save",
+                        "DEMO1-224_Off-E-Open",
+                        "DEMO1-223_Off-E-New"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8956,
+                "cluster_centroid": "DEMO1-223"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-85' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "save 443 442",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-85_E-Save As",
+                        "DEMO1-84_E-Save"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.975,
+                "cluster_centroid": "DEMO1-85"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-71' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "open 371 120",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-71_P-Open",
+                        "DEMO1-35_P-Open"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9271,
+                "cluster_centroid": "DEMO1-71"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-117' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "cut 661 656",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "DEMO1-121_E-Cut",
+                        "DEMO1-117_E-Cut",
+                        "DEMO1-90_E-Cut"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8849,
+                "cluster_centroid": "DEMO1-117"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-122' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "copy 662 452",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-122_E-Copy",
+                        "DEMO1-91_E-Copy"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9281,
+                "cluster_centroid": "DEMO1-122"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-107' as the representative of the cluster, recommendation is to add 'DEMO1-2' as 'epic_link'.",
+                "keywords": "print 517 597",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "DEMO1-107_P-Quick Print",
+                        "DEMO1-36_P-Print"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9502,
+                "cluster_centroid": "DEMO1-107"
+            }
+        ],
+        "DEMO1-3": [
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-102' as the representative of the cluster, recommendation is to add 'DEMO1-3' as 'epic_link'.",
+                "keywords": "select paste 546",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "DEMO1-113_C-Paste Special",
+                        "DEMO1-112_C-Paste",
+                        "DEMO1-102_C-Select Text",
+                        "DEMO1-101_C-Select Objects",
+                        "DEMO1-100_C-Select All"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7813,
+                "cluster_centroid": "DEMO1-102"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "Using 'DEMO1-231' as the representative of the cluster, recommendation is to add 'DEMO1-3' as 'epic_link'.",
+                "keywords": "file save print",
+                "centroid": null,
+                "cluster_issues_count": 12,
+                "list_of_issues": [
+                    [
+                        "DEMO1-236_Off-C-Open File",
+                        "DEMO1-235_Off-C-Save As",
+                        "DEMO1-234_Off-C-New File",
+                        "DEMO1-233_Off-C-Print File",
+                        "DEMO1-232_Off-C-Close File",
+                        "DEMO1-231_Off-C-Save File",
+                        "DEMO1-99_C-Open File",
+                        "DEMO1-98_C-Save As",
+                        "DEMO1-97_C-New File",
+                        "DEMO1-96_C-Print File",
+                        "DEMO1-95_C-Close File",
+                        "DEMO1-94_C-Save File"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7749,
+                "cluster_centroid": "DEMO1-231"
+            }
+        ],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "epic_link",
+                    "list_of_values": [
+                        "DEMO1-1",
+                        "DEMO1-2",
+                        "DEMO1-3",
+                        "DEMO1-4"
+                    ]
+                }
+            ],
+            "rejected_predictions": [],
+            "unconfident_predictions": [
+                {
+                    "key": "DEMO1-573",
+                    "summary": "2025 - DEF-E- Cant paste an Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.467
+                },
+                {
+                    "key": "DEMO1-526",
+                    "summary": "Language test ZH : \u6d4b\u8bd5\u4f60\u597d",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.398
+                },
+                {
+                    "key": "DEMO1-525",
+                    "summary": "Language Test JP: \u60e1\u306e\u83ef",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.374
+                },
+                {
+                    "key": "DEMO1-408",
+                    "summary": "Orph - DEF-W- Cant paste a text which copied from Excel",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.365
+                },
+                {
+                    "key": "DEMO1-282",
+                    "summary": "Off-C-Cut 2",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.37
+                },
+                {
+                    "key": "DEMO1-278",
+                    "summary": "[Test Issue]",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.475
+                },
+                {
+                    "key": "DEMO1-276",
+                    "summary": "TEST story 01",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.454
+                },
+                {
+                    "key": "DEMO1-275",
+                    "summary": "DEF-W- Cant paste a table",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.386
+                },
+                {
+                    "key": "DEMO1-273",
+                    "summary": "DEF-W- Cant paste an image",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.426
+                },
+                {
+                    "key": "DEMO1-271",
+                    "summary": "DEF-E- Cant paste an Object",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.448
+                },
+                {
+                    "key": "DEMO1-270",
+                    "summary": "DEF-P- Cant paste the numbers",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.405
+                },
+                {
+                    "key": "DEMO1-266",
+                    "summary": "DEF-P- Can not open a file",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.393
+                },
+                {
+                    "key": "DEMO1-265",
+                    "summary": "DEF-P- Can not create a new file",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.382
+                },
+                {
+                    "key": "DEMO1-260",
+                    "summary": "DEF-W- Can not select a table",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.397
+                },
+                {
+                    "key": "DEMO1-257",
+                    "summary": "DEF-W- Can not Change the case to UPPERCASE",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.476
+                },
+                {
+                    "key": "DEMO1-252",
+                    "summary": "DEF-W- Cant paste a table",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.335
+                },
+                {
+                    "key": "DEMO1-249",
+                    "summary": "DEF-W- Cant paste a text which copied from Excel",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.432
+                },
+                {
+                    "key": "DEMO1-240",
+                    "summary": "Off-C-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.339
+                },
+                {
+                    "key": "DEMO1-239",
+                    "summary": "Off-C-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.419
+                },
+                {
+                    "key": "DEMO1-238",
+                    "summary": "Off-C-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.435
+                },
+                {
+                    "key": "DEMO1-237",
+                    "summary": "Off-Off-C-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.425
+                },
+                {
+                    "key": "DEMO1-229",
+                    "summary": "Off-E-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.396
+                },
+                {
+                    "key": "DEMO1-227",
+                    "summary": "Off-E-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.477
+                },
+                {
+                    "key": "DEMO1-222",
+                    "summary": "Off-P-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.371
+                },
+                {
+                    "key": "DEMO1-221",
+                    "summary": "Off-P-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.433
+                },
+                {
+                    "key": "DEMO1-220",
+                    "summary": "Off-P-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.349
+                },
+                {
+                    "key": "DEMO1-219",
+                    "summary": "Off-P-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.365
+                },
+                {
+                    "key": "DEMO1-218",
+                    "summary": "Off-P-Close",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.358
+                },
+                {
+                    "key": "DEMO1-217",
+                    "summary": "Off-P-Save",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.361
+                },
+                {
+                    "key": "DEMO1-216",
+                    "summary": "Off-P-Open",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.443
+                },
+                {
+                    "key": "DEMO1-215",
+                    "summary": "Off-P-New",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.453
+                },
+                {
+                    "key": "DEMO1-201",
+                    "summary": "CommonLibrary-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.387
+                },
+                {
+                    "key": "DEMO1-200",
+                    "summary": "CommonLibrary-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.356
+                },
+                {
+                    "key": "DEMO1-199",
+                    "summary": "CommonLibrary-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.393
+                },
+                {
+                    "key": "DEMO1-198",
+                    "summary": "CommonLibrary-Open File",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.335
+                },
+                {
+                    "key": "DEMO1-197",
+                    "summary": "CommonLibrary-Save As",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.343
+                },
+                {
+                    "key": "DEMO1-196",
+                    "summary": "CommonLibrary-New File",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.357
+                },
+                {
+                    "key": "DEMO1-195",
+                    "summary": "CommonLibrary-Print File",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.36
+                },
+                {
+                    "key": "DEMO1-194",
+                    "summary": "CommonLibrary-Close File",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.377
+                },
+                {
+                    "key": "DEMO1-193",
+                    "summary": "CommonLibrary-Save File",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.355
+                },
+                {
+                    "key": "DEMO1-192",
+                    "summary": "Excel-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.333
+                },
+                {
+                    "key": "DEMO1-191",
+                    "summary": "Excel-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.346
+                },
+                {
+                    "key": "DEMO1-190",
+                    "summary": "Excel-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.396
+                },
+                {
+                    "key": "DEMO1-189",
+                    "summary": "Excel-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.353
+                },
+                {
+                    "key": "DEMO1-188",
+                    "summary": "Excel-Print Preview",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.422
+                },
+                {
+                    "key": "DEMO1-187",
+                    "summary": "Excel-Quick Print",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.411
+                },
+                {
+                    "key": "DEMO1-186",
+                    "summary": "Excel-Print",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.423
+                },
+                {
+                    "key": "DEMO1-185",
+                    "summary": "Excel-Save",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.362
+                },
+                {
+                    "key": "DEMO1-184",
+                    "summary": "Excel-Open",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.395
+                },
+                {
+                    "key": "DEMO1-183",
+                    "summary": "Excel-New",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.407
+                },
+                {
+                    "key": "DEMO1-182",
+                    "summary": "Powerpoint-Select Text",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.466
+                },
+                {
+                    "key": "DEMO1-181",
+                    "summary": "Powerpoint-Select Objects",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.455
+                },
+                {
+                    "key": "DEMO1-179",
+                    "summary": "Powerpoint-Replace",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.384
+                },
+                {
+                    "key": "DEMO1-178",
+                    "summary": "Powerpoint-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.413
+                },
+                {
+                    "key": "DEMO1-177",
+                    "summary": "Powerpoint-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.447
+                },
+                {
+                    "key": "DEMO1-176",
+                    "summary": "Powerpoint-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.38
+                },
+                {
+                    "key": "DEMO1-175",
+                    "summary": "Powerpoint-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.376
+                },
+                {
+                    "key": "DEMO1-174",
+                    "summary": "Powerpoint-Close",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.426
+                },
+                {
+                    "key": "DEMO1-173",
+                    "summary": "Powerpoint-Print Preview",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.481
+                },
+                {
+                    "key": "DEMO1-172",
+                    "summary": "Powerpoint-Quick Print",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.429
+                },
+                {
+                    "key": "DEMO1-171",
+                    "summary": "Powerpoint-Print",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.459
+                },
+                {
+                    "key": "DEMO1-170",
+                    "summary": "Powerpoint-Other Formats",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.456
+                },
+                {
+                    "key": "DEMO1-169",
+                    "summary": "Powerpoint-Save",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.403
+                },
+                {
+                    "key": "DEMO1-168",
+                    "summary": "Powerpoint-Open",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.417
+                },
+                {
+                    "key": "DEMO1-167",
+                    "summary": "Powerpoint-New",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.441
+                },
+                {
+                    "key": "DEMO1-166",
+                    "summary": "Word-Align to page",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.421
+                },
+                {
+                    "key": "DEMO1-164",
+                    "summary": "Word-Group",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.469
+                },
+                {
+                    "key": "DEMO1-163",
+                    "summary": "Word-Align",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.407
+                },
+                {
+                    "key": "DEMO1-148",
+                    "summary": "Word-New",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.435
+                },
+                {
+                    "key": "DEMO1-147",
+                    "summary": "C-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.377
+                },
+                {
+                    "key": "DEMO1-146",
+                    "summary": "C-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.419
+                },
+                {
+                    "key": "DEMO1-145",
+                    "summary": "C-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.475
+                },
+                {
+                    "key": "DEMO1-144",
+                    "summary": "C-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.447
+                },
+                {
+                    "key": "DEMO1-135",
+                    "summary": "P-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.438
+                },
+                {
+                    "key": "DEMO1-134",
+                    "summary": "P-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.44
+                },
+                {
+                    "key": "DEMO1-133",
+                    "summary": "P-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.371
+                },
+                {
+                    "key": "DEMO1-132",
+                    "summary": "P-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.426
+                },
+                {
+                    "key": "DEMO1-131",
+                    "summary": "P-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.428
+                },
+                {
+                    "key": "DEMO1-130",
+                    "summary": "P-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.48
+                },
+                {
+                    "key": "DEMO1-129",
+                    "summary": "P-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-1",
+                    "confidence": 0.345
+                },
+                {
+                    "key": "DEMO1-128",
+                    "summary": "P-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.442
+                },
+                {
+                    "key": "DEMO1-127",
+                    "summary": "C-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.401
+                },
+                {
+                    "key": "DEMO1-126",
+                    "summary": "C-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.397
+                },
+                {
+                    "key": "DEMO1-125",
+                    "summary": "C-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.456
+                },
+                {
+                    "key": "DEMO1-124",
+                    "summary": "C-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.439
+                },
+                {
+                    "key": "DEMO1-118",
+                    "summary": "E-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.461
+                },
+                {
+                    "key": "DEMO1-116",
+                    "summary": "E-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.473
+                },
+                {
+                    "key": "DEMO1-115",
+                    "summary": "C-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.369
+                },
+                {
+                    "key": "DEMO1-114",
+                    "summary": "C-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.466
+                },
+                {
+                    "key": "DEMO1-108",
+                    "summary": "P-Print Preview",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.418
+                },
+                {
+                    "key": "DEMO1-105",
+                    "summary": "P-OpenDocument Presentaion",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.387
+                },
+                {
+                    "key": "DEMO1-83",
+                    "summary": "E-Open",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.476
+                },
+                {
+                    "key": "DEMO1-81",
+                    "summary": "P-Text Box",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.414
+                },
+                {
+                    "key": "DEMO1-80",
+                    "summary": "P-Delete",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-3",
+                    "confidence": 0.374
+                },
+                {
+                    "key": "DEMO1-79",
+                    "summary": "P-Copy",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.394
+                },
+                {
+                    "key": "DEMO1-78",
+                    "summary": "P-Cut",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.472
+                },
+                {
+                    "key": "DEMO1-77",
+                    "summary": "P-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.362
+                },
+                {
+                    "key": "DEMO1-76",
+                    "summary": "P-Paste",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.415
+                },
+                {
+                    "key": "DEMO1-75",
+                    "summary": "P-Close",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.457
+                },
+                {
+                    "key": "DEMO1-73",
+                    "summary": "P-Save As",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.394
+                },
+                {
+                    "key": "DEMO1-72",
+                    "summary": "P-Save",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.41
+                },
+                {
+                    "key": "DEMO1-43",
+                    "summary": "P-Paste Special",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.397
+                },
+                {
+                    "key": "DEMO1-39",
+                    "summary": "P-Save As",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.446
+                },
+                {
+                    "key": "DEMO1-38",
+                    "summary": "P-Save",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.453
+                },
+                {
+                    "key": "DEMO1-37",
+                    "summary": "P-Print Preview",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.413
+                },
+                {
+                    "key": "DEMO1-33",
+                    "summary": "P-Close",
+                    "field": "epic_link",
+                    "prediction": "DEMO1-2",
+                    "confidence": 0.39
+                }
+            ]
+        }
+    }
+}

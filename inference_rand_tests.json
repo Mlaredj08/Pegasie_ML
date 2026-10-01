@@ -1,0 +1,339 @@
+[
+    {
+        "field": "components",
+        "key": "JFIP-56",
+        "type": "Feature",
+        "summary": "Support Scripts to alter Jira database",
+        "expected_value": [
+            "Python script"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-118",
+        "type": "Story",
+        "summary": "Summary matches/contains domain ontology \u2192 suggest Components",
+        "expected_value": [
+            "LLM Model",
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-153",
+        "type": "Story",
+        "summary": "Automatic Build Versioning",
+        "expected_value": [
+            "Non-product"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-47",
+        "type": "Story",
+        "summary": "ML to predict field \"Epic Link\"",
+        "expected_value": [
+            "Profiles"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-89",
+        "type": "Story",
+        "summary": "LLM input & output using the Jira compact version",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-27",
+        "type": "Story",
+        "summary": "Tracebility: Number of items link to the story",
+        "expected_value": [
+            "Traceability"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-164",
+        "type": "Bug",
+        "summary": "Comment field is not imported properly",
+        "expected_value": [
+            "Python script"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-54",
+        "type": "Epic",
+        "summary": "Test Data preparation & Support",
+        "expected_value": [
+            "GenAI",
+            "Gold DB",
+            "Python script"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-105",
+        "type": "Story",
+        "summary": "LLM output presentation layer - Description Sections",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-237",
+        "type": "Bug",
+        "summary": "Prediction does not show for field if there is a confident prediction for a different field",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-230",
+        "type": "Feature",
+        "summary": "Field Completion Rate",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-224",
+        "type": "Story",
+        "summary": "Viewing & Reviewing Predicted Data",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-30",
+        "type": "Story",
+        "summary": "Analysis:  Review potential ML Models for empty \"component\" work itemK-FOLD CROSS VALIDATION",
+        "expected_value": [
+            "Non-product"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-155",
+        "type": "Story",
+        "summary": "Validation of output from LLM",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-58",
+        "type": "Story",
+        "summary": "Modify the BOOK Jira database",
+        "expected_value": [
+            "Gold DB"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-51",
+        "type": "Story",
+        "summary": "When submitting changes, Add comments to Jira/TMS",
+        "expected_value": [
+            "Dashboard"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-40",
+        "type": "Story",
+        "summary": "Dashboard Summary",
+        "expected_value": [
+            "Dashboard"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-70",
+        "type": "Story",
+        "summary": "Predicting multi values fields, example Components",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-116",
+        "type": "Story",
+        "summary": "Description length > 400 words or the story points greater than 13 or 21 for story only\u2192 flag as over-complex",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-195",
+        "type": "Bug",
+        "summary": "Submitting changes to Jira fails",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-227",
+        "type": "Story",
+        "summary": "Rejected predictions should have new predictions",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-174",
+        "type": "Story",
+        "summary": "rerunning iteration should use defined model and not attempt to redefine",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-259",
+        "type": "Bug",
+        "summary": "Testing step remains at 100% for over 20 mins",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-61",
+        "type": "Story",
+        "summary": "Rules for the profile 3 - Architect and Dev Lead",
+        "expected_value": [
+            "Python script"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-80",
+        "type": "Story",
+        "summary": "Create pipeline to deploy JFIP to testing server",
+        "expected_value": [
+            "Non-product"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-135",
+        "type": "Story",
+        "summary": "Story references \u201cAPI\u201d, \u201cendpoint\u201d, \u201cservice\u201d, \u201cintegration\u201d \u2192 extract service name",
+        "expected_value": [
+            "LLM Model",
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-76",
+        "type": "Story",
+        "summary": "Skipped questions report Decision tree",
+        "expected_value": [
+            "Decision Tree"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-50",
+        "type": "Story",
+        "summary": "Decision tree creation",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-126",
+        "type": "Story",
+        "summary": "Story contains multiple ACs but few tests exist \u2192 generate missing links",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-167",
+        "type": "Story",
+        "summary": "Investigate what would be required to clone public db into local Jira",
+        "expected_value": [
+            "Gold DB"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-220",
+        "type": "Bug",
+        "summary": "Deselected predictions are pushed to Jira",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-37",
+        "type": "Story",
+        "summary": "Lock project in use",
+        "expected_value": [
+            "Dashboard"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-170",
+        "type": "Story",
+        "summary": "ML Prediction to be filterable by Issue Type",
+        "expected_value": [
+            "ML Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-14",
+        "type": "Feature",
+        "summary": "Epics splitting for better evaluation and follow-up",
+        "expected_value": [
+            "LLM Model"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-191",
+        "type": "Test",
+        "summary": "Testing Back Navigation & Edit ",
+        "expected_value": [
+            "Decision Tree"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-64",
+        "type": "Story",
+        "summary": "Rules for the profile 6 - Maintenance Manager",
+        "expected_value": [
+            "Python script"
+        ]
+    },
+    {
+        "field": "components",
+        "key": "JFIP-162",
+        "type": "Bug",
+        "summary": "When reading json in Project Viewer a KeyError is given",
+        "expected_value": [
+            "ML Model"
+        ]
+    }
+]

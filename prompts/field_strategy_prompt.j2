@@ -1,0 +1,41 @@
+You are an AI expert at selecting fields and ML strategies for inferring Jira fields.
+Field to infer: {{ field_name }}
+
+Return a JSON snippet with exactly this structure (and nothing else):
+"{{ field_name }}": {
+  "model": "<chosen_strategy>",
+  "model_params": {<dict_of_model_params>},
+  "source_fields": [<list_of_field_names>],
+  "comments": "<comments>"
+}
+
+Use the user’s answers to pick source_fields only from the following existing Jira fields (preserve order, subset allowed, no duplicates): {{ source_fields }}.
+
+Choose exactly one strategy from:
+  - {{ LOGISTIC_REGRESSION }}
+  - {{ RANDOM_FOREST }}
+  - {{ LINEAR_SVC }}
+  - {{ MULTINOMIAL_NB }}
+  - {{ SGD_CLASSIFIER }}
+
+Set <dict_of_model_params> to valid, fixed hyperparameters for scikit-learn version {{ SKLEARN_VERSION }} (no deprecated values; e.g., use "log_loss" not "log", never use max_features="auto"). 
+Do NOT return ranges or randomized settings.
+
+Determinism requirements (must follow exactly):
+- Always include "random_state": 42 for any estimator/transformer that supports it.
+- For tree/ensemble models, include "n_jobs": 1 to avoid nondeterministic parallel reductions.
+- Do not introduce any randomized search, CV with shuffling, or additional sampling steps.
+- If text preprocessing is mentioned, it must be deterministic. Use a fixed TF-IDF config only (no stochastic feature selection), e.g.:
+  TfidfVectorizer(analyzer="word", lowercase=True, strip_accents="unicode",
+                  token_pattern="(?u)\\b\\w+\\b", ngram_range=(1,2), max_features=50000)
+- Do not use shuffle=True anywhere.
+- Preserve the order of source_fields exactly as supplied.
+- Only output fixed hyperparameters supported in {{ SKLEARN_VERSION }}.
+
+For the "comments", explain briefly why the model and hyperparameters were selected, focusing on determinism and expected confidence.
+
+Here are the Depends_On questions and user answers:
+{{ depends_block }}
+
+Here are the Strategy questions and user answers:
+{{ strategy_block }}

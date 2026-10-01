@@ -1,0 +1,19 @@
+{
+    "data": {
+        "labels": [
+            "Epic"
+        ],
+        "epic_link": [
+            "Test",
+            "Story"
+        ]
+    },
+    "metadata": {
+        "acceptable_labeled_data_ratio": 20,
+        "min_test_data_size": 1,
+        "disabled_fields": [
+            "steps_count"
+        ],
+        "accuracy_per_field": {}
+    }
+}

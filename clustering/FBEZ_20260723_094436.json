@@ -1,0 +1,2434 @@
+{
+    "output_folder": "FBEZ_20260723_094436",
+    "params": {
+        "project": "FBEZ",
+        "input_json": "databases/FBEZ_20260723_094436.json",
+        "inference_json": "predictions/review/FBEZ_20260723_094436.json",
+        "output_folder": "FBEZ_20260723_094436",
+        "inferred_fields": [
+            "components",
+            "epic_link",
+            "team"
+        ],
+        "clustering_progress_dict": {
+            "is_abort": false,
+            "completed": [
+                "components: 'Fraud-Check'",
+                "components: 'Promo-Engine'",
+                "components: 'Fraud-Check,Promo-Engine'",
+                "components: 'Fraud-Check,Seat-Map'",
+                "components: 'Seat-Map'",
+                "team: 'Backend Team'",
+                "team: 'Frontend Team'",
+                "epic_link: 'FBEZ-9'",
+                "epic_link: 'FBEZ-8'",
+                "epic_link: 'FBEZ-4'",
+                "epic_link: 'FBEZ-7'",
+                "epic_link: 'FBEZ-6'",
+                "epic_link: 'FBEZ-5'",
+                "epic_link: 'FBEZ-3'",
+                "epic_link: 'FBEZ-2'",
+                "epic_link: 'FBEZ-1'"
+            ],
+            "total": 16,
+            "in_progress": "epic_link: 'FBEZ-1'",
+            "elapsed_time": 0,
+            "metadata": {
+                "components": {
+                    "min_confidence": 0.92,
+                    "ml_model": "LINEAR_SVC"
+                },
+                "epic_link": {
+                    "min_confidence": 0.85,
+                    "ml_model": "SGD"
+                },
+                "team": {
+                    "min_confidence": 0.94,
+                    "ml_model": "MLP"
+                }
+            }
+        }
+    },
+    "iteration_count": 1,
+    "jira_users": [
+        "Administrator [ksantiago@pegasie.com]",
+        "Armando [abeleno@pegasie.com]",
+        "Clemente [cbeltran@pegasie.com]",
+        "Frank [fmulett@pegasie.com]",
+        "Gregory [ggumanenko@pegasie.com]",
+        "Jean [jleandri@pegasie.com]",
+        "Joseph [jsaffaye@pegasie.com]",
+        "mlaredj [mlaredj@pegasie.com]",
+        "Ramona [rkilgour@pegasie.com]",
+        "Richard [rquirion@pegasie.com]",
+        "Sergio [sarbelaez@pegasie.com]",
+        "Thierry [tengland@pegasie.com]",
+        "toanl [toan.le@pegasie.com]",
+        "wmakchoud [wmakchoud@pegasie.com]"
+    ],
+    "jira_base_url": "http://192.168.10.172:8080",
+    "question_count": 37,
+    "iteration_information": {
+        "components": {
+            "issue_count": 141,
+            "avg_accuracy": 0.8808
+        },
+        "epic_link": {
+            "issue_count": 152,
+            "avg_accuracy": 0.9089
+        },
+        "team": {
+            "issue_count": 153,
+            "avg_accuracy": 0.9648
+        },
+        "total_issue_count": 446,
+        "confidence_avg": 0.9687095336076817,
+        "orphan_count": 137
+    },
+    "iter_count": 2,
+    "question_json": {
+        "Fraud-Check": [
+            {
+                "field_name": "components",
+                "question": "'FBEZ-205' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check'?",
+                "keywords": "development flights nearing",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "FBEZ-206_development : Apply close-out rules for flights nearing departure",
+                        "FBEZ-205_code review : Apply close-out rules for flights nearing departure",
+                        "FBEZ-190_development : Enforce country-specific travel insurance eligibility rules",
+                        "FBEZ-142_development : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-105_code review : Manage flight disruption rebooking options entirely online"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7424,
+                "cluster_centroid": "FBEZ-205"
+            },
+            {
+                "field_name": "components",
+                "question": "'FBEZ-163' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check'?",
+                "keywords": "code review commission",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "FBEZ-225_code review : Apply promo code and see discount immediately",
+                        "FBEZ-207_code review : Monitor load factors and operational utilization trends",
+                        "FBEZ-201_code review : Cache availability results with proper expiry rules",
+                        "FBEZ-197_code review : Control which fare classes appear on channels",
+                        "FBEZ-187_code review : Receive insurance refunds when a trip is cancelled",
+                        "FBEZ-175_code review : Set commission caps and floors per ticket",
+                        "FBEZ-167_code review : Recalculate commissions after ticket changes or refunds",
+                        "FBEZ-165_code review : Configure commission rules by airline, fare, channel",
+                        "FBEZ-163_code review : View commission amount for each created booking",
+                        "FBEZ-144_development : Flag high-risk transactions for manual fraud review",
+                        "FBEZ-133_code review : Store card details securely for future bookings",
+                        "FBEZ-131_code review : Retry payment safely after initial bank decline",
+                        "FBEZ-129_code review : View detailed and transparent price breakdown before paying",
+                        "FBEZ-99_code review : View complete reservation change and modification history",
+                        "FBEZ-93_code review : Retrieve reservation using booking reference and last name",
+                        "FBEZ-91_code review : Cancel booking and receive refund or credit instantly"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6951,
+                "cluster_centroid": "FBEZ-163"
+            },
+            {
+                "field_name": "components",
+                "question": "'FBEZ-209' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check'?",
+                "keywords": "review code traveler",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-227_code review : View included components of each travel package",
+                        "FBEZ-219_code review : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-217_code review : Link multiple traveler profiles under a single account",
+                        "FBEZ-215_code review : Store seat, meal, and other traveler preferences",
+                        "FBEZ-213_code review : Assign roles and permissions to platform users",
+                        "FBEZ-211_code review : Log in securely using chosen traveler credentials",
+                        "FBEZ-209_code review : Create traveler account using personal profile details",
+                        "FBEZ-141_code review : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-97_code review : Resend e-ticket and confirmation email to traveler"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.767,
+                "cluster_centroid": "FBEZ-209"
+            },
+            {
+                "field_name": "components",
+                "question": "'FBEZ-111' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check'?",
+                "keywords": "baggage review code",
+                "centroid": null,
+                "cluster_issues_count": 12,
+                "list_of_issues": [
+                    [
+                        "FBEZ-125_code review : Understand baggage entitlements shown clearly on confirmation",
+                        "FBEZ-122_development : Display clear warnings for overweight or oversize baggage",
+                        "FBEZ-121_code review : Display clear warnings for overweight or oversize baggage",
+                        "FBEZ-119_code review : View baggage pricing per segment on multi-leg trips",
+                        "FBEZ-116_development : Modify baggage selections after the booking is completed",
+                        "FBEZ-115_code review : Modify baggage selections after the booking is completed",
+                        "FBEZ-114_development : View airline baggage rules explained in simple language",
+                        "FBEZ-113_code review : View airline baggage rules explained in simple language",
+                        "FBEZ-112_development : Add extra baggage during the booking flow",
+                        "FBEZ-111_code review : Add extra baggage during the booking flow",
+                        "FBEZ-109_code review : Compare baggage fees across available fare options",
+                        "FBEZ-107_code review : View included baggage and extra bag pricing"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8056,
+                "cluster_centroid": "FBEZ-111"
+            },
+            {
+                "field_name": "components",
+                "question": "'FBEZ-92' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check'?",
+                "keywords": "development work payment",
+                "centroid": null,
+                "cluster_issues_count": 16,
+                "list_of_issues": [
+                    [
+                        "FBEZ-226_development : Apply promo code and see discount immediately",
+                        "FBEZ-220_development : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-188_development : Receive insurance refunds when a trip is cancelled",
+                        "FBEZ-176_development : Set commission caps and floors per ticket",
+                        "FBEZ-174_development : Audit commission calculations to ensure full compliance",
+                        "FBEZ-152_development : See which seats require extra payment upfront",
+                        "FBEZ-146_development : Reconcile settled payments and refunds accurately together",
+                        "FBEZ-140_development : Prevent accidental duplicate charges after page refresh",
+                        "FBEZ-138_development : Receive detailed payment receipt after completing booking",
+                        "FBEZ-134_development : Store card details securely for future bookings",
+                        "FBEZ-132_development : Retry payment safely after initial bank decline",
+                        "FBEZ-130_development : View detailed and transparent price breakdown before paying",
+                        "FBEZ-126_development : Understand baggage entitlements shown clearly on confirmation",
+                        "FBEZ-124_development : Apply baggage fee overrides when policies allow",
+                        "FBEZ-118_development : Identify when corporate baggage waivers apply automatically",
+                        "FBEZ-92_development : Cancel booking and receive refund or credit instantly"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.645,
+                "cluster_centroid": "FBEZ-92"
+            }
+        ],
+        "Promo-Engine": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEZ-224_development : View promotions applicable to current search results"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEZ-224"
+            }
+        ],
+        "Fraud-Check,Promo-Engine": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEZ-223_code review : View promotions applicable to current search results"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEZ-223"
+            }
+        ],
+        "Fraud-Check,Seat-Map": [
+            {
+                "field_name": "components",
+                "question": "'FBEZ-150' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check,Seat-Map'?",
+                "keywords": "development work seats",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "FBEZ-162_development : View accessibility seats and related seating restrictions",
+                        "FBEZ-154_development : Change selected seats after booking when allowed",
+                        "FBEZ-150_development : Select seats for all passengers traveling together"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8669,
+                "cluster_centroid": "FBEZ-150"
+            },
+            {
+                "field_name": "components",
+                "question": "'FBEZ-149' being the issue that best represents this cluster, is it fair to say that its 'components' is more likely to be 'Fraud-Check,Seat-Map'?",
+                "keywords": "review code seats",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "FBEZ-153_code review : Change selected seats after booking when allowed",
+                        "FBEZ-149_code review : Select seats for all passengers traveling together"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.924,
+                "cluster_centroid": "FBEZ-149"
+            }
+        ],
+        "Seat-Map": [
+            {
+                "field_name": "components",
+                "question": "ORPHANED",
+                "keywords": "",
+                "centroid": null,
+                "cluster_issues_count": 1,
+                "list_of_issues": [
+                    "FBEZ-148_development : View real-time seat map with availability updates"
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_cohesion": 1,
+                "similarity_density": 1,
+                "cluster_centroid": "FBEZ-148"
+            }
+        ],
+        "Backend Team": [
+            {
+                "field_name": "team",
+                "question": "'FBEZ-117' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Backend Team'?",
+                "keywords": "code review apply",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-207_code review : Monitor load factors and operational utilization trends",
+                        "FBEZ-205_code review : Apply close-out rules for flights nearing departure",
+                        "FBEZ-202_development : Cache availability results with proper expiry rules",
+                        "FBEZ-201_code review : Cache availability results with proper expiry rules",
+                        "FBEZ-160_development : Prevent losing seats when temporary seat hold expires",
+                        "FBEZ-159_code review : Prevent losing seats when temporary seat hold expires",
+                        "FBEZ-123_code review : Apply baggage fee overrides when policies allow",
+                        "FBEZ-118_development : Identify when corporate baggage waivers apply automatically",
+                        "FBEZ-117_code review : Identify when corporate baggage waivers apply automatically"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6731,
+                "cluster_centroid": "FBEZ-117"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-169' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Backend Team'?",
+                "keywords": "code review development",
+                "centroid": null,
+                "cluster_issues_count": 14,
+                "list_of_issues": [
+                    [
+                        "FBEZ-233_development : Prevent incompatible promotions from stacking together automatically",
+                        "FBEZ-213_code review : Assign roles and permissions to platform users",
+                        "FBEZ-178_development : Track unpaid or disputed commissions in one dashboard",
+                        "FBEZ-177_code review : Track unpaid or disputed commissions in one dashboard",
+                        "FBEZ-175_code review : Set commission caps and floors per ticket",
+                        "FBEZ-174_development : Audit commission calculations to ensure full compliance",
+                        "FBEZ-173_code review : Audit commission calculations to ensure full compliance",
+                        "FBEZ-171_code review : Apply commission overrides during special promotional campaigns",
+                        "FBEZ-170_development : Generate monthly commission statements for each agency",
+                        "FBEZ-169_code review : Generate monthly commission statements for each agency",
+                        "FBEZ-168_development : Recalculate commissions after ticket changes or refunds",
+                        "FBEZ-167_code review : Recalculate commissions after ticket changes or refunds",
+                        "FBEZ-140_development : Prevent accidental duplicate charges after page refresh",
+                        "FBEZ-139_code review : Prevent accidental duplicate charges after page refresh"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6628,
+                "cluster_centroid": "FBEZ-169"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-212' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Backend Team'?",
+                "keywords": "development traveler code",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "FBEZ-220_development : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-218_development : Link multiple traveler profiles under a single account",
+                        "FBEZ-217_code review : Link multiple traveler profiles under a single account",
+                        "FBEZ-212_development : Log in securely using chosen traveler credentials",
+                        "FBEZ-211_code review : Log in securely using chosen traveler credentials",
+                        "FBEZ-142_development : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-141_code review : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-134_development : Store card details securely for future bookings"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7316,
+                "cluster_centroid": "FBEZ-212"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-6' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Backend Team'?",
+                "keywords": "insurance development travel",
+                "centroid": null,
+                "cluster_issues_count": 10,
+                "list_of_issues": [
+                    [
+                        "FBEZ-194_development : Handle insurer API failures without breaking booking",
+                        "FBEZ-193_code review : Handle insurer API failures without breaking booking",
+                        "FBEZ-190_development : Enforce country-specific travel insurance eligibility rules",
+                        "FBEZ-189_code review : Enforce country-specific travel insurance eligibility rules",
+                        "FBEZ-188_development : Receive insurance refunds when a trip is cancelled",
+                        "FBEZ-186_development : Receive automatic insurance policy documents after purchase",
+                        "FBEZ-8_User management, roles, and access",
+                        "FBEZ-6_Travel insurance options and coverage handling",
+                        "FBEZ-5_Agents commission rules and reporting",
+                        "FBEZ-3_Payment gateway and secure processing"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6914,
+                "cluster_centroid": "FBEZ-6"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-131' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Backend Team'?",
+                "keywords": "review code bank",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-219_code review : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-187_code review : Receive insurance refunds when a trip is cancelled",
+                        "FBEZ-185_code review : Receive automatic insurance policy documents after purchase",
+                        "FBEZ-145_code review : Reconcile settled payments and refunds accurately together",
+                        "FBEZ-144_development : Flag high-risk transactions for manual fraud review",
+                        "FBEZ-143_code review : Flag high-risk transactions for manual fraud review",
+                        "FBEZ-133_code review : Store card details securely for future bookings",
+                        "FBEZ-132_development : Retry payment safely after initial bank decline",
+                        "FBEZ-131_code review : Retry payment safely after initial bank decline"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7225,
+                "cluster_centroid": "FBEZ-131"
+            }
+        ],
+        "Frontend Team": [
+            {
+                "field_name": "team",
+                "question": "'FBEZ-223' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "code review development",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "FBEZ-232_development : Track promotion performance using clear metrics dashboards",
+                        "FBEZ-231_code review : Track promotion performance using clear metrics dashboards",
+                        "FBEZ-230_development : Configure promotional campaigns for specific target markets",
+                        "FBEZ-229_code review : Configure promotional campaigns for specific target markets",
+                        "FBEZ-225_code review : Apply promo code and see discount immediately",
+                        "FBEZ-224_development : View promotions applicable to current search results",
+                        "FBEZ-223_code review : View promotions applicable to current search results",
+                        "FBEZ-129_code review : View detailed and transparent price breakdown before paying"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7641,
+                "cluster_centroid": "FBEZ-223"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-119' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "baggage development review",
+                "centroid": null,
+                "cluster_issues_count": 14,
+                "list_of_issues": [
+                    [
+                        "FBEZ-120_development : View baggage pricing per segment on multi-leg trips",
+                        "FBEZ-119_code review : View baggage pricing per segment on multi-leg trips",
+                        "FBEZ-116_development : Modify baggage selections after the booking is completed",
+                        "FBEZ-115_code review : Modify baggage selections after the booking is completed",
+                        "FBEZ-114_development : View airline baggage rules explained in simple language",
+                        "FBEZ-113_code review : View airline baggage rules explained in simple language",
+                        "FBEZ-112_development : Add extra baggage during the booking flow",
+                        "FBEZ-111_code review : Add extra baggage during the booking flow",
+                        "FBEZ-110_development : Compare baggage fees across available fare options",
+                        "FBEZ-109_code review : Compare baggage fees across available fare options",
+                        "FBEZ-108_development : View included baggage and extra bag pricing",
+                        "FBEZ-107_code review : View included baggage and extra bag pricing",
+                        "FBEZ-106_development : Manage flight disruption rebooking options entirely online",
+                        "FBEZ-90_development : Change flight dates within allowed fare rules"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7866,
+                "cluster_centroid": "FBEZ-119"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-150' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "development view work",
+                "centroid": null,
+                "cluster_issues_count": 13,
+                "list_of_issues": [
+                    [
+                        "FBEZ-216_development : Store seat, meal, and other traveler preferences",
+                        "FBEZ-196_development : View real-time seat and fare availability results",
+                        "FBEZ-162_development : View accessibility seats and related seating restrictions",
+                        "FBEZ-158_development : View seat assignments per segment in multi-leg itinerary",
+                        "FBEZ-156_development : Filter seat options by aisle, window, legroom",
+                        "FBEZ-154_development : Change selected seats after booking when allowed",
+                        "FBEZ-152_development : See which seats require extra payment upfront",
+                        "FBEZ-150_development : Select seats for all passengers traveling together",
+                        "FBEZ-148_development : View real-time seat map with availability updates",
+                        "FBEZ-104_development : Link multiple reservations into a single trip view",
+                        "FBEZ-100_development : View complete reservation change and modification history",
+                        "FBEZ-85_code review : View all upcoming trips in one itinerary view",
+                        "FBEZ-84_development : View all upcoming trips in one itinerary view"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7314,
+                "cluster_centroid": "FBEZ-150"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-180' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "development insurance travel",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "FBEZ-228_development : View included components of each travel package",
+                        "FBEZ-210_development : Create traveler account using personal profile details",
+                        "FBEZ-192_development : View travel insurance attachment rates by market",
+                        "FBEZ-191_code review : View travel insurance attachment rates by market",
+                        "FBEZ-184_development : Add or remove travel insurance during booking",
+                        "FBEZ-182_development : Understand coverage details for each insurance product",
+                        "FBEZ-180_development : Show relevant travel insurance offers based on itinerary",
+                        "FBEZ-98_development : Resend e-ticket and confirmation email to traveler"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.747,
+                "cluster_centroid": "FBEZ-180"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-149' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "review code view",
+                "centroid": null,
+                "cluster_issues_count": 15,
+                "list_of_issues": [
+                    [
+                        "FBEZ-222_development : Manage user communication and consent preference settings",
+                        "FBEZ-221_code review : Manage user communication and consent preference settings",
+                        "FBEZ-195_code review : View real-time seat and fare availability results",
+                        "FBEZ-163_code review : View commission amount for each created booking",
+                        "FBEZ-161_code review : View accessibility seats and related seating restrictions",
+                        "FBEZ-157_code review : View seat assignments per segment in multi-leg itinerary",
+                        "FBEZ-155_code review : Filter seat options by aisle, window, legroom",
+                        "FBEZ-153_code review : Change selected seats after booking when allowed",
+                        "FBEZ-151_code review : See which seats require extra payment upfront",
+                        "FBEZ-149_code review : Select seats for all passengers traveling together",
+                        "FBEZ-147_code review : View real-time seat map with availability updates",
+                        "FBEZ-103_code review : Link multiple reservations into a single trip view",
+                        "FBEZ-101_code review : Add special service requests after completing booking",
+                        "FBEZ-99_code review : View complete reservation change and modification history",
+                        "FBEZ-89_code review : Change flight dates within allowed fare rules"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7281,
+                "cluster_centroid": "FBEZ-149"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-127' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "review code using",
+                "centroid": null,
+                "cluster_issues_count": 8,
+                "list_of_issues": [
+                    [
+                        "FBEZ-227_code review : View included components of each travel package",
+                        "FBEZ-209_code review : Create traveler account using personal profile details",
+                        "FBEZ-183_code review : Add or remove travel insurance during booking",
+                        "FBEZ-136_development : Pay in preferred currency using transparent conversion",
+                        "FBEZ-135_code review : Pay in preferred currency using transparent conversion",
+                        "FBEZ-128_development : Pay securely using preferred traveler payment method",
+                        "FBEZ-127_code review : Pay securely using preferred traveler payment method",
+                        "FBEZ-97_code review : Resend e-ticket and confirmation email to traveler"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.748,
+                "cluster_centroid": "FBEZ-127"
+            },
+            {
+                "field_name": "team",
+                "question": "'FBEZ-138' being the issue that best represents this cluster, is it fair to say that its 'team' is more likely to be 'Frontend Team'?",
+                "keywords": "development booking work",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-226_development : Apply promo code and see discount immediately",
+                        "FBEZ-200_development : Apply schedule changes and cancellations to inventory",
+                        "FBEZ-164_development : View commission amount for each created booking",
+                        "FBEZ-138_development : Receive detailed payment receipt after completing booking",
+                        "FBEZ-137_code review : Receive detailed payment receipt after completing booking",
+                        "FBEZ-130_development : View detailed and transparent price breakdown before paying",
+                        "FBEZ-126_development : Understand baggage entitlements shown clearly on confirmation",
+                        "FBEZ-102_development : Add special service requests after completing booking",
+                        "FBEZ-92_development : Cancel booking and receive refund or credit instantly"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7061,
+                "cluster_centroid": "FBEZ-138"
+            }
+        ],
+        "FBEZ-9": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-233' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-9'?",
+                "keywords": "development work stacking",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "FBEZ-233_development : Prevent incompatible promotions from stacking together automatically",
+                        "FBEZ-230_development : Configure promotional campaigns for specific target markets",
+                        "FBEZ-226_development : Apply promo code and see discount immediately"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8258,
+                "cluster_centroid": "FBEZ-233"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-231' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-9'?",
+                "keywords": "review code development",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "FBEZ-232_development : Track promotion performance using clear metrics dashboards",
+                        "FBEZ-231_code review : Track promotion performance using clear metrics dashboards",
+                        "FBEZ-224_development : View promotions applicable to current search results",
+                        "FBEZ-223_code review : View promotions applicable to current search results"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8516,
+                "cluster_centroid": "FBEZ-231"
+            }
+        ],
+        "FBEZ-8": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-220' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-8'?",
+                "keywords": "development usage violating",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "FBEZ-220_development : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-219_code review : Deactivate accounts violating policy or usage rules",
+                        "FBEZ-210_development : Create traveler account using personal profile details"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8148,
+                "cluster_centroid": "FBEZ-220"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-221' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-8'?",
+                "keywords": "user settings preference",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "FBEZ-222_development : Manage user communication and consent preference settings",
+                        "FBEZ-221_code review : Manage user communication and consent preference settings"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9432,
+                "cluster_centroid": "FBEZ-221"
+            }
+        ],
+        "FBEZ-4": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-149' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-4'?",
+                "keywords": "review code seats",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-215_code review : Store seat, meal, and other traveler preferences",
+                        "FBEZ-161_code review : View accessibility seats and related seating restrictions",
+                        "FBEZ-159_code review : Prevent losing seats when temporary seat hold expires",
+                        "FBEZ-157_code review : View seat assignments per segment in multi-leg itinerary",
+                        "FBEZ-155_code review : Filter seat options by aisle, window, legroom",
+                        "FBEZ-153_code review : Change selected seats after booking when allowed",
+                        "FBEZ-151_code review : See which seats require extra payment upfront",
+                        "FBEZ-149_code review : Select seats for all passengers traveling together",
+                        "FBEZ-147_code review : View real-time seat map with availability updates"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8182,
+                "cluster_centroid": "FBEZ-149"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-150' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-4'?",
+                "keywords": "development work seats",
+                "centroid": null,
+                "cluster_issues_count": 10,
+                "list_of_issues": [
+                    [
+                        "FBEZ-216_development : Store seat, meal, and other traveler preferences",
+                        "FBEZ-162_development : View accessibility seats and related seating restrictions",
+                        "FBEZ-160_development : Prevent losing seats when temporary seat hold expires",
+                        "FBEZ-158_development : View seat assignments per segment in multi-leg itinerary",
+                        "FBEZ-156_development : Filter seat options by aisle, window, legroom",
+                        "FBEZ-154_development : Change selected seats after booking when allowed",
+                        "FBEZ-152_development : See which seats require extra payment upfront",
+                        "FBEZ-150_development : Select seats for all passengers traveling together",
+                        "FBEZ-148_development : View real-time seat map with availability updates",
+                        "FBEZ-74_Store seat, meal, and other traveler preferences"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7511,
+                "cluster_centroid": "FBEZ-150"
+            }
+        ],
+        "FBEZ-7": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-208' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-7'?",
+                "keywords": "development utilization operational",
+                "centroid": null,
+                "cluster_issues_count": 3,
+                "list_of_issues": [
+                    [
+                        "FBEZ-208_development : Monitor load factors and operational utilization trends",
+                        "FBEZ-207_code review : Monitor load factors and operational utilization trends",
+                        "FBEZ-200_development : Apply schedule changes and cancellations to inventory"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8052,
+                "cluster_centroid": "FBEZ-208"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-197' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-7'?",
+                "keywords": "control classes channels",
+                "centroid": null,
+                "cluster_issues_count": 2,
+                "list_of_issues": [
+                    [
+                        "FBEZ-198_development : Control which fare classes appear on channels",
+                        "FBEZ-197_code review : Control which fare classes appear on channels"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.9333,
+                "cluster_centroid": "FBEZ-197"
+            }
+        ],
+        "FBEZ-6": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-184' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-6'?",
+                "keywords": "development travel review",
+                "centroid": null,
+                "cluster_issues_count": 11,
+                "list_of_issues": [
+                    [
+                        "FBEZ-194_development : Handle insurer API failures without breaking booking",
+                        "FBEZ-193_code review : Handle insurer API failures without breaking booking",
+                        "FBEZ-192_development : View travel insurance attachment rates by market",
+                        "FBEZ-191_code review : View travel insurance attachment rates by market",
+                        "FBEZ-184_development : Add or remove travel insurance during booking",
+                        "FBEZ-183_code review : Add or remove travel insurance during booking",
+                        "FBEZ-180_development : Show relevant travel insurance offers based on itinerary",
+                        "FBEZ-179_code review : Show relevant travel insurance offers based on itinerary",
+                        "FBEZ-61_Enforce country-specific travel insurance eligibility rules",
+                        "FBEZ-60_Receive insurance refunds when a trip is cancelled",
+                        "FBEZ-58_Add or remove travel insurance during booking"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7731,
+                "cluster_centroid": "FBEZ-184"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-182' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-6'?",
+                "keywords": "development code review",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "FBEZ-186_development : Receive automatic insurance policy documents after purchase",
+                        "FBEZ-185_code review : Receive automatic insurance policy documents after purchase",
+                        "FBEZ-182_development : Understand coverage details for each insurance product",
+                        "FBEZ-181_code review : Understand coverage details for each insurance product"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8595,
+                "cluster_centroid": "FBEZ-182"
+            }
+        ],
+        "FBEZ-5": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-177' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-5'?",
+                "keywords": "commissions development code",
+                "centroid": null,
+                "cluster_issues_count": 4,
+                "list_of_issues": [
+                    [
+                        "FBEZ-178_development : Track unpaid or disputed commissions in one dashboard",
+                        "FBEZ-177_code review : Track unpaid or disputed commissions in one dashboard",
+                        "FBEZ-168_development : Recalculate commissions after ticket changes or refunds",
+                        "FBEZ-167_code review : Recalculate commissions after ticket changes or refunds"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8315,
+                "cluster_centroid": "FBEZ-177"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-169' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-5'?",
+                "keywords": "commission code review",
+                "centroid": null,
+                "cluster_issues_count": 10,
+                "list_of_issues": [
+                    [
+                        "FBEZ-174_development : Audit commission calculations to ensure full compliance",
+                        "FBEZ-173_code review : Audit commission calculations to ensure full compliance",
+                        "FBEZ-171_code review : Apply commission overrides during special promotional campaigns",
+                        "FBEZ-170_development : Generate monthly commission statements for each agency",
+                        "FBEZ-169_code review : Generate monthly commission statements for each agency",
+                        "FBEZ-164_development : View commission amount for each created booking",
+                        "FBEZ-163_code review : View commission amount for each created booking",
+                        "FBEZ-54_Set commission caps and floors per ticket",
+                        "FBEZ-53_Audit commission calculations to ensure full compliance",
+                        "FBEZ-48_View commission amount for each created booking"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.741,
+                "cluster_centroid": "FBEZ-169"
+            }
+        ],
+        "FBEZ-3": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-131' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-3'?",
+                "keywords": "review code development",
+                "centroid": null,
+                "cluster_issues_count": 12,
+                "list_of_issues": [
+                    [
+                        "FBEZ-146_development : Reconcile settled payments and refunds accurately together",
+                        "FBEZ-145_code review : Reconcile settled payments and refunds accurately together",
+                        "FBEZ-140_development : Prevent accidental duplicate charges after page refresh",
+                        "FBEZ-139_code review : Prevent accidental duplicate charges after page refresh",
+                        "FBEZ-138_development : Receive detailed payment receipt after completing booking",
+                        "FBEZ-137_code review : Receive detailed payment receipt after completing booking",
+                        "FBEZ-132_development : Retry payment safely after initial bank decline",
+                        "FBEZ-131_code review : Retry payment safely after initial bank decline",
+                        "FBEZ-91_code review : Cancel booking and receive refund or credit instantly",
+                        "FBEZ-39_Reconcile settled payments and refunds accurately together",
+                        "FBEZ-32_Retry payment safely after initial bank decline",
+                        "FBEZ-31_View detailed and transparent price breakdown before paying"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6752,
+                "cluster_centroid": "FBEZ-131"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-141' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-3'?",
+                "keywords": "development review code",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-142_development : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-141_code review : Complete 3-D Secure authentication without losing booking",
+                        "FBEZ-136_development : Pay in preferred currency using transparent conversion",
+                        "FBEZ-135_code review : Pay in preferred currency using transparent conversion",
+                        "FBEZ-134_development : Store card details securely for future bookings",
+                        "FBEZ-133_code review : Store card details securely for future bookings",
+                        "FBEZ-128_development : Pay securely using preferred traveler payment method",
+                        "FBEZ-127_code review : Pay securely using preferred traveler payment method",
+                        "FBEZ-37_Complete 3-D Secure authentication without losing booking"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7582,
+                "cluster_centroid": "FBEZ-141"
+            }
+        ],
+        "FBEZ-2": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-107' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-2'?",
+                "keywords": "code review baggage",
+                "centroid": null,
+                "cluster_issues_count": 10,
+                "list_of_issues": [
+                    [
+                        "FBEZ-125_code review : Understand baggage entitlements shown clearly on confirmation",
+                        "FBEZ-123_code review : Apply baggage fee overrides when policies allow",
+                        "FBEZ-121_code review : Display clear warnings for overweight or oversize baggage",
+                        "FBEZ-119_code review : View baggage pricing per segment on multi-leg trips",
+                        "FBEZ-117_code review : Identify when corporate baggage waivers apply automatically",
+                        "FBEZ-115_code review : Modify baggage selections after the booking is completed",
+                        "FBEZ-113_code review : View airline baggage rules explained in simple language",
+                        "FBEZ-111_code review : Add extra baggage during the booking flow",
+                        "FBEZ-109_code review : Compare baggage fees across available fare options",
+                        "FBEZ-107_code review : View included baggage and extra bag pricing"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8447,
+                "cluster_centroid": "FBEZ-107"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-116' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-2'?",
+                "keywords": "development work baggage",
+                "centroid": null,
+                "cluster_issues_count": 11,
+                "list_of_issues": [
+                    [
+                        "FBEZ-126_development : Understand baggage entitlements shown clearly on confirmation",
+                        "FBEZ-124_development : Apply baggage fee overrides when policies allow",
+                        "FBEZ-122_development : Display clear warnings for overweight or oversize baggage",
+                        "FBEZ-120_development : View baggage pricing per segment on multi-leg trips",
+                        "FBEZ-118_development : Identify when corporate baggage waivers apply automatically",
+                        "FBEZ-116_development : Modify baggage selections after the booking is completed",
+                        "FBEZ-114_development : View airline baggage rules explained in simple language",
+                        "FBEZ-112_development : Add extra baggage during the booking flow",
+                        "FBEZ-110_development : Compare baggage fees across available fare options",
+                        "FBEZ-108_development : View included baggage and extra bag pricing",
+                        "FBEZ-24_Modify baggage selections after the booking is completed"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.7807,
+                "cluster_centroid": "FBEZ-116"
+            }
+        ],
+        "FBEZ-1": [
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-84' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-1'?",
+                "keywords": "view development trips",
+                "centroid": null,
+                "cluster_issues_count": 5,
+                "list_of_issues": [
+                    [
+                        "FBEZ-106_development : Manage flight disruption rebooking options entirely online",
+                        "FBEZ-104_development : Link multiple reservations into a single trip view",
+                        "FBEZ-103_code review : Link multiple reservations into a single trip view",
+                        "FBEZ-85_code review : View all upcoming trips in one itinerary view",
+                        "FBEZ-84_development : View all upcoming trips in one itinerary view"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.8091,
+                "cluster_centroid": "FBEZ-84"
+            },
+            {
+                "field_name": "epic_link",
+                "question": "'FBEZ-99' being the issue that best represents this cluster, is it fair to say that its 'epic_link' is more likely to be 'FBEZ-1'?",
+                "keywords": "development review code",
+                "centroid": null,
+                "cluster_issues_count": 9,
+                "list_of_issues": [
+                    [
+                        "FBEZ-102_development : Add special service requests after completing booking",
+                        "FBEZ-101_code review : Add special service requests after completing booking",
+                        "FBEZ-100_development : View complete reservation change and modification history",
+                        "FBEZ-99_code review : View complete reservation change and modification history",
+                        "FBEZ-96_development : Update passenger contact details without breaking the PNR",
+                        "FBEZ-95_code review : Update passenger contact details without breaking the PNR",
+                        "FBEZ-94_development : Retrieve reservation using booking reference and last name",
+                        "FBEZ-15_Resend e-ticket and confirmation email to traveler",
+                        "FBEZ-13_Retrieve reservation using booking reference and last name"
+                    ]
+                ],
+                "confidence": [
+                    []
+                ],
+                "similarity_score": 0.6983,
+                "cluster_centroid": "FBEZ-99"
+            }
+        ],
+        "__meta": {
+            "field_values": [
+                {
+                    "field_name": "components",
+                    "list_of_values": [
+                        "Account-UI",
+                        "Agency-Portal",
+                        "Ancillary-Engine",
+                        "Ancillary-UI",
+                        "Auth-Service",
+                        "Availability-Cache",
+                        "Baggage-Engine",
+                        "Bundle-Pricer",
+                        "Cabin-Layout",
+                        "Campaign-Manager",
+                        "Commission-Engine",
+                        "Fare-Rules",
+                        "Finance-Calc",
+                        "Fraud-Check",
+                        "GDS-Connector",
+                        "Insurance-API",
+                        "Itinerary-UI",
+                        "PCI-Module",
+                        "PNR-Services",
+                        "Payment-Router",
+                        "Policy-UI",
+                        "Profile-Engine",
+                        "Promo-Engine",
+                        "Reservation-Core",
+                        "Schedule-Engine",
+                        "Seat-Fees",
+                        "Seat-Map"
+                    ]
+                },
+                {
+                    "field_name": "epic_link",
+                    "list_of_values": [
+                        "FBEZ-1",
+                        "FBEZ-2",
+                        "FBEZ-3",
+                        "FBEZ-4",
+                        "FBEZ-5",
+                        "FBEZ-6",
+                        "FBEZ-7",
+                        "FBEZ-8",
+                        "FBEZ-9"
+                    ]
+                },
+                {
+                    "field_name": "team",
+                    "list_of_values": [
+                        "Backend Team",
+                        "Frontend Team"
+                    ]
+                }
+            ],
+            "not_predictable": [
+                {
+                    "key": "FBEZ-81",
+                    "summary": "Configure promotional campaigns for specific target markets",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9292962962962963
+                },
+                {
+                    "key": "FBEZ-75",
+                    "summary": "Link multiple traveler profiles under a single account",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9214444444444445
+                },
+                {
+                    "key": "FBEZ-72",
+                    "summary": "Log in securely using chosen traveler credentials",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9217037037037037
+                },
+                {
+                    "key": "FBEZ-69",
+                    "summary": "Apply close-out rules for flights nearing departure",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9361481481481482
+                },
+                {
+                    "key": "FBEZ-65",
+                    "summary": "Control which fare classes appear on channels",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9526666666666667
+                },
+                {
+                    "key": "FBEZ-62",
+                    "summary": "View travel insurance attachment rates by market",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9417407407407408
+                },
+                {
+                    "key": "FBEZ-58",
+                    "summary": "Add or remove travel insurance during booking",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9248518518518518
+                },
+                {
+                    "key": "FBEZ-36",
+                    "summary": "Prevent accidental duplicate charges after page refresh",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9362962962962963
+                },
+                {
+                    "key": "FBEZ-28",
+                    "summary": "Apply baggage fee overrides when policies allow",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9452222222222223
+                },
+                {
+                    "key": "FBEZ-27",
+                    "summary": "Display clear warnings for overweight or oversize baggage",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9207037037037037
+                },
+                {
+                    "key": "FBEZ-24",
+                    "summary": "Modify baggage selections after the booking is completed",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9234444444444444
+                },
+                {
+                    "key": "FBEZ-12",
+                    "summary": "Cancel booking and receive refund or credit instantly",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9243703703703703
+                }
+            ],
+            "rejected_predictions": [],
+            "unconfident_predictions": [
+                {
+                    "key": "FBEZ-233",
+                    "summary": "development : Prevent incompatible promotions from stacking together automatically",
+                    "field": "components",
+                    "prediction": [
+                        "Promo-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.744
+                },
+                {
+                    "key": "FBEZ-222",
+                    "summary": "development : Manage user communication and consent preference settings",
+                    "field": "components",
+                    "prediction": [
+                        "Profile-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.663
+                },
+                {
+                    "key": "FBEZ-221",
+                    "summary": "code review : Manage user communication and consent preference settings",
+                    "field": "components",
+                    "prediction": [
+                        "Profile-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.764
+                },
+                {
+                    "key": "FBEZ-218",
+                    "summary": "development : Link multiple traveler profiles under a single account",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.519
+                },
+                {
+                    "key": "FBEZ-216",
+                    "summary": "development : Store seat, meal, and other traveler preferences",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.629
+                },
+                {
+                    "key": "FBEZ-214",
+                    "summary": "development : Assign roles and permissions to platform users",
+                    "field": "components",
+                    "prediction": [
+                        "Profile-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.731
+                },
+                {
+                    "key": "FBEZ-212",
+                    "summary": "development : Log in securely using chosen traveler credentials",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.901
+                },
+                {
+                    "key": "FBEZ-210",
+                    "summary": "development : Create traveler account using personal profile details",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.649
+                },
+                {
+                    "key": "FBEZ-208",
+                    "summary": "development : Monitor load factors and operational utilization trends",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.907
+                },
+                {
+                    "key": "FBEZ-204",
+                    "summary": "development : Sync travel inventory with GDS and airline APIs",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.914
+                },
+                {
+                    "key": "FBEZ-203",
+                    "summary": "code review : Sync travel inventory with GDS and airline APIs",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.757
+                },
+                {
+                    "key": "FBEZ-202",
+                    "summary": "development : Cache availability results with proper expiry rules",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.636
+                },
+                {
+                    "key": "FBEZ-200",
+                    "summary": "development : Apply schedule changes and cancellations to inventory",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.85
+                },
+                {
+                    "key": "FBEZ-198",
+                    "summary": "development : Control which fare classes appear on channels",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.719
+                },
+                {
+                    "key": "FBEZ-196",
+                    "summary": "development : View real-time seat and fare availability results",
+                    "field": "components",
+                    "prediction": [
+                        "Seat-Map"
+                    ],
+                    "confidence": 0.524
+                },
+                {
+                    "key": "FBEZ-195",
+                    "summary": "code review : View real-time seat and fare availability results",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.871
+                },
+                {
+                    "key": "FBEZ-194",
+                    "summary": "development : Handle insurer API failures without breaking booking",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Policy-UI"
+                    ],
+                    "confidence": 0.783
+                },
+                {
+                    "key": "FBEZ-193",
+                    "summary": "code review : Handle insurer API failures without breaking booking",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Policy-UI"
+                    ],
+                    "confidence": 0.775
+                },
+                {
+                    "key": "FBEZ-186",
+                    "summary": "development : Receive automatic insurance policy documents after purchase",
+                    "field": "components",
+                    "prediction": [
+                        "Ancillary-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.77
+                },
+                {
+                    "key": "FBEZ-185",
+                    "summary": "code review : Receive automatic insurance policy documents after purchase",
+                    "field": "components",
+                    "prediction": [
+                        "Ancillary-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.778
+                },
+                {
+                    "key": "FBEZ-182",
+                    "summary": "development : Understand coverage details for each insurance product",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Policy-UI"
+                    ],
+                    "confidence": 0.76
+                },
+                {
+                    "key": "FBEZ-181",
+                    "summary": "code review : Understand coverage details for each insurance product",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Policy-UI"
+                    ],
+                    "confidence": 0.76
+                },
+                {
+                    "key": "FBEZ-178",
+                    "summary": "development : Track unpaid or disputed commissions in one dashboard",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.742
+                },
+                {
+                    "key": "FBEZ-177",
+                    "summary": "code review : Track unpaid or disputed commissions in one dashboard",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.892
+                },
+                {
+                    "key": "FBEZ-172",
+                    "summary": "development : Apply commission overrides during special promotional campaigns",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.833
+                },
+                {
+                    "key": "FBEZ-170",
+                    "summary": "development : Generate monthly commission statements for each agency",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.846
+                },
+                {
+                    "key": "FBEZ-168",
+                    "summary": "development : Recalculate commissions after ticket changes or refunds",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.822
+                },
+                {
+                    "key": "FBEZ-166",
+                    "summary": "development : Configure commission rules by airline, fare, channel",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.688
+                },
+                {
+                    "key": "FBEZ-164",
+                    "summary": "development : View commission amount for each created booking",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.703
+                },
+                {
+                    "key": "FBEZ-158",
+                    "summary": "development : View seat assignments per segment in multi-leg itinerary",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.9
+                },
+                {
+                    "key": "FBEZ-157",
+                    "summary": "code review : View seat assignments per segment in multi-leg itinerary",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.866
+                },
+                {
+                    "key": "FBEZ-156",
+                    "summary": "development : Filter seat options by aisle, window, legroom",
+                    "field": "components",
+                    "prediction": [
+                        "Seat-Map",
+                        "Fraud-Check",
+                        "Seat-Fees"
+                    ],
+                    "confidence": 0.78
+                },
+                {
+                    "key": "FBEZ-147",
+                    "summary": "code review : View real-time seat map with availability updates",
+                    "field": "components",
+                    "prediction": [
+                        "Seat-Map",
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.819
+                },
+                {
+                    "key": "FBEZ-136",
+                    "summary": "development : Pay in preferred currency using transparent conversion",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Payment-Router"
+                    ],
+                    "confidence": 0.751
+                },
+                {
+                    "key": "FBEZ-135",
+                    "summary": "code review : Pay in preferred currency using transparent conversion",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Payment-Router"
+                    ],
+                    "confidence": 0.764
+                },
+                {
+                    "key": "FBEZ-128",
+                    "summary": "development : Pay securely using preferred traveler payment method",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Payment-Router"
+                    ],
+                    "confidence": 0.76
+                },
+                {
+                    "key": "FBEZ-127",
+                    "summary": "code review : Pay securely using preferred traveler payment method",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Payment-Router"
+                    ],
+                    "confidence": 0.756
+                },
+                {
+                    "key": "FBEZ-120",
+                    "summary": "development : View baggage pricing per segment on multi-leg trips",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Baggage-Engine"
+                    ],
+                    "confidence": 0.714
+                },
+                {
+                    "key": "FBEZ-110",
+                    "summary": "development : Compare baggage fees across available fare options",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.742
+                },
+                {
+                    "key": "FBEZ-108",
+                    "summary": "development : View included baggage and extra bag pricing",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Baggage-Engine"
+                    ],
+                    "confidence": 0.74
+                },
+                {
+                    "key": "FBEZ-106",
+                    "summary": "development : Manage flight disruption rebooking options entirely online",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Reservation-Core"
+                    ],
+                    "confidence": 0.772
+                },
+                {
+                    "key": "FBEZ-104",
+                    "summary": "development : Link multiple reservations into a single trip view",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.678
+                },
+                {
+                    "key": "FBEZ-103",
+                    "summary": "code review : Link multiple reservations into a single trip view",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.862
+                },
+                {
+                    "key": "FBEZ-102",
+                    "summary": "development : Add special service requests after completing booking",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Reservation-Core",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.766
+                },
+                {
+                    "key": "FBEZ-101",
+                    "summary": "code review : Add special service requests after completing booking",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.759
+                },
+                {
+                    "key": "FBEZ-100",
+                    "summary": "development : View complete reservation change and modification history",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.841
+                },
+                {
+                    "key": "FBEZ-98",
+                    "summary": "development : Resend e-ticket and confirmation email to traveler",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.899
+                },
+                {
+                    "key": "FBEZ-96",
+                    "summary": "development : Update passenger contact details without breaking the PNR",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.901
+                },
+                {
+                    "key": "FBEZ-95",
+                    "summary": "code review : Update passenger contact details without breaking the PNR",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check"
+                    ],
+                    "confidence": 0.858
+                },
+                {
+                    "key": "FBEZ-94",
+                    "summary": "development : Retrieve reservation using booking reference and last name",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.683
+                },
+                {
+                    "key": "FBEZ-90",
+                    "summary": "development : Change flight dates within allowed fare rules",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Reservation-Core",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.7
+                },
+                {
+                    "key": "FBEZ-89",
+                    "summary": "code review : Change flight dates within allowed fare rules",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Reservation-Core",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.747
+                },
+                {
+                    "key": "FBEZ-85",
+                    "summary": "code review : View all upcoming trips in one itinerary view",
+                    "field": "components",
+                    "prediction": [
+                        "Fraud-Check",
+                        "Reservation-Core",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.617
+                },
+                {
+                    "key": "FBEZ-84",
+                    "summary": "development : View all upcoming trips in one itinerary view",
+                    "field": "components",
+                    "prediction": [
+                        "Reservation-Core",
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.657
+                },
+                {
+                    "key": "FBEZ-83",
+                    "summary": "Prevent incompatible promotions from stacking together automatically",
+                    "field": "components",
+                    "prediction": [
+                        "Promo-Engine"
+                    ],
+                    "confidence": 0.602
+                },
+                {
+                    "key": "FBEZ-79",
+                    "summary": "Apply promo code and see discount immediately",
+                    "field": "components",
+                    "prediction": [
+                        "Promo-Engine"
+                    ],
+                    "confidence": 0.584
+                },
+                {
+                    "key": "FBEZ-76",
+                    "summary": "Deactivate accounts violating policy or usage rules",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.915
+                },
+                {
+                    "key": "FBEZ-74",
+                    "summary": "Store seat, meal, and other traveler preferences",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.906
+                },
+                {
+                    "key": "FBEZ-67",
+                    "summary": "Cache availability results with proper expiry rules",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.908
+                },
+                {
+                    "key": "FBEZ-61",
+                    "summary": "Enforce country-specific travel insurance eligibility rules",
+                    "field": "components",
+                    "prediction": [
+                        "Policy-UI"
+                    ],
+                    "confidence": 0.504
+                },
+                {
+                    "key": "FBEZ-54",
+                    "summary": "Set commission caps and floors per ticket",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine"
+                    ],
+                    "confidence": 0.724
+                },
+                {
+                    "key": "FBEZ-53",
+                    "summary": "Audit commission calculations to ensure full compliance",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine"
+                    ],
+                    "confidence": 0.85
+                },
+                {
+                    "key": "FBEZ-50",
+                    "summary": "Recalculate commissions after ticket changes or refunds",
+                    "field": "components",
+                    "prediction": [
+                        "Commission-Engine"
+                    ],
+                    "confidence": 0.636
+                },
+                {
+                    "key": "FBEZ-32",
+                    "summary": "Retry payment safely after initial bank decline",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.885
+                },
+                {
+                    "key": "FBEZ-31",
+                    "summary": "View detailed and transparent price breakdown before paying",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.909
+                },
+                {
+                    "key": "FBEZ-23",
+                    "summary": "View airline baggage rules explained in simple language",
+                    "field": "components",
+                    "prediction": [
+                        "Baggage-Engine"
+                    ],
+                    "confidence": 0.567
+                },
+                {
+                    "key": "FBEZ-22",
+                    "summary": "Add extra baggage during the booking flow",
+                    "field": "components",
+                    "prediction": [
+                        "Baggage-Engine"
+                    ],
+                    "confidence": 0.548
+                },
+                {
+                    "key": "FBEZ-15",
+                    "summary": "Resend e-ticket and confirmation email to traveler",
+                    "field": "components",
+                    "prediction": [],
+                    "confidence": 0.913
+                },
+                {
+                    "key": "FBEZ-14",
+                    "summary": "Update passenger contact details without breaking the PNR",
+                    "field": "components",
+                    "prediction": [
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.526
+                },
+                {
+                    "key": "FBEZ-13",
+                    "summary": "Retrieve reservation using booking reference and last name",
+                    "field": "components",
+                    "prediction": [
+                        "PNR-Services"
+                    ],
+                    "confidence": 0.611
+                },
+                {
+                    "key": "FBEZ-229",
+                    "summary": "code review : Configure promotional campaigns for specific target markets",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-9",
+                    "confidence": 0.68
+                },
+                {
+                    "key": "FBEZ-228",
+                    "summary": "development : View included components of each travel package",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.565
+                },
+                {
+                    "key": "FBEZ-227",
+                    "summary": "code review : View included components of each travel package",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.822
+                },
+                {
+                    "key": "FBEZ-225",
+                    "summary": "code review : Apply promo code and see discount immediately",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-9",
+                    "confidence": 0.818
+                },
+                {
+                    "key": "FBEZ-218",
+                    "summary": "development : Link multiple traveler profiles under a single account",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.837
+                },
+                {
+                    "key": "FBEZ-217",
+                    "summary": "code review : Link multiple traveler profiles under a single account",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.654
+                },
+                {
+                    "key": "FBEZ-214",
+                    "summary": "development : Assign roles and permissions to platform users",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-4",
+                    "confidence": 0.263
+                },
+                {
+                    "key": "FBEZ-213",
+                    "summary": "code review : Assign roles and permissions to platform users",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.283
+                },
+                {
+                    "key": "FBEZ-212",
+                    "summary": "development : Log in securely using chosen traveler credentials",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.756
+                },
+                {
+                    "key": "FBEZ-211",
+                    "summary": "code review : Log in securely using chosen traveler credentials",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.777
+                },
+                {
+                    "key": "FBEZ-209",
+                    "summary": "code review : Create traveler account using personal profile details",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.845
+                },
+                {
+                    "key": "FBEZ-206",
+                    "summary": "development : Apply close-out rules for flights nearing departure",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.593
+                },
+                {
+                    "key": "FBEZ-205",
+                    "summary": "code review : Apply close-out rules for flights nearing departure",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.566
+                },
+                {
+                    "key": "FBEZ-204",
+                    "summary": "development : Sync travel inventory with GDS and airline APIs",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.455
+                },
+                {
+                    "key": "FBEZ-203",
+                    "summary": "code review : Sync travel inventory with GDS and airline APIs",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.547
+                },
+                {
+                    "key": "FBEZ-202",
+                    "summary": "development : Cache availability results with proper expiry rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.438
+                },
+                {
+                    "key": "FBEZ-201",
+                    "summary": "code review : Cache availability results with proper expiry rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.407
+                },
+                {
+                    "key": "FBEZ-199",
+                    "summary": "code review : Apply schedule changes and cancellations to inventory",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.688
+                },
+                {
+                    "key": "FBEZ-196",
+                    "summary": "development : View real-time seat and fare availability results",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.613
+                },
+                {
+                    "key": "FBEZ-195",
+                    "summary": "code review : View real-time seat and fare availability results",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.725
+                },
+                {
+                    "key": "FBEZ-190",
+                    "summary": "development : Enforce country-specific travel insurance eligibility rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-6",
+                    "confidence": 0.699
+                },
+                {
+                    "key": "FBEZ-189",
+                    "summary": "code review : Enforce country-specific travel insurance eligibility rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-6",
+                    "confidence": 0.605
+                },
+                {
+                    "key": "FBEZ-188",
+                    "summary": "development : Receive insurance refunds when a trip is cancelled",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-6",
+                    "confidence": 0.847
+                },
+                {
+                    "key": "FBEZ-187",
+                    "summary": "code review : Receive insurance refunds when a trip is cancelled",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-6",
+                    "confidence": 0.82
+                },
+                {
+                    "key": "FBEZ-176",
+                    "summary": "development : Set commission caps and floors per ticket",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.535
+                },
+                {
+                    "key": "FBEZ-175",
+                    "summary": "code review : Set commission caps and floors per ticket",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.734
+                },
+                {
+                    "key": "FBEZ-172",
+                    "summary": "development : Apply commission overrides during special promotional campaigns",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.708
+                },
+                {
+                    "key": "FBEZ-166",
+                    "summary": "development : Configure commission rules by airline, fare, channel",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.37
+                },
+                {
+                    "key": "FBEZ-165",
+                    "summary": "code review : Configure commission rules by airline, fare, channel",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-2",
+                    "confidence": 0.539
+                },
+                {
+                    "key": "FBEZ-144",
+                    "summary": "development : Flag high-risk transactions for manual fraud review",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.559
+                },
+                {
+                    "key": "FBEZ-143",
+                    "summary": "code review : Flag high-risk transactions for manual fraud review",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.556
+                },
+                {
+                    "key": "FBEZ-130",
+                    "summary": "development : View detailed and transparent price breakdown before paying",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.739
+                },
+                {
+                    "key": "FBEZ-129",
+                    "summary": "code review : View detailed and transparent price breakdown before paying",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.8
+                },
+                {
+                    "key": "FBEZ-105",
+                    "summary": "code review : Manage flight disruption rebooking options entirely online",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.765
+                },
+                {
+                    "key": "FBEZ-98",
+                    "summary": "development : Resend e-ticket and confirmation email to traveler",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.829
+                },
+                {
+                    "key": "FBEZ-97",
+                    "summary": "code review : Resend e-ticket and confirmation email to traveler",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.503
+                },
+                {
+                    "key": "FBEZ-93",
+                    "summary": "code review : Retrieve reservation using booking reference and last name",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.81
+                },
+                {
+                    "key": "FBEZ-92",
+                    "summary": "development : Cancel booking and receive refund or credit instantly",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.82
+                },
+                {
+                    "key": "FBEZ-90",
+                    "summary": "development : Change flight dates within allowed fare rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.824
+                },
+                {
+                    "key": "FBEZ-89",
+                    "summary": "code review : Change flight dates within allowed fare rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.832
+                },
+                {
+                    "key": "FBEZ-81",
+                    "summary": "Configure promotional campaigns for specific target markets",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.453
+                },
+                {
+                    "key": "FBEZ-80",
+                    "summary": "View included components of each travel package",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-6",
+                    "confidence": 0.554
+                },
+                {
+                    "key": "FBEZ-79",
+                    "summary": "Apply promo code and see discount immediately",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-9",
+                    "confidence": 0.849
+                },
+                {
+                    "key": "FBEZ-75",
+                    "summary": "Link multiple traveler profiles under a single account",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.76
+                },
+                {
+                    "key": "FBEZ-73",
+                    "summary": "Assign roles and permissions to platform users",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.8
+                },
+                {
+                    "key": "FBEZ-72",
+                    "summary": "Log in securely using chosen traveler credentials",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-8",
+                    "confidence": 0.606
+                },
+                {
+                    "key": "FBEZ-68",
+                    "summary": "Sync travel inventory with GDS and airline APIs",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.534
+                },
+                {
+                    "key": "FBEZ-67",
+                    "summary": "Cache availability results with proper expiry rules",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-7",
+                    "confidence": 0.602
+                },
+                {
+                    "key": "FBEZ-66",
+                    "summary": "Apply schedule changes and cancellations to inventory",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-1",
+                    "confidence": 0.524
+                },
+                {
+                    "key": "FBEZ-49",
+                    "summary": "Configure commission rules by airline, fare, channel",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.542
+                },
+                {
+                    "key": "FBEZ-38",
+                    "summary": "Flag high-risk transactions for manual fraud review",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-5",
+                    "confidence": 0.57
+                },
+                {
+                    "key": "FBEZ-12",
+                    "summary": "Cancel booking and receive refund or credit instantly",
+                    "field": "epic_link",
+                    "prediction": "FBEZ-3",
+                    "confidence": 0.775
+                },
+                {
+                    "key": "FBEZ-215",
+                    "summary": "code review : Store seat, meal, and other traveler preferences",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.913
+                },
+                {
+                    "key": "FBEZ-214",
+                    "summary": "development : Assign roles and permissions to platform users",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.86
+                },
+                {
+                    "key": "FBEZ-208",
+                    "summary": "development : Monitor load factors and operational utilization trends",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.936
+                },
+                {
+                    "key": "FBEZ-206",
+                    "summary": "development : Apply close-out rules for flights nearing departure",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.906
+                },
+                {
+                    "key": "FBEZ-204",
+                    "summary": "development : Sync travel inventory with GDS and airline APIs",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.58
+                },
+                {
+                    "key": "FBEZ-203",
+                    "summary": "code review : Sync travel inventory with GDS and airline APIs",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.793
+                },
+                {
+                    "key": "FBEZ-199",
+                    "summary": "code review : Apply schedule changes and cancellations to inventory",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.874
+                },
+                {
+                    "key": "FBEZ-198",
+                    "summary": "development : Control which fare classes appear on channels",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.842
+                },
+                {
+                    "key": "FBEZ-197",
+                    "summary": "code review : Control which fare classes appear on channels",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.725
+                },
+                {
+                    "key": "FBEZ-181",
+                    "summary": "code review : Understand coverage details for each insurance product",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.814
+                },
+                {
+                    "key": "FBEZ-179",
+                    "summary": "code review : Show relevant travel insurance offers based on itinerary",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.916
+                },
+                {
+                    "key": "FBEZ-176",
+                    "summary": "development : Set commission caps and floors per ticket",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.772
+                },
+                {
+                    "key": "FBEZ-172",
+                    "summary": "development : Apply commission overrides during special promotional campaigns",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.88
+                },
+                {
+                    "key": "FBEZ-166",
+                    "summary": "development : Configure commission rules by airline, fare, channel",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.671
+                },
+                {
+                    "key": "FBEZ-165",
+                    "summary": "code review : Configure commission rules by airline, fare, channel",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.906
+                },
+                {
+                    "key": "FBEZ-146",
+                    "summary": "development : Reconcile settled payments and refunds accurately together",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.691
+                },
+                {
+                    "key": "FBEZ-125",
+                    "summary": "code review : Understand baggage entitlements shown clearly on confirmation",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.889
+                },
+                {
+                    "key": "FBEZ-124",
+                    "summary": "development : Apply baggage fee overrides when policies allow",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.903
+                },
+                {
+                    "key": "FBEZ-122",
+                    "summary": "development : Display clear warnings for overweight or oversize baggage",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.882
+                },
+                {
+                    "key": "FBEZ-121",
+                    "summary": "code review : Display clear warnings for overweight or oversize baggage",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.771
+                },
+                {
+                    "key": "FBEZ-105",
+                    "summary": "code review : Manage flight disruption rebooking options entirely online",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.898
+                },
+                {
+                    "key": "FBEZ-94",
+                    "summary": "development : Retrieve reservation using booking reference and last name",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.871
+                },
+                {
+                    "key": "FBEZ-93",
+                    "summary": "code review : Retrieve reservation using booking reference and last name",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.874
+                },
+                {
+                    "key": "FBEZ-91",
+                    "summary": "code review : Cancel booking and receive refund or credit instantly",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.912
+                },
+                {
+                    "key": "FBEZ-9",
+                    "summary": "Promotions & packages with applied discounts",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.732
+                },
+                {
+                    "key": "FBEZ-7",
+                    "summary": "Inventory management and availability syncing",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.918
+                },
+                {
+                    "key": "FBEZ-4",
+                    "summary": "Seat selection with real-time availability",
+                    "field": "team",
+                    "prediction": "Backend Team",
+                    "confidence": 0.655
+                },
+                {
+                    "key": "FBEZ-2",
+                    "summary": "Baggage fares and allowance visibility",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.896
+                },
+                {
+                    "key": "FBEZ-1",
+                    "summary": "Reservation management and itinerary updates",
+                    "field": "team",
+                    "prediction": "Frontend Team",
+                    "confidence": 0.886
+                }
+            ]
+        }
+    }
+}

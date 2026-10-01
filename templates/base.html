@@ -1,0 +1,119 @@
+<!-- templates/base.html -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "JFIP" }}</title>
+
+    <!-- Bootstrap & Icons -->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- JFIP Design System -->
+    <link rel="stylesheet" href="/static/css/jfip-theme.css">
+
+    <!-- jQuery & Bootstrap JS -->
+    <script src="/static/jquery/js/jquery-3.7.1.js"></script>
+<!--    <script src="/static/bootstrap/js/bootstrap.min.js"></script>-->
+    <!-- TODO download bootstrap.bundle.min.js and replace bootstrap.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body { padding-top: 72px; }
+    </style>
+
+    {% block head_extra %}{% endblock %}
+</head>
+
+<body>
+
+    {% if session.get("auth") and request.path != "/login" %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-jfip fixed-top">
+        <div class="container-fluid px-4">
+
+            <a class="navbar-brand" href="/">JFIP</a>
+
+            <button class="navbar-toggler border-0" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarMain"
+                    aria-controls="navbarMain"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-white-50 small d-none d-md-inline">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <strong class="text-white">{{ session["jira_username"] }}</strong>
+                    </span>
+
+                    <button
+                        class="build-info-btn"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#buildInfoModal"
+                        aria-label="Show build information"
+                        title="Build details"
+                    >
+                        <i class="bi bi-info"></i>
+                    </button>
+
+                    <a href="/logout" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="container-fluid mt-3 px-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Build Info Modal -->
+    <div class="modal fade" id="buildInfoModal" tabindex="-1" aria-labelledby="buildInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-gear" style="font-size:1.2rem; color:var(--accent);"></i>
+                        <h5 class="modal-title mb-0" id="buildInfoModalLabel">Build Information</h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body small">
+                    <dl class="row mb-0">
+                        <dt class="col-4 text-muted">Build</dt>
+                        <dd class="col-8 text-break fw-semibold">{{ build_info.build or "Not available" }}</dd>
+
+                        <dt class="col-4 text-muted">Commit</dt>
+                        <dd class="col-8 text-break">
+                            <code class="text-wrap">{{ build_info.last_commit or "Not available" }}</code>
+                        </dd>
+
+                        <dt class="col-4 text-muted">Updated</dt>
+                        <dd class="col-8">{{ build_info.last_updated or "Not available" }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JFIP Notification System -->
+    <script src="/static/js/jfip-notifications.js"></script>
+    {% block scripts_extra %}{% endblock %}
+
+</body>
+</html>

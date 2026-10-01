@@ -1,0 +1,216 @@
+{
+  "start": "start_path",
+  "nodes": {
+    "start_path": {
+      "id": "start_path",
+      "type": "single_select",
+      "prompt": "Pick a plan for training:",
+      "next": "branch_path",
+      "options": [
+        "Movie Night (Indoors)",
+        "Picnic (Outdoors)"
+      ]
+    },
+    "branch_path": {
+      "id": "branch_path",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "equals": "Movie Night (Indoors)"
+          },
+          "goto": "movie_q1"
+        },
+        {
+          "when": {
+            "equals": "Picnic (Outdoors)"
+          },
+          "goto": "picnic_q1"
+        },
+        {
+          "default": true,
+          "goto": "end"
+        }
+      ],
+      "use_answer_from": "start_path"
+    },
+    "movie_q1": {
+      "id": "movie_q1",
+      "type": "yes_no",
+      "prompt": "Do you already have a projector or large screen?",
+      "next": "movie_q2"
+    },
+    "movie_q2": {
+      "id": "movie_q2",
+      "type": "single_select",
+      "prompt": "Pick your streaming source:",
+      "next": "movie_q3",
+      "options": [
+        "Netflix",
+        "Prime Video",
+        "Disney+",
+        "Local files / USB"
+      ]
+    },
+    "movie_q3": {
+      "id": "movie_q3",
+      "type": "multi_select",
+      "prompt": "Choose snacks to prepare:",
+      "next": "movie_friends_list",
+      "options": [
+        "Popcorn",
+        "Nachos",
+        "Chocolate",
+        "Fruit",
+        "Soda",
+        "Water"
+      ]
+    },
+    "movie_friends_list": {
+      "id": "movie_friends_list",
+      "type": "list",
+      "prompt": "List 2–5 friends you might invite (comma-separated).",
+      "next": "movie_for_each_friend"
+    },
+    "movie_for_each_friend": {
+      "id": "movie_for_each_friend",
+      "type": "for_each",
+      "prompt": "",
+      "next": "movie_friend_pref",
+      "source": "movie_friends_list",
+      "item_var": "friend",
+      "after": "movie_snack_branch"
+    },
+    "movie_friend_pref": {
+      "id": "movie_friend_pref",
+      "type": "text",
+      "prompt": "Any notes for '{{answers.__movie_for_each_friend.current}}' (dietary needs, seat preference)?",
+      "next": "movie_for_each_friend"
+    },
+    "movie_snack_branch": {
+      "id": "movie_snack_branch",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "contains_any": [
+              "Popcorn"
+            ]
+          },
+          "goto": "movie_popcorn_butter"
+        },
+        {
+          "default": true,
+          "goto": "movie_q5"
+        }
+      ],
+      "use_answer_from": "movie_q3"
+    },
+    "movie_popcorn_butter": {
+      "id": "movie_popcorn_butter",
+      "type": "yes_no",
+      "prompt": "If serving popcorn, should we offer buttered and plain options?",
+      "next": "movie_q5"
+    },
+    "movie_q5": {
+      "id": "movie_q5",
+      "type": "text",
+      "prompt": "Any accessibility or comfort needs (seating, captions, lighting)?",
+      "next": "end"
+    },
+    "picnic_q1": {
+      "id": "picnic_q1",
+      "type": "yes_no",
+      "prompt": "Do you need a park permit for your picnic spot?",
+      "next": "picnic_q2"
+    },
+    "picnic_q2": {
+      "id": "picnic_q2",
+      "type": "single_select",
+      "prompt": "What time of day works best?",
+      "next": "picnic_q3",
+      "options": [
+        "Morning",
+        "Afternoon",
+        "Evening"
+      ]
+    },
+    "picnic_q3": {
+      "id": "picnic_q3",
+      "type": "multi_select",
+      "prompt": "Select outdoor activities/games:",
+      "next": "picnic_foods_list",
+      "options": [
+        "Frisbee",
+        "Soccer",
+        "Cards",
+        "Reading",
+        "Photography"
+      ]
+    },
+    "picnic_foods_list": {
+      "id": "picnic_foods_list",
+      "type": "list",
+      "prompt": "List foods you plan to bring (comma-separated).",
+      "next": "picnic_for_each_food"
+    },
+    "picnic_for_each_food": {
+      "id": "picnic_for_each_food",
+      "type": "for_each",
+      "prompt": "",
+      "next": "picnic_food_q",
+      "source": "picnic_foods_list",
+      "item_var": "food",
+      "after": "picnic_time_branch"
+    },
+    "picnic_food_q": {
+      "id": "picnic_food_q",
+      "type": "yes_no",
+      "prompt": "Does '{{answers.__picnic_for_each_food.current}}' need a cooler?",
+      "next": "picnic_for_each_food"
+    },
+    "picnic_time_branch": {
+      "id": "picnic_time_branch",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "equals": "Evening"
+          },
+          "goto": "picnic_blankets"
+        },
+        {
+          "default": true,
+          "goto": "picnic_sunscreen"
+        }
+      ],
+      "use_answer_from": "picnic_q2"
+    },
+    "picnic_blankets": {
+      "id": "picnic_blankets",
+      "type": "text",
+      "prompt": "Evening tends to be cooler—how many blankets should we bring?",
+      "next": "picnic_final_note"
+    },
+    "picnic_sunscreen": {
+      "id": "picnic_sunscreen",
+      "type": "text",
+      "prompt": "Who will bring sunscreen and bug spray?",
+      "next": "picnic_final_note"
+    },
+    "picnic_final_note": {
+      "id": "picnic_final_note",
+      "type": "text",
+      "prompt": "Any dietary restrictions or allergies to consider?",
+      "next": "end"
+    },
+    "end": {
+      "id": "end",
+      "type": "end",
+      "prompt": "Review & Submit"
+    }
+  }
+}

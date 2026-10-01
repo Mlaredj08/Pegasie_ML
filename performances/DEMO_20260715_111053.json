@@ -1,0 +1,137 @@
+{
+    "accuracy": {
+        "epic_link": {
+            "SGD": 0.9285714285714286,
+            "LOGISTIC": 0.8571428571428571,
+            "RANDOM_FOREST": 0.8571428571428571,
+            "MLP": 0.9285714285714286,
+            "LINEAR_SVC": 0.9285714285714286
+        },
+        "components": {
+            "LOGISTIC": 0.5714285714285714,
+            "RANDOM_FOREST": 0.6190476190476191,
+            "SGD": 0.5714285714285714,
+            "MLP": 0.5714285714285714,
+            "LINEAR_SVC": 0.6190476190476191
+        },
+        "team": {
+            "RANDOM_FOREST": 0.8333333333333334,
+            "LOGISTIC": 0.6842105263157895,
+            "MLP": 0.868421052631579,
+            "SGD": 0.7280701754385965,
+            "LINEAR_SVC": 0.7807017543859649
+        }
+    },
+    "f1_score": {
+        "epic_link": {
+            "SGD": 0.9285714285714286,
+            "LOGISTIC": 0.8571428571428571,
+            "RANDOM_FOREST": 0.8571428571428571,
+            "MLP": 0.9285714285714286,
+            "LINEAR_SVC": 0.9285714285714286
+        },
+        "components": {
+            "LOGISTIC": 0.6,
+            "RANDOM_FOREST": 0.6046511627906976,
+            "SGD": 0.6382978723404256,
+            "MLP": 0.5957446808510638,
+            "LINEAR_SVC": 0.6511627906976745
+        },
+        "team": {
+            "RANDOM_FOREST": 0.8333333333333333,
+            "LOGISTIC": 0.6842105263157895,
+            "MLP": 0.868421052631579,
+            "SGD": 0.7280701754385965,
+            "LINEAR_SVC": 0.7807017543859649
+        }
+    },
+    "optimal_confidence": {
+        "epic_link": {
+            "SGD": 0.8336153846153846,
+            "LOGISTIC": 0.45732884615384617,
+            "RANDOM_FOREST": 0.4359326923076923,
+            "MLP": 0.8391173076923077,
+            "LINEAR_SVC": 0.7790557692307692
+        },
+        "components": {
+            "LOGISTIC": 0.7354838056680163,
+            "RANDOM_FOREST": 0.8313906882591094,
+            "SGD": 0.948680330634278,
+            "MLP": 0.9800902496626182,
+            "LINEAR_SVC": 0.9418982793522268
+        },
+        "team": {
+            "RANDOM_FOREST": 0.6293770491803279,
+            "LOGISTIC": 0.5808770491803279,
+            "MLP": 0.9418934426229508,
+            "SGD": 0.7814508196721311,
+            "LINEAR_SVC": 0.6857622950819672
+        }
+    },
+    "optimal_confidence_f1": {
+        "epic_link": {
+            "SGD": 1.0,
+            "LOGISTIC": 1.0,
+            "RANDOM_FOREST": 1.0,
+            "MLP": 1.0,
+            "LINEAR_SVC": 1.0
+        },
+        "components": {
+            "LOGISTIC": 0.8571428571428571,
+            "RANDOM_FOREST": 0.7499999999999999,
+            "SGD": 0.6666666666666666,
+            "MLP": 0.6857142857142856,
+            "LINEAR_SVC": 0.88
+        },
+        "team": {
+            "RANDOM_FOREST": 1.0,
+            "LOGISTIC": 0.9245283018867925,
+            "MLP": 0.9101123595505618,
+            "SGD": 0.9090909090909091,
+            "LINEAR_SVC": 0.9183673469387755
+        }
+    },
+    "confident_predictions_percentage": {
+        "epic_link": {
+            "SGD": 63.241106719367586,
+            "LOGISTIC": 42.687747035573125,
+            "RANDOM_FOREST": 44.66403162055336,
+            "MLP": 63.83399209486166,
+            "LINEAR_SVC": 55.73122529644269
+        },
+        "components": {
+            "LOGISTIC": 22.621564482029598,
+            "RANDOM_FOREST": 2.1141649048625792,
+            "SGD": 44.397463002114165,
+            "MLP": 42.706131078224104,
+            "LINEAR_SVC": 3.8054968287526427
+        },
+        "team": {
+            "RANDOM_FOREST": 62.5,
+            "LOGISTIC": 25.0,
+            "MLP": 87.5,
+            "SGD": 50.0,
+            "LINEAR_SVC": 37.5
+        }
+    },
+    "best_model_per_field": {
+        "epic_link": {
+            "ml_model": "MLP",
+            "optimal_confidence": 0.8391173076923077,
+            "optimal_confidence_f1_score": 1.0,
+            "confident_predictions_percentage": 63.83399209486166
+        },
+        "components": {
+            "ml_model": "LOGISTIC",
+            "optimal_confidence": 0.7354838056680163,
+            "optimal_confidence_f1_score": 0.8571428571428571,
+            "confident_predictions_percentage": 22.621564482029598
+        },
+        "team": {
+            "ml_model": "MLP",
+            "optimal_confidence": 0.9418934426229508,
+            "optimal_confidence_f1_score": 0.9101123595505618,
+            "confident_predictions_percentage": 87.5
+        }
+    }
+}

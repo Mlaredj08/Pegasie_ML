@@ -1,0 +1,180 @@
+{
+    "accuracy": {
+        "labels": {
+            "SGD": 0.4375,
+            "LOGISTIC": 0.5625,
+            "RANDOM_FOREST": 0.5,
+            "MLP": 0.25,
+            "LINEAR_SVC": 0.4375
+        },
+        "epic_link": {
+            "RANDOM_FOREST": 0.9285714285714286,
+            "LOGISTIC": 0.8571428571428571,
+            "MLP": 1.0,
+            "SGD": 1.0,
+            "LINEAR_SVC": 1.0
+        }
+    },
+    "f1_score": {
+        "labels": {
+            "SGD": 0.3846153846153846,
+            "LOGISTIC": 0.4772727272727273,
+            "RANDOM_FOREST": 0.42857142857142855,
+            "MLP": 0.4,
+            "LINEAR_SVC": 0.4719101123595506
+        },
+        "epic_link": {
+            "RANDOM_FOREST": 0.9285714285714286,
+            "LOGISTIC": 0.8571428571428571,
+            "MLP": 1.0,
+            "SGD": 1.0,
+            "LINEAR_SVC": 1.0
+        }
+    },
+    "optimal_confidence": {
+        "labels": {
+            "SGD": 0.8606235632183908,
+            "LOGISTIC": 0.6199230295566502,
+            "RANDOM_FOREST": 0.6211032430213465,
+            "MLP": 0.9657040229885059,
+            "LINEAR_SVC": 0.7507270114942529
+        },
+        "epic_link": {
+            "RANDOM_FOREST": 0.2725925925925926,
+            "LOGISTIC": 0.22662962962962963,
+            "MLP": 0.8032592592592592,
+            "SGD": 0.7847407407407407,
+            "LINEAR_SVC": 0.7162222222222222
+        }
+    },
+    "optimal_confidence_f1": {
+        "labels": {
+            "SGD": 0.4406779661016949,
+            "LOGISTIC": 0.4772727272727273,
+            "RANDOM_FOREST": 0.42857142857142855,
+            "MLP": 0.3870967741935484,
+            "LINEAR_SVC": 0.4444444444444445
+        },
+        "epic_link": {
+            "RANDOM_FOREST": 0.9285714285714286,
+            "LOGISTIC": 1.0,
+            "MLP": 1.0,
+            "SGD": 1.0,
+            "LINEAR_SVC": 1.0
+        }
+    },
+    "confident_predictions_percentage": {
+        "labels": {
+            "SGD": 46.15384615384615,
+            "LOGISTIC": 0,
+            "RANDOM_FOREST": 0,
+            "MLP": 23.076923076923077,
+            "LINEAR_SVC": 30.76923076923077
+        },
+        "epic_link": {
+            "RANDOM_FOREST": 0,
+            "LOGISTIC": 30.76923076923077,
+            "MLP": 0,
+            "SGD": 0,
+            "LINEAR_SVC": 0
+        }
+    },
+    "best_model_per_field": {
+        "labels": {
+            "ml_model": "SGD",
+            "optimal_confidence": 0.8606235632183908,
+            "optimal_confidence_f1_score": 0.4406779661016949,
+            "confident_predictions_percentage": 46.15384615384615,
+            "accuracy_per_confidence": {
+                "95": {
+                    "f1_score": 0.3571428571428571,
+                    "accuracy": 0.7692307692307693,
+                    "basic_accuracy": 0.3333333333333333,
+                    "confident_predictions_percentage": 23.076923076923077,
+                    "test_data_size": 16
+                },
+                "90": {
+                    "f1_score": 0.38095238095238093,
+                    "accuracy": 0.8300653594771242,
+                    "basic_accuracy": 0.4444444444444444,
+                    "confident_predictions_percentage": 30.76923076923077,
+                    "test_data_size": 16
+                },
+                "85": {
+                    "f1_score": 0.4406779661016949,
+                    "accuracy": 0.8472222222222222,
+                    "basic_accuracy": 0.5,
+                    "confident_predictions_percentage": 53.84615384615385,
+                    "test_data_size": 16
+                },
+                "80": {
+                    "f1_score": 0.4406779661016949,
+                    "accuracy": 0.8472222222222222,
+                    "basic_accuracy": 0.5,
+                    "confident_predictions_percentage": 69.23076923076923,
+                    "test_data_size": 16
+                },
+                "75": {
+                    "f1_score": 0.4,
+                    "accuracy": 0.875,
+                    "basic_accuracy": 0.42857142857142855,
+                    "confident_predictions_percentage": 76.92307692307692,
+                    "test_data_size": 16
+                },
+                "70": {
+                    "f1_score": 0.4,
+                    "accuracy": 0.875,
+                    "basic_accuracy": 0.42857142857142855,
+                    "confident_predictions_percentage": 84.61538461538461,
+                    "test_data_size": 16
+                },
+                "65": {
+                    "f1_score": 0.4,
+                    "accuracy": 0.875,
+                    "basic_accuracy": 0.42857142857142855,
+                    "confident_predictions_percentage": 92.3076923076923,
+                    "test_data_size": 16
+                },
+                "60": {
+                    "f1_score": 0.4,
+                    "accuracy": 0.875,
+                    "basic_accuracy": 0.42857142857142855,
+                    "confident_predictions_percentage": 100.0,
+                    "test_data_size": 16
+                },
+                "55": {
+                    "f1_score": 0.3835616438356164,
+                    "accuracy": 0.88,
+                    "basic_accuracy": 0.4,
+                    "confident_predictions_percentage": 100.0,
+                    "test_data_size": 16
+                },
+                "50": {
+                    "f1_score": 0.3846153846153846,
+                    "accuracy": 0.88,
+                    "basic_accuracy": 0.4375,
+                    "confident_predictions_percentage": 100.0,
+                    "test_data_size": 16
+                }
+            }
+        },
+        "epic_link": {
+            "ml_model": "LOGISTIC",
+            "optimal_confidence": 0.22662962962962963,
+            "optimal_confidence_f1_score": 1.0,
+            "confident_predictions_percentage": 30.76923076923077,
+            "accuracy_per_confidence": {}
+        }
+    },
+    "selected_types_per_field": {
+        "labels": [
+            "Test",
+            "Story",
+            "Epic"
+        ],
+        "epic_link": [
+            "Test",
+            "Story"
+        ]
+    }
+}

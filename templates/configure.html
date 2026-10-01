@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex align-items-center justify-content-between">
+    <div>
+      <h1><i class="bi bi-gear me-2" style="color:var(--primary);"></i>Configure Inference</h1>
+      <p class="subtitle mb-0">Set parameters for field inference execution</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-1"></i>Home
+    </a>
+  </div>
+
+  <div class="jfip-card-flat animate-fade-in">
+    <form action="/run" method="post" class="row g-3">
+      <input type="hidden" name="input_file" value="{{ filepath }}">
+
+      <div class="col-12">
+        <label class="form-label"><i class="bi bi-terminal me-1"></i>Script</label>
+        <input type="text" name="script" value="field_inference.py" class="form-control">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-key me-1"></i>Project Key</label>
+        <input type="text" name="project" value="CIA-REGRESSION-INFER" class="form-control">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-bullseye me-1"></i>Target Field</label>
+        <input type="text" name="target_field" value="components" class="form-control">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-cpu me-1"></i>Model</label>
+        <select name="model" class="form-select">
+          <option value="RandomForest">RandomForest</option>
+          <option value="LogisticRegression">LogisticRegression</option>
+          <option value="MultinomialNB">MultinomialNB</option>
+          <option value="LinearSVC">LinearSVC</option>
+          <option value="SGDClassifier">SGDClassifier</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-input-cursor-text me-1"></i>Source Fields (comma-separated)</label>
+        <input type="text" name="fields" value="summary,description" class="form-control">
+      </div>
+
+      <div class="col-12 pt-2">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-play-circle me-1"></i>Run Inference
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

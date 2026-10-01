@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="bi bi-graph-up-arrow me-2" style="color:var(--primary);"></i>Data Analysis</h1>
+    <p class="subtitle mb-0">Run preliminary data analysis reports</p>
+  </div>
+
+  {% if files %}
+    <div class="jfip-card-flat animate-fade-in">
+      <form method="post" action="/run_data_analysis">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="filename" class="form-label"><i class="bi bi-database me-1"></i>Select DB</label>
+            <select name="filename" id="filename" required class="form-select" onchange="populateIterations()">
+              <option value="">— Choose file —</option>
+              {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="report_type" class="form-label"><i class="bi bi-file-earmark-bar-graph me-1"></i>Select Report</label>
+            <select name="report_type" id="report_type" class="form-select">
+              <option value="blocker_blocked_priority">Blocker-Blocked Priority</option>
+              <option value="parent_child_priority">Parent-Child Priority</option>
+              <option value="parent_child_components">Parent-Child Components</option>
+              <option value="inheritance_rules">Inheritance Rules</option>
+            </select>
+          </div>
+
+          <div class="col-12 pt-2">
+            <button name="audit" type="submit" class="btn btn-primary">
+              <i class="bi bi-play-circle me-1"></i>Show Report
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  {% else %}
+    <div class="alert alert-warning animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>No configuration files found. Please import a JIRA file first.
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+function populateIterations() {}
+</script>
+{% endblock %}

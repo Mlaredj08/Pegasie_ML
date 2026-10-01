@@ -1,0 +1,133 @@
+{
+    "accuracy": {
+        "components": {
+            "LOGISTIC": null,
+            "SGD": 0.59375,
+            "RANDOM_FOREST": 0.46875,
+            "MLP": 0.65625,
+            "LINEAR_SVC": 0.5625
+        }
+    },
+    "f1_score": {
+        "components": {
+            "LOGISTIC": null,
+            "SGD": 0.6440677966101694,
+            "RANDOM_FOREST": 0.5882352941176471,
+            "MLP": 0.6774193548387097,
+            "LINEAR_SVC": 0.631578947368421
+        }
+    },
+    "optimal_confidence": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 0.973600102145046,
+            "RANDOM_FOREST": 0.7425127681307456,
+            "MLP": 0.9899770173646578,
+            "LINEAR_SVC": 0.9146716036772218
+        }
+    },
+    "optimal_confidence_f1": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 0.7692307692307693,
+            "RANDOM_FOREST": 0.5882352941176471,
+            "MLP": 0.7368421052631579,
+            "LINEAR_SVC": 0.8333333333333333
+        }
+    },
+    "confident_predictions_percentage": {
+        "components": {
+            "LOGISTIC": 0,
+            "SGD": 31.57894736842105,
+            "RANDOM_FOREST": 0,
+            "MLP": 52.63157894736842,
+            "LINEAR_SVC": 31.57894736842105
+        }
+    },
+    "best_model_per_field": {
+        "components": {
+            "ml_model": "MLP",
+            "optimal_confidence": 0.9899770173646578,
+            "optimal_confidence_f1_score": 0.7368421052631579,
+            "confident_predictions_percentage": 52.63157894736842,
+            "accuracy_per_confidence": {
+                "95": {
+                    "f1_score": 0.6956521739130436,
+                    "accuracy": 0.9351851851851852,
+                    "basic_accuracy": 0.6666666666666666,
+                    "confident_predictions_percentage": 75.43859649122807,
+                    "test_data_size": 32
+                },
+                "90": {
+                    "f1_score": 0.72,
+                    "accuracy": 0.9401709401709402,
+                    "basic_accuracy": 0.6923076923076923,
+                    "confident_predictions_percentage": 85.96491228070175,
+                    "test_data_size": 32
+                },
+                "85": {
+                    "f1_score": 0.7307692307692308,
+                    "accuracy": 0.9423868312757202,
+                    "basic_accuracy": 0.7037037037037037,
+                    "confident_predictions_percentage": 89.47368421052632,
+                    "test_data_size": 32
+                },
+                "80": {
+                    "f1_score": 0.7407407407407407,
+                    "accuracy": 0.9444444444444444,
+                    "basic_accuracy": 0.7142857142857143,
+                    "confident_predictions_percentage": 89.47368421052632,
+                    "test_data_size": 32
+                },
+                "75": {
+                    "f1_score": 0.7407407407407407,
+                    "accuracy": 0.9444444444444444,
+                    "basic_accuracy": 0.7142857142857143,
+                    "confident_predictions_percentage": 89.47368421052632,
+                    "test_data_size": 32
+                },
+                "70": {
+                    "f1_score": 0.7142857142857143,
+                    "accuracy": 0.9386973180076629,
+                    "basic_accuracy": 0.6896551724137931,
+                    "confident_predictions_percentage": 92.98245614035088,
+                    "test_data_size": 32
+                },
+                "65": {
+                    "f1_score": 0.6896551724137931,
+                    "accuracy": 0.9333333333333333,
+                    "basic_accuracy": 0.6666666666666666,
+                    "confident_predictions_percentage": 94.73684210526316,
+                    "test_data_size": 32
+                },
+                "60": {
+                    "f1_score": 0.6666666666666666,
+                    "accuracy": 0.9283154121863799,
+                    "basic_accuracy": 0.6451612903225806,
+                    "confident_predictions_percentage": 98.24561403508773,
+                    "test_data_size": 32
+                },
+                "55": {
+                    "f1_score": 0.6666666666666666,
+                    "accuracy": 0.9283154121863799,
+                    "basic_accuracy": 0.6451612903225806,
+                    "confident_predictions_percentage": 100.0,
+                    "test_data_size": 32
+                },
+                "50": {
+                    "f1_score": 0.6774193548387097,
+                    "accuracy": 0.9305555555555556,
+                    "basic_accuracy": 0.65625,
+                    "confident_predictions_percentage": 100.0,
+                    "test_data_size": 32
+                }
+            }
+        }
+    },
+    "selected_types_per_field": {
+        "components": [
+            "Bug",
+            "Story"
+        ]
+    }
+}

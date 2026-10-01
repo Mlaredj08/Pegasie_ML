@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jira Viewer {{project}}</title>
+
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-5.0.2.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/jfip-theme.css">
+
+    <link rel="stylesheet" href="/static/dataTables/css/dataTables-2.3.4.css">
+    <link rel="stylesheet" href="/static/dataTables/css/editor.dataTables.css">
+    <link rel="stylesheet" href="/static/dataTables/css/dataTable-jfip.css">
+
+	<script type="text/javascript" src="/static/jquery/js/jquery-3.7.1.js"></script>
+	<script type="text/javascript" src="/static/dataTables/js/dataTables-2.3.4.js"></script>
+    <script type="text/javascript" src="/static/dataTables/js/editor.dataTables.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="http://seiyria.com/bootstrap-slider/css/bootstrap-slider.css" rel="stylesheet"/>
+    <script src="http://seiyria.com/bootstrap-slider/js/bootstrap-slider.js"></script>
+
+    <!-- In the <head> section -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+    <!-- Before the closing </body> tag -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- DEBUG -->
+    <script src="https://unpkg.com/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Fixed columns-->
+    <link href="https://cdn.datatables.net/fixedcolumns/5.0.5/css/fixedColumns.dataTables.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.5/js/dataTables.fixedColumns.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.5/js/fixedColumns.dataTables.js"></script>
+
+    <!--    Generic progress modals-->
+<!--    <script type="text/javascript" src="/static/js/iteration_modals.js"></script>-->
+    <script type="text/javascript" src="/static/js/iteration_modals_bs.js"></script>
+
+</head>
+
+<style>
+    body { font-family: var(--font-main); background: var(--bg); padding-top: 72px; }
+    removed { background-color: var(--danger-light); }
+    added { background-color: var(--success-light); }
+
+    .container { max-width: 100%; padding: 0 1.5rem; }
+
+    /* Loading modal theme */
+    #loadingModal .modal-content {
+        border: none;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+    }
+    #loadingModal .modal-header {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+        border-bottom: 3px solid var(--primary);
+        padding: 1rem 1.25rem;
+    }
+    #loadingModal .modal-header .waitTitle {
+        color: #fff !important;
+        font-weight: 700;
+    }
+    #loadingModal .modal-body {
+        background: var(--bg);
+    }
+    #loadingModal .progress {
+        height: 22px;
+        border-radius: var(--radius-md);
+        background: var(--ink-200);
+        overflow: hidden;
+    }
+    #loadingModal .progress-bar {
+        background: linear-gradient(90deg, var(--primary), var(--accent)) !important;
+        font-weight: 600;
+        font-size: .78rem;
+        transition: width .4s ease;
+    }
+    #loadingModal .spinner-border {
+        color: var(--primary) !important;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    #loadingModal .progressMsg {
+        color: var(--ink-500);
+        font-size: .85rem;
+    }
+
+    /* All modals theme */
+    .modal-content {
+        border: none;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+    }
+    .modal-header {
+        border-bottom: 1px solid var(--card-border);
+    }
+    .modal-footer {
+        border-top: 1px solid var(--card-border);
+    }
+
+    /* Navbar */
+    .navbar-jfip-local {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%) !important;
+        border-bottom: 3px solid var(--primary);
+        box-shadow: var(--shadow-md);
+    }
+    .navbar-jfip-local .navbar-brand {
+        font-weight: 800;
+        letter-spacing: .03em;
+    }
+
+    /* Bottom action bar */
+    .action-bar {
+        background: var(--card);
+        border-top: 1px solid var(--card-border);
+        padding: 1rem 1.5rem;
+        margin-top: 1.5rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* Column header AI buttons */
+    .aiAll {
+        background: var(--accent-light) !important;
+        border-color: var(--accent) !important;
+        color: var(--navy) !important;
+        transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+    .aiAll:hover, .aiAll:focus {
+        background: var(--accent) !important;
+        border-color: var(--accent-dark) !important;
+        color: var(--navy) !important;
+    }
+
+</style>
+
+<script>
+
+var acceptedSuggestions = {};
+var currentModelPerField = {};
+var accuracyPerFieldPerModel = {};
+var clusteringProgressId;
+var iterationProgressId;
+const list_accuracy_score_threshold = 25;
+//const tableMandatoryColumns = [{ data: 'key' , className: 'dt-control desc'}, { data: 'summary' }, { data: 'issuetype' }, { data: 'status'}];
+const tableMandatoryColumns = [{ data: 'key' , className: 'dt-control desc'}];
+
+const tableExtraColumns = [{ data: 'summary' }, { data: 'issuetype' }, { data: 'status'}, { data: 'reporter' }, { data: 'llm_conf' }];
+var targetFieldIndexes = {};
+
+
+function getTableDynamicColumns() {
+   var tableDynamicColumns = [];
+   const targetFieldsDict = {{ field_gird_dict | tojson }};
+   const targetFieldsList = {{ target_fields | tojson }};
+   const targetFields = Object.keys(targetFieldsDict.data);
+   const indexOffset = tableMandatoryColumns.length;
+   targetFields.forEach((name, index) => {
+     tableDynamicColumns.push({data: name});
+     targetFieldIndexes[name] = index + indexOffset;
+   });
+   tableColumns = [...tableMandatoryColumns, ...tableDynamicColumns, ...tableExtraColumns];
+   return tableColumns;
+
+}
+$( document ).ready(function() {
+    const tableColumns = getTableDynamicColumns();
+
+    $('.copyModalBodyTxt').on('click', function(e) {
+        const $spanElt = $(e.target).has('span').length > 0 ?  $(e.target).find("span") : $(e.target)
+        $spanElt.removeClass('bi-copy');
+        $spanElt.addClass('bi-check-all');
+        const modal_footer = $(e.target).closest('div.modal-footer')
+        const modal_body = modal_footer.prev('div.modal-body');
+        let htmlString  = modal_body.html();
+        htmlString = htmlString.replace(/<br\s*\/?>/gi, "\n");
+        let tmp = document.createElement("DIV");
+        tmp.innerHTML = htmlString;
+        let plainText = tmp.textContent || tmp.innerText || "";
+
+        copyToClipboard(plainText, modal_footer);
+    });
+
+    // Initialize the slider
+    $('#mySlider').slider({
+        formatter: function(value) {
+            return value;
+        }
+    });
+
+    // Handle input field changes
+    $("#minConfidence").on("keyup", function() {
+        var val = Math.abs(parseInt(this.value, 10) || 0); // Get integer value, default to 0 if invalid
+        var maxSliderValue = $('#mySlider').data("slider-max"); // Get max value from slider data
+        val = val > maxSliderValue ? maxSliderValue : val; // Cap value at max
+        this.value = val; // Update input field with capped value
+        $('#mySlider').slider('setValue', val); // Set slider value
+    });
+    // Handle slider change
+    $('#mySlider').on('slide', function(slider){
+        $("#minConfidence").val(`${slider.value}`);
+    });
+
+
+    $('#div2 > select').on("change", function() {
+      // You can access the element that triggered the event using 'this'
+      if ($(this).val().toString().trim() !== "") {
+        $("#accept").prop("disabled", true);
+        $("#reject").prop("disabled", true);
+        $("#apply").prop("disabled", false);
+      }
+      else {
+        $("#accept").prop("disabled", false);
+        $("#reject").prop("disabled", false);
+        $("#apply").prop("disabled", true);
+      }
+    });
+
+    // Setup - add a text input to each footer cell
+    $('#example thead tr.filter th').each(function (i) {
+            var title = $('#example thead tr.filter th').eq($(this).index()).text();
+		if(title != ""){
+			//$(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" />');
+			$(this).html(`<input type="text" data-index="${i}" />`);
+		}
+    });
+
+	let table = new DataTable('#example', {
+	    footerCallback: myFooterCallback,
+	    autoWidth: false,
+		"scrollX": true, // Enables horizontal scrolling
+        fixedColumns: {
+            start: 1,
+            //end: 1
+        },
+<!--		ajax: '/load_json?path={{project_json}}&goldPath={{gold_project_json}}&llmPath={{llm_json}}',-->
+		ajax: '/load_json?path={{project_json}}&&&llmPath={{llm_json}}&selectedTargets={{ target_fields | tojson }}',
+
+
+        initComplete: function() {
+            // const targetFields = ["Epic Link", "Components"];
+            const targetFields = {{ target_fields | tojson }};
+            var api = this.api(); // Get the DataTables API instance
+
+            // Iterate over each column
+            api.columns().every(function() {
+                var column = this; // Current column API instance
+                var headerElement = $(column.header());
+                var headerText = headerElement.text();
+                if(targetFields.includes(headerText)) {
+                    let tooltipText = `Infer missing '${headerText}' using ML models`;
+                    let btnHtml = `<button style="float:right" type="button" class="btn border btn-sm aiAll" data-bs-toggle="tooltip" data-bs-placement="bottom" title="${tooltipText}" data-bs-custom-class="my-custom-tooltip"><span data-id="${headerText}" class="bi bi-cpu-fill"></span></button>`
+                    //let btnHtml = `<span style="float:right"><button class="btn btn-primary btn-sm aiAll" data-id="${headerText}">ML</button></span>`
+                    headerElement.html(`${headerText}${btnHtml}`);
+                }
+            });
+        },
+		columnDefs: [
+		    { orderable: false, targets: Object.values(targetFieldIndexes) },
+            {
+                targets: [[0], ...Object.values(targetFieldIndexes)],
+                render: function (cellData, type, rowData, meta) {
+
+                    const colName = meta.settings.aoColumns[meta.col].mData;
+                    const suggestionKey = `${rowData.key}:${colName}`
+                    const condition1 = !(rowData.issuetype == "Epic" && colName == "epic_link");
+                    const condition2 = suggestionKey in acceptedSuggestions && acceptedSuggestions[suggestionKey]["is_split_test"];  // Split Tests
+                    const isSplitDataToTest = "isSplitDataToTest" in acceptedSuggestions && acceptedSuggestions["isSplitDataToTest"];
+
+                    if (condition1 && cellData != null && (cellData.toString().includes("---") || condition2)) {
+                        const tooltipText = `Edit '${colName}' for ${rowData.issuetype} '${rowData.key}'`;
+                        let curCellData = cellData;
+                        curCellData = cellData.includes("[T]") ? rowData[colName] : curCellData;
+                        let btn_color = "btn-secondary";
+                        let btn_icon = "bi-pen";
+                        let curCellDataSuffix = "";
+                        let isOk = null;
+                        let a_score = "";
+                        let conf_tag = "";
+                        if (suggestionKey in acceptedSuggestions) {
+                            let isManual = acceptedSuggestions[suggestionKey]["status"] == "manual";
+                            let isTest = acceptedSuggestions[suggestionKey]["status"] == "tested";
+                            let confList = "";
+                            if(Object.hasOwn(acceptedSuggestions[suggestionKey], "confidence_list") && acceptedSuggestions[suggestionKey]["confidence_list"].length > 1) {
+                                confList = acceptedSuggestions[suggestionKey]["confidence_list"].map(num => (num*100).toFixed(1));
+                                confList = `[${confList}]`;
+                            }
+                            confidence = acceptedSuggestions[suggestionKey]["confidence"];
+                            conf = confidence == 1 ? 100 : (confidence * 100).toFixed(1);
+
+                            //conf_tag = confidence == 1.1 ? "" : `[${conf}]${confList}`;
+                            conf_tag = confidence == 1.1 ? "" : `[${conf}]`;
+
+                            if (acceptedSuggestions[suggestionKey]["status"] == "accepted") {
+                                curCellData = acceptedSuggestions[suggestionKey]["prediction"];
+                                btn_color = "btn-success";
+                                btn_icon = "bi-check-circle";
+                                curCellDataSuffix = acceptedSuggestions[suggestionKey]["confidence"] == 1.1 ? "[I][Y]" : `${conf_tag}[Y]`;
+                            }
+                            else if (acceptedSuggestions[suggestionKey]["status"] == "rejected") {
+                                curCellData = acceptedSuggestions[suggestionKey]["prediction"];
+                                btn_color = "btn-danger";
+                                btn_icon = "bi-x-circle";
+                                curCellDataSuffix = acceptedSuggestions[suggestionKey]["confidence"] == 1.1 ? "[I][N]" : `${conf_tag}[N]`;
+                            }
+                            else if (isManual) {
+                                curCellData = acceptedSuggestions[suggestionKey]["manualValue"];
+                                btn_color = "btn-secondary";
+                                curCellDataSuffix = `${conf_tag}[M]`;
+                            }
+                            else if (isTest && isSplitDataToTest) {
+                                curCellData = acceptedSuggestions[suggestionKey]["prediction"];
+                                btn_color = "btn-secondary";
+                                //curCellDataSuffix = `${conf_tag}[T]`;
+                                curCellDataSuffix = `[T]`;
+                                btn_icon = "bi-eye";
+                            }
+                            const predicted = acceptedSuggestions[suggestionKey]["prediction"];
+                            const expected = acceptedSuggestions[suggestionKey]["expected"]
+                            isOk = isPredictionCorrect(predicted, expected);
+                            if("accuracy_score" in acceptedSuggestions[suggestionKey]){
+                                isOk = acceptedSuggestions[suggestionKey]["accuracy_score"] >= list_accuracy_score_threshold;
+                                a_score = ` ${acceptedSuggestions[suggestionKey]["accuracy_score"]}`;
+                            }
+                        }
+                        // Empty list quick fix
+                        curCellData = curCellData == "" ? "[]" : curCellData;
+                        const markTag = isOk === null ? "" : isOk ? `<mark style="background-color:#90EE90">` : `<mark style="background-color:#FFCCCB">`;
+                        const markEndTag = markTag === "" ? "" : `</mark>`
+                        //curCellDataSuffix += isOk === null ? "" : isOk ? "[OK]" : "[KO]";
+                        curCellDataSuffix += isOk === null ? "" : isOk ? `[OK${a_score}]` : `[KO${a_score}]`;
+                        curCellDataSuffix += curCellDataSuffix.includes("[T]") ? conf_tag : "";
+                        curCellDataSuffix += isOk === null ? "" : `<br>Exp: ${acceptedSuggestions[suggestionKey]["expected"]}`;
+                        curCellData += curCellDataSuffix !== "" ? ` ${curCellDataSuffix}` : "";
+
+                        let aiBtnHtml = `<button type="button" class="btn ${btn_color} btn-sm ai" data-bs-toggle="tooltip" data-bs-placement="bottom" title="${tooltipText}" data-id="${rowData.key}:${colName}"><span class="bi ${btn_icon}"></span></button>`
+                        aiBtnHtml = colName in currentModelPerField ? aiBtnHtml : "";
+                        var aiSpanHtml = `<span style="float:right">${aiBtnHtml}</span>`;
+
+                        curCellData = `${markTag}${curCellData}${markEndTag}`;
+                        return curCellData + aiSpanHtml;
+                    }
+                    else {
+                        return cellData;
+                    }
+                }
+            }
+        ],
+        columns: tableColumns,
+	});
+
+
+	// Add event listener for AI buttons
+	table.on('click', 'button.ai_', function (e) {
+	    showLoadingModal();
+	    $('button.ai').prop('disabled', true);
+	    const issueKey = $(e.target).closest('button').attr("data-id").split(":")[0];
+	    const targetField = $(e.target).closest('button').attr("data-id").split(":")[1];
+
+	    $('#reject').show();
+	    $('#accept').show();
+	    if($(e.target).closest('button').hasClass("btn-danger")) {
+	        $('#reject').hide();
+	    }
+	    else if ($(e.target).closest('button').hasClass("btn-success")) {
+             $('#accept').hide();
+	    }
+
+        mlModel = targetField in currentModelPerField ? currentModelPerField[targetField][0] : null;
+        mlAccuracy = targetField in currentModelPerField ? currentModelPerField[targetField][1] : null;
+        isInheritance = targetField in currentModelPerField ? currentModelPerField[targetField][2] : null;
+        sFields = targetField in currentModelPerField ? currentModelPerField[targetField][3] : null;
+        isSplitDataToTest = targetField in currentModelPerField ? currentModelPerField[targetField][4] : null;
+        isLlm = targetField in currentModelPerField ? currentModelPerField[targetField][5] : null;
+        let moreParams = `mlModel=${mlModel}&isApplyInheritanceRules=${isInheritance}&goldProjectJson={{gold_project_json}}`;
+        moreParams += `&sFields=${sFields}&isSplitDataToTest=${isSplitDataToTest}&isLlm=${isLlm}`;
+        const url = `/get_ml_predictions?issueKey=${issueKey}&targetField=${targetField}&projectJson={{project_json}}&${moreParams}`;
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                $("#accept").prop("disabled", false);
+                $("#reject").prop("disabled", false);
+                $("#apply").prop("disabled", true);
+
+                acceptedSuggestions["currentKey"] = `${issueKey}:${targetField}`;
+                acceptedSuggestions["currentValue"] = data;
+
+                $(".modal-title").html(`ML Inference`);
+                var msgTxt = `<pre><b>Prediction: ${data["prediction"]}</b>`;
+                const confidence = data["confidence"] == 1.1 ? 1 : data["confidence"];
+                let confidenceList = data["confidence_list"] != null ? ` [${data["confidence_list"]}]` : "";
+                confidenceList = confidenceList.toString().includes(',') ? confidenceList.replace(/,/g, ", ") : "";
+                msgTxt += `<br><b>Confidence: ${(confidence * 100).toFixed(2)}%${confidenceList}`;
+                if(data["accuracy_score"] != null)
+                    msgTxt += `<br>Accuracy Score: ${data["accuracy_score"].toFixed(2)}%`;
+                msgTxt += "</b>";
+                msgTxt += `<br><br>Expected: ${data["expected"]}`;
+                msgTxt += `<br>Issue Key: ${issueKey}`;
+                msgTxt += `<br>Field: ${targetField}`;
+                msgTxt += `<br>ML Model: ${data["model"]}`;
+                const curAccuracy = mlAccuracy === null ? data["accuracy"] : mlAccuracy;
+                msgTxt += `<br>Accuracy: ${curAccuracy}%`;
+                if(data["elapsed"] > 1)
+                    msgTxt += `<br>Response Time: ${data["elapsed"]}`;
+                msgTxt += `</pre>`;
+                // Multi-select
+                const possibleValuesDict = {{ fields_possible_values | tojson }};
+                possibleValues = possibleValuesDict[targetField];
+                let optionsHtml = "<option></option>";
+                possibleValues.forEach(function(value, index) {
+                  optionsHtml += `<option value="${value}">${value}</option>`
+                });
+                const msFields = ["components", "labels"];
+                $("#div1").html(msgTxt);
+                $('#div2 > select').html(optionsHtml);
+                if(msFields.includes(targetField)){
+                    //$('#div2 > label').html("Manual Selection (Ctrl-Select)");
+                    $('#div2 > select').attr("multiple", "multiple");
+                    $('#div2 > select').attr("aria-label", "select example");
+                }
+                else{
+                    //$('#div2 > label').html("Manual Selection");
+                    $('#div2 > select').removeAttr("multiple");
+                    $('#div2 > select').removeAttr("aria-label");
+                }
+                // Disable buttons if is_split_testt
+                if(data["is_split_test"]) {
+                    $('#accept').prop('disabled', true);
+                    $('#reject').prop('disabled', true);
+                    $('select[name="manVals"]').prop('disabled', true);
+                }
+                else {
+                    $('#accept').prop('disabled', false);
+                    $('#reject').prop('disabled', false);
+                    $('select[name="manVals"]').prop('disabled', false);
+                }
+                $('.modal').hide();
+                const myModal = new bootstrap.Modal($("#yesNoModal"));
+                myModal.show();
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                hideLoadingModal();
+            });
+	});
+
+	// Add event listener for AI-ALL buttons
+	var headers = table.columns().header().toArray();
+	$(headers).on('click', '.aiAll', function (e) {
+
+        let targetField = ($(e.target).closest('.aiAll').find('[data-id]').attr("data-id") || "").toLowerCase();
+	    targetField = targetField.includes("epic") ? "epic_link" : targetField;
+	    $("#targetField").html(targetField);
+
+        // Set ML model and min confidence to best model and optimal confidence
+	    const bestModelPerField = {{ best_model_per_field | tojson }};
+	    let bestModel = null;
+	    if (bestModelPerField[targetField] != null) {
+            bestModel = bestModelPerField[targetField]["ml_model"] ?? null;
+            bestModelOptimConf =   Math.round(100 * bestModelPerField[targetField]["optimal_confidence"]) ?? null;
+            $('#mlModel').val(bestModel.trim());
+            $('#minConfidence').val(bestModelOptimConf);
+            $('#mySlider').slider('setValue', bestModelOptimConf);
+        }
+        else {
+             $('#mlModel').val("");
+             $('#minConfidence').val(0);
+        }
+
+
+	    if(targetField == "key") {
+	        $(".tfLabel").hide();
+	        $(".tfSelect").show();
+	    }
+	    else {
+	    	$(".tfLabel").show();
+	        $(".tfSelect").hide();
+	        targetField = "epic link";
+	    }
+
+	    // Disable Split btn if Gold DB is available
+	    if ("{{ gold_project_json }}" !== "") {
+	        $('#splitDataToTest').prop('disabled', true);
+	    }
+
+	    // Add accuracy per model Table
+        let accuracyTableHtml = "";
+        let trHtml = "";
+        if (targetField in accuracyPerFieldPerModel) {
+            let accuracyPerFieldPerModeList = [];
+            for (const [key, value] of Object.entries(accuracyPerFieldPerModel[targetField])) {
+                accuracyPerFieldPerModeList.push({"model": key, "noInherit": value["noInherit"], "inherit": value["inherit"]})
+            }
+            accuracyPerFieldPerModeList.sort((a, b) => b.noInherit - a.noInherit);
+            accuracyPerFieldPerModeList.forEach((dictionary, index) => {
+              const accuracy = dictionary.noInherit !== null ? `${dictionary.noInherit}%`: "---";
+              const accuracyI = dictionary.inherit !== null ? `${dictionary.inherit}%` : "---";
+              const is_all = dictionary.model.includes(',');
+              trHtml += is_all ? "" : `<tr><td>${dictionary.model}</td><td>${accuracy}</td><td>${accuracyI}</td></tr>`;
+
+            });
+
+            accuracyTableHtml = `
+                  <hr><pre><table class="table table-striped">
+                    <thead><tr><th>Model</th><th>Accuracy</th><th>Accuracy [I]</th></tr></thead>
+                    <tbody>${trHtml}</tbody>
+                  </table></pre>
+            `;
+            // TODO: show table in a separate modal
+            accuracyTableHtml = "";
+        }
+
+        if ("{{ gold_project_json }}" !== "" || acceptedSuggestions["isSplitDataToTest"]) {
+            $("#accuracyPerModelTable").html(accuracyTableHtml);
+        }
+
+        // Enable LLM switch if applicable
+        const allRowData = table.rows().data();
+        const isLlm = allRowData.filter(item => 'generated_description' in item).length > 0;
+        $("#useLlmOutput").prop("disabled", !isLlm);
+
+	    const myModal = new bootstrap.Modal($("#infParams"));
+        myModal.show();
+
+	});
+
+    // Quick fix: hide loading model
+    //$('#mlAccuracy').on('hidden.bs.modal', function (e) {
+    $('.modal').on('hidden.bs.modal', function (e) {
+        hideLoadingModal();
+    });
+
+    // Add event listener for AI Yes/No modal
+    $('#yesNoModal').on('hidden.bs.modal', function (e) {
+        var $button = $(event.target)
+        const currentKey = acceptedSuggestions["currentKey"];
+        const currentValue = acceptedSuggestions["currentValue"];
+        acceptedSuggestions["currentKey"] = null;
+        acceptedSuggestions["currentValue"] = null;
+        const aiBtn = $(`button[data-id="${currentKey}"]`);
+        const manualValue = $('#div2 > select').val();
+        if ($button.attr('id') == "apply") {
+            currentValue["status"] = "manual";
+            currentValue["manualValue"] = manualValue;
+            acceptedSuggestions[currentKey] = currentValue;
+        }
+        else if ($button.attr('id') == "accept") {
+            currentValue["status"] = "accepted";
+            acceptedSuggestions[currentKey] = currentValue;
+            aiBtn.removeClass("btn-secondary").removeClass("btn-danger");
+            aiBtn.addClass("btn-success");
+        }
+        else if ($button.attr('id') == "reject") {
+            currentValue["status"] = "rejected";
+            acceptedSuggestions[currentKey] = currentValue;
+            aiBtn.removeClass("btn-secondary").removeClass("btn-success");
+            aiBtn.addClass("btn-danger");
+        }
+        else {
+        }
+        $('#example').DataTable().ajax.reload(null, false);
+
+    });
+
+    // Add event listener for Inf Params modal
+    $('#infParams').on('hidden.bs.modal', function (e) {
+        const minConfidence = $('#mySlider').val();
+        const mlModel = $("#mlModel").val();
+        const sFields = $("#sFields").val();
+        let targetField = $("#targetField").text();
+        if(targetField == "key") {
+            targetField = $("#targetFields").val();
+        }
+
+        const isApplyInheritanceRules = $("#applyInheritanceRules").is(':checked');
+        const isSplitDataToTest = $("#splitDataToTest").is(':checked');
+        const isLlm = $("#useLlmOutput").is(':checked');
+        acceptedSuggestions["isSplitDataToTest"] = isSplitDataToTest;
+
+        var $button = $(event.target)
+        if ($button.attr('id') == "runInf") {
+            get_ml_predictions(null, mlModel, minConfidence, targetField, isApplyInheritanceRules, sFields, isSplitDataToTest, isLlm);
+        }
+    });
+
+	// Add event listener for opening and closing details
+	table.on('click', 'td.dt-control', function (e) {
+		let tr = e.target.closest('tr');
+		let row = table.row(tr);
+		if (row.child.isShown()) {
+			row.child.hide();
+		}
+		else {
+		     row.child(format(row.data(), e.target.classList)).show();
+		}
+	});
+
+    // Filter event handler
+    $(table.table().container()).on('keyup_', 'thead input', function () {
+        table
+            .column($(this).data('index'))
+            .search(this.value)
+            .draw();
+    });
+
+	 // Filter event handler (range option: < and > ops)
+    $(table.table().container()).on('keyup', 'thead input', function () {
+		var filterVal =  this.value.trim();
+		var isLower = this.value.trim().startsWith("<") &&  this.value.trim().length > 1;
+		var isHigher = filterVal.startsWith(">") &&  filterVal.length > 1;
+		table.column($(this).data('index')).search.fixed('range', function (searchStr, data, index) {
+			if(isLower){
+				var isLowerOrEq = filterVal.includes("<=");
+				var maxVal = isLowerOrEq ? parseFloat(filterVal.split("<=")[1]) : parseFloat(filterVal.split("<")[1]);
+				return isLowerOrEq ? parseFloat(searchStr) <= maxVal : parseFloat(searchStr) < maxVal;
+			}
+			else if(isHigher){
+				var isHigherOrEq = filterVal.includes(">=");
+				var maxVal = isHigherOrEq ? parseFloat(filterVal.split(">=")[1]): parseFloat(filterVal.split(">")[1]);
+				return isHigherOrEq ? parseFloat(searchStr) >= maxVal : parseFloat(searchStr) > maxVal;
+			}
+			else if(filterVal.startsWith("! ") || filterVal.toLowerCase().startsWith("not ")) {
+                const prefix = filterVal.split(" ")[0];
+                const value = filterVal.replace(prefix, "");
+                return  ! searchStr.trim().includes(value.trim());
+            }
+			else if(filterVal.startsWith("anyOf ")) {
+                const tokens = filterVal.replace("anyOf ", "").split(";");
+                let retValue = false;
+                tokens.forEach(function(token) {
+                  retValue = retValue || searchStr.trim().includes(token.trim())
+                });
+                return  retValue;
+            }
+			else if(filterVal.startsWith("allOf ")) {
+                const tokens = filterVal.replace("allOf ", "").split(";");
+                let retValue = true;
+                tokens.forEach(function(token) {
+                  if(token.trim().startsWith("not") || token.trim().startsWith("!")) {
+                    const token_ = token.trim().replace("!", "").replace("not", "");
+                    retValue = retValue && !searchStr.trim().includes(token_.trim());
+                  }
+                  else
+                    retValue = retValue && searchStr.trim().includes(token.trim());
+                });
+                return  retValue;
+            }
+			else if(filterVal.startsWith("noneOf ")) {
+                const tokens = filterVal.replace("noneOf ", "").split(";");
+                let retValue = true;
+                tokens.forEach(function(token) {
+                  retValue = retValue && ! searchStr.trim().includes(token.trim())
+                });
+                return  retValue;
+            }
+			else if(filterVal.startsWith("confidence>") || filterVal.startsWith("confidence<")) {
+			    const isHigher = filterVal.startsWith("confidence>");
+                let confidenceStr = filterVal.replace("confidence>", "").trim();
+                confidenceStr = confidenceStr.replace("confidence<", "").trim();
+                const confidence = Number(confidenceStr);
+                let retValue = false;
+                if(searchStr.split("][").length == 3) {
+                    const cellConfidenceStr = searchStr.split('][').at(2).split(']')[0];
+                    const cellConfidence = Number(cellConfidenceStr);
+                    retValue = isHigher ? cellConfidence > confidence : cellConfidence < confidence;
+                }
+                return  retValue;
+            }
+			else{
+				return (searchStr.includes(filterVal));
+			}
+		}).draw();
+    });
+
+    // Highlight active filters
+	$("thead th input, .dt-input").on('keyup', function(e) {
+		const bgCass = "bg-warning";
+		var elt = $(e.target);
+		if(elt.val() == ""){
+			elt.removeClass(bgCass);
+			return;
+		}
+		if(!elt.hasClass(bgCass)){
+			elt.addClass(bgCass);
+		}
+	});
+});
+
+function myFooterCallback(row, data, start, end, display) {
+    let api = this.api();
+    const targetColumns = [[0], ...Object.values(targetFieldIndexes)];
+    const targetFields = [["key"], ...Object.keys(targetFieldIndexes)];
+
+    targetColumns.forEach(function(targetColumn, index) {
+
+        let targetField = targetFields[index];
+
+        let filterAppliedIssueKeys = api.column(0, { page: 'all', filter: 'applied' }).data().toArray();
+        filterAppliedIssueKeys = filterAppliedIssueKeys.map(key => `${key}:${targetField}`);
+
+        let filteredKeys = Object.keys(acceptedSuggestions).filter(key => key.includes(targetField));
+        filteredKeys = Object.keys(acceptedSuggestions).filter(key => filterAppliedIssueKeys.includes(key));
+
+        let okCount = 0;
+        let koCount = 0;
+        let sumConfidence = 0;
+        let fieldF1 = 0;
+        let fieldAcc = 0;
+        let ml_model_ = "";
+        if(Object.hasOwn(acceptedSuggestions, filteredKeys[0]))
+            ml_model_ = acceptedSuggestions[filteredKeys[0]]["model"];
+
+        for (const key of filteredKeys) {
+            if (acceptedSuggestions[key]["expected"] !== null) {
+                isOk = isPredictionCorrect(acceptedSuggestions[key]["prediction"],  acceptedSuggestions[key]["expected"]);
+                if("accuracy_score" in acceptedSuggestions[key]) {
+                    isOk = acceptedSuggestions[key]["accuracy_score"] >= list_accuracy_score_threshold;
+                }
+                okCount += isOk ? 1 : 0;
+                koCount += !isOk ? 1 : 0;
+
+                if(fieldF1 == 0) {
+                    fieldF1 = acceptedSuggestions[key]["perf_scores"]["f1Score"];
+                    fieldAcc = acceptedSuggestions[key]["perf_scores"]["accuracy"];
+                }
+            }
+            let confidence = acceptedSuggestions[key]["confidence"];
+            sumConfidence +=  confidence == 1.1 ? 1 : confidence;
+
+        }
+
+        const fieldAccuracy = 100 * okCount / (okCount + koCount);
+        const averageConfidence = 100 * sumConfidence / filteredKeys.length;
+        const ml_model = targetField in  currentModelPerField ? currentModelPerField[targetField][0] : "";
+        const is_inherit = targetField in  currentModelPerField ? currentModelPerField[targetField][2] : "";
+        const is_show_accuracy1 = !Number.isNaN(fieldAccuracy);
+        const is_show_accuracy2 = "{{ gold_project_json }}" !== "" || acceptedSuggestions["isSplitDataToTest"];
+        const is_show_accuracy = is_show_accuracy1 && is_show_accuracy2;
+        // Update footer
+        let footerText = "";
+        footerText += is_show_accuracy ? `${fieldAccuracy.toFixed(2)}% Accuracy (F)` : "";
+        footerText += `<br>${averageConfidence.toFixed(2)}% Confidence (F)`;
+        footerText += is_show_accuracy ? `<br>${fieldAcc.toFixed(2)}% Accuracy` : "";
+        footerText += is_show_accuracy ? `<br>${fieldF1.toFixed(2)}% F1-Score` : "";
+        //const ml_model_ = ml_model.split(',').at(0);
+        footerText += `<br>Model: ${ml_model_}`;
+        footerText += `<br>Inheritance: ${is_inherit}`;
+        if(ml_model !== "")
+            api.column(targetColumn).footer().innerHTML = `<pre>${footerText}</pre>`;
+    });
+}
+
+function format(d, classList) {
+    // `d` is the original data object for the row
+    var value = ""
+    if(classList.contains("desc")) {
+        let origBtnHtml = `<button class="btn btn-primary btn-sm diffBtn" id="orig_${d.key}" onclick="showDiff(this.id)">Original</button>`;
+        //let goldBtnHtml = `<button class="btn btn-secondary btn-sm diffBtn" id="gold_${d.key}" onclick="showDiff(this.id)">Gold</button>`;
+        //let diffBtnHtml = `<button class="btn btn-secondary btn-sm diffBtn" id="diff_${d.key}" onclick="showDiff(this.id)">Trunc/Gold</button>`;
+        let llmBtnHtml = `<button class="btn btn-secondary btn-sm diffBtn" id="gene_${d.key}" onclick="showDiff(this.id)">Enhanced</button>`;
+        let diff1BtnHtml = `<button class="btn btn-secondary btn-sm diffBtn" id="diff1_${d.key}" onclick="showDiff(this.id)">Diff</button>`;
+
+        //origBtnHtml = ("{{ gold_project_json }}" !== "" || "{{ llm_json }}" !== "") ? `${origBtnHtml} ` : "";
+        //goldBtnHtml = "{{ gold_project_json }}" !== "" ? `${goldBtnHtml} ` : "";
+        //diffBtnHtml = goldBtnHtml !== "" ? `${diffBtnHtml} ` : "";
+        //llmBtnHtml = "{{ llm_json }}" !== "" ? `${llmBtnHtml} ` : "";
+        //diff1BtnHtml = llmBtnHtml !== "" ? diff1BtnHtml : "";
+
+        value += `${origBtnHtml} ${llmBtnHtml} ${diff1BtnHtml}`;
+        value += value.trim() !== "" ? "<hr>" : "";
+        value += `<div id="desc_${d.key}">${d.description}</div>`;
+    }
+    if(classList.contains("epic")) {
+        let table = new DataTable('#example');
+        var allRowData = table.rows().data();
+        let epicIssueList = [];
+        console.log(`d.key: ${d.key}`);
+        console.log(`d.epic_link: ${d.epic_link}`);
+        const savedKey = `${d.key}:epic_link`
+        if(savedKey in acceptedSuggestions) {
+            const epicKey = acceptedSuggestions[savedKey]["prediction"];
+            epicIssueList = allRowData.filter(issue => issue.key == epicKey);
+        }
+        else {
+            // Quick fix to ignore iteration tag
+            const epicLink = d.epic_link.includes("[I#") ? d.epic_link.split("[I#")[0].trim() : d.epic_link;
+            epicIssueList = allRowData.filter(issue => issue.key == epicLink);
+        }
+
+        if (epicIssueList.length === 1) {
+            epicIssue = epicIssueList[0];
+            epicSum = epicIssue["summary"];
+            epicDesc = epicIssue["description"];
+            issueType = epicIssue["issuetype"];
+            value += `<b>Type: </b>${issueType}<br>`;
+            value += `<b>Summary: </b>${epicSum}<br>`;
+            value += `<b>Description: </b>${epicDesc}`;
+        }
+    }
+    return value;
+}
+
+function formatPossibleValues(d) {
+    // `d` is the original data object for the row
+	value = `<b>${d.field_possible_values.length} possible values:</b><br>`;
+	d.field_possible_values.forEach((val, index) => {
+        value +=  `${val}<br>`;
+	});
+    return value;
+}
+
+function runTests() {
+    fetch('/get_test_report?inferenceJsonFile={{inference_table_json}}')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            $("#exampleModal").find(".modal-body").html(data["reportHtmlStr"]);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+function showClusteringProgress() {
+    clusteringProgressId = setInterval(getClusteringProgress, 2500);
+    showLoadingModal(`Clustering`, "", false)
+}
+
+function showIterationProgress() {
+    showGenericModal("Inference Iteration", "/get_iteration_progress", 2.5, "/abort_iteration");
+}
+
+function showLoadingModal(waitTitle="", waitText="", isAbortBtn=true, mlModel="") {
+
+    $('.progressBar').attr('hidden', '');
+    $('.spinner-border').show();
+    const progressMsg = "Your request is being processed, please wait...";
+    $('.progressMsg').html(progressMsg);
+    $('.waitTitle').html(waitTitle);
+    $('.waitText').html(waitText);
+    $('#loadingModal').modal('show');
+
+    /*const mlList = mlModel.split(",");
+    var allProgressBarHtml = "";
+    mlList.forEach((ml) => {
+      var progressBarHtml = `
+          <pre class="mt-3 progressMsg fw-bold_ ${ml}">${ml}</pre>
+          <div id="${ml}" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0% Complete
+            </div>
+          </div>
+      `;
+      allProgressBarHtml += progressBarHtml;
+
+    });
+    const abortBtn = `<hr><button type="button" class="btn btn-danger" onclick="abortInference(this)">Stop</button>`
+    allProgressBarHtml += isAbortBtn ? abortBtn : "";
+    $('.progressBar').html(allProgressBarHtml);*/
+}
+
+function hideLoadingModal() {
+    //$('.modal').hide();
+    $('#loadingModal').modal('hide');
+    $('.progressBar').html("");
+}
+
+async function getIterationProgress() {
+    try {
+        const response = await fetch('/get_iteration_progress');
+        const data = await response.json();
+        progressBarNames = ["testing", "inferring", "clustering"];
+        addProgressBars(progressBarNames, false);
+        $('.progressBar').removeAttr('hidden');
+        progressBarNames.forEach((key) => {
+            progressWidth = 100 * data[key];
+            $(`#${key}`).find('.progress-bar').css("width", `${progressWidth}%`);
+            $(`#${key}`).find('.progress-bar').attr("aria-valuenow", progressWidth);
+            $(`#${key}`).find('.progress-bar').html(`${parseInt(progressWidth)}%`);
+        });
+
+        // Clear if done
+        if(data["clustering"] == 1) {
+            console.log(`Clearing interval ${iterationProgressId} ...`);
+            clearInterval(iterationProgressId);
+        }
+    } catch (error) {
+        console.error('Error polling backend:', error);
+    }
+}
+
+async function getClusteringProgress() {
+    try {
+        const response = await fetch('/get_clustering_progress');
+        const data = await response.json();
+        var progressWidth = 0;
+        var progressMsg = "Your request is being processed, please wait...";
+        $('.progressBar').attr('hidden', '');
+        //$('.spinner-border').show();
+        if(data["in_progress"] != null) {
+            progressMsg = `[${data["completed"].length + 1}/${data["total"]}]`;
+            progressMsg += ` ${data["in_progress"]} ...`;
+            $('.progressBar').removeAttr('hidden');
+            //$('.spinner-border').hide();
+            progressWidth = 100 * data["completed"].length / data["total"];
+
+            $('.progressMsg').html(progressMsg);
+            $('.progress-bar-striped').css("width", `${progressWidth}%`);
+            $('.progress-bar-striped').html(`${parseInt(progressWidth)}%`);
+
+            // Clear if done.
+            if(data["completed"].length == data["total"]) {
+                clearInterval(clusteringProgressId);
+            }
+        }
+
+    } catch (error) {
+        console.error('Error polling backend:', error);
+    }
+}
+
+function addProgressBars(threadNames, isAbortBtn=true) {
+
+    const isSkip = $(`#${threadNames[0]}`).length > 0;
+    if (isSkip)
+        return;
+
+    var allProgressBarHtml = "";
+    threadNames.forEach((thName) => {
+      var progressBarHtml = `
+          <pre class="mt-3 progressMsg fw-bold_ ${thName} text-start">${thName}</pre>
+          <div id="${thName}" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0% Complete
+            </div>
+          </div>
+      `;
+      allProgressBarHtml += progressBarHtml;
+
+    });
+    const abortBtn = `<hr><button type="button" class="btn btn-danger" onclick="abortInference(this)">Stop</button>`
+    allProgressBarHtml += isAbortBtn ? abortBtn : "";
+    $('.progressBar').html(allProgressBarHtml);
+}
+async function getInferenceProgress() {
+    try {
+        const response = await fetch('/get_inference_progress');
+        const data = await response.json();
+        var progressWidth = 0;
+        progressMsg = "Your request is being processed, please wait...";
+
+        if(data["ml_models"].length > 0) {
+            addProgressBars(data["ml_models"]);
+            $(".progressMsg.default").hide();
+            $('.progressBar').removeAttr('hidden');
+            data["ml_models"].forEach((ml_model) => {
+                $(`#${ml_model} > .progress-bar`).addClass("progress-bar-animated");
+                $(`#${ml_model} > .progress-bar`).addClass("progress-bar-striped");
+                $(`#${ml_model} > .progress-bar`).removeClass("bg-success");
+                data_ = data[ml_model]
+                //const ml_str = `${ml_model}: `;
+                const isDone = data_["done"].length == data_["value_count"];
+                const isOneValue = data_["value_count"] == 1;
+                progressMsg = "";
+                if(data_["is_abort"]) {
+                    progressMsg = `<b>Thread#${ml_model}</b>: Stopping ...`;
+                }
+                else if(isDone) {
+                    if(data_["value_count"] != 0) {
+                        const et = formatElapsedTime(1000 * data_["elapsed_time"]);
+                        progressMsg = `<b>Thread#${ml_model}</b>: Completed. [${et}]`;
+                        $(`#${ml_model} > .progress-bar`).removeClass("progress-bar-animated");
+                        $(`#${ml_model} > .progress-bar`).removeClass("progress-bar-striped");
+                        $(`#${ml_model} > .progress-bar`).addClass("bg-success");
+                    }
+                    else
+                        progressMsg = `<b>Thread#${ml_model}</b>: ...`;
+                }
+                else {
+                    const taskProgress = isOneValue ? "" : `[${data_["done"].length + 1}/${data_["value_count"]}]`;
+                    const tokens = data_["in_progress"].split('|');
+                    const tfStr = tokens.length == 2 ? tokens[0] : "";
+                    const mlStr = tokens.length == 2 ? tokens[1] : "";
+                    progressMsg += `<b>Thread#${ml_model}</b>: ${taskProgress}`;
+                    progressMsg += ` Processing '${tfStr}' [${mlStr}]...`;
+                }
+                progressWidth = data_["value_count"] != 0 ? 100 * data_["done"].length / data_["value_count"] : 0;
+                // TODO: History-based progress if no data
+                if(!isDone && isOneValue) {
+                    const curWidth = parseInt($(`#${ml_model}`).find('.progress-bar').attr('aria-valuenow'), 10);
+                    const maxInc = curWidth < 80 ? 10 : curWidth < 90 ? 5 : 1;
+                    const timeBasedIncrement = Math.floor(Math.random() * maxInc) + 1;
+                    const newWidth = curWidth + timeBasedIncrement;
+                    progressWidth = newWidth < 100 ? newWidth : curWidth;
+                }
+                $(`.progressMsg.${ml_model}`).html(progressMsg);
+                $(`#${ml_model}`).find('.progress-bar').css("width", `${progressWidth}%`);
+                $(`#${ml_model}`).find('.progress-bar').attr("aria-valuenow", progressWidth);
+                $(`#${ml_model}`).find('.progress-bar').html(`${parseInt(progressWidth)}%`);
+            });
+        }
+        else { // This block is no longer needed.
+             if(!data["is_multi"]) {
+                $('.progressBar').attr('hidden', '');
+                //$('.spinner-border').show();
+                if(data["ml_progress"] != null) {
+                    progressMsg = `Processing ML model '${data["ml"]}' ...`;
+                    $('.progressBar').removeAttr('hidden');
+                    //$('.spinner-border').hide();
+                    progressWidth = 100 * data["ml_progress"];
+                    $('.progressMsg').html(progressMsg);
+                    $('.progress-bar-striped').css("width", `${progressWidth}%`);
+                    $('.progress-bar-striped').html(`${parseInt(progressWidth)}%`);
+                }
+             }
+             else {
+                $(".progressMsg.default").hide();
+                $('.progressBar').removeAttr('hidden');
+                if(data["in_progress"] != null && data["done"].length < data["value_count"]) {
+                    const ml_str = data["ml"] == "" ? "" : `${data["ml"]}: `;
+                    var progressMsg = `${ml_str}[${data["done"].length + 1}/${data["value_count"]}]`;
+                    progressMsg += ` Processing '${data["in_progress"]}' ...`;
+                }
+                progressWidth = data["value_count"] != 0 ? 100 * data["done"].length / data["value_count"] : 0;
+                $('.progressMsg').html(progressMsg);
+                $('.progress-bar-striped').css("width", `${progressWidth}%`);
+                $('.progress-bar-striped').html(`${parseInt(progressWidth)}%`);
+             }
+        }
+
+    } catch (error) {
+        console.error('Error polling backend:', error);
+    }
+}
+
+async function abortInference(elt) {
+  $(elt).prop('disabled', true);
+  const response = await fetch("/abort_ml_predictions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+  return response.json();
+}
+
+function get_ml_predictions(e, mlModel=null, minConfidence=null, fieldToInfer=null, isApplyInheritanceRules=false, sFields=null, isSplitDataToTest=false, isLlm=false) {
+
+        const startTime = Date.now();
+	    $('button.aiAll').prop('disabled', true);
+	    $('button.ai').prop('disabled', true);
+
+	    targetField = fieldToInfer;
+	    if(targetField === null) {
+            let targetField = $(e.target).attr("data-id").toLowerCase();
+            targetField = targetField.includes("epic") ? "epic_link" : targetField;
+        }
+
+        let params = `mlModel=${mlModel}&minConfidence=${minConfidence}`;
+        params += `&isApplyInheritanceRules=${isApplyInheritanceRules}&goldProjectJson={{gold_project_json}}`;
+        params += `&sFields=${sFields}&isSplitDataToTest=${isSplitDataToTest}&isLlm=${isLlm}`;
+        const url = `/get_ml_predictions?targetField=${targetField}&projectJson={{project_json}}&${params}`;
+
+        //let waitTitle = `<h4 class="text-primary">ML Inference</h4>`;
+        let waitTitle = "ML Inference";
+        let waitText = `<pre>`;
+        waitText += `Target Field: <b>${targetField}</b>`;
+        waitText += `<br>ML Model: <b>${mlModel}</b>`;
+        waitText += sFields == "" ? "" : `<br>Structured Fields: <b>[${sFields}]</b>`;
+        waitText += `<br>Apply Inheritance Rules: <b>${isApplyInheritanceRules}</b>`;
+        waitText += `<br>Split Data Train / Test: <b>${isSplitDataToTest}</b>`;
+        waitText += `<br>Use LLM Output If Found: <b>${isLlm}</b>`;
+        waitText += `</pre><hr>`;
+
+        showLoadingModal(waitTitle, waitText, true, mlModel);
+        var inferenceProgressId = setInterval(getInferenceProgress, 5000);
+
+        fetch(url)
+            .then(async response => {
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    hideLoadingModal();
+                    clearInterval(inferenceProgressId);
+                    //throw new Error(errorData.err_msg || `HTTP error! status: ${response.status}`);
+
+                    $('button.aiAll').prop('disabled', false);
+                    $('button.ai').prop('disabled', false);
+                    let msg = "";
+                    msg += `<hr><pre class="text-danger">${errorData.err_msg}</pre>`
+                    $('#errorModal').find('.modal-body').html(msg);
+                    $('#errorModal').find('.modal-footer').html("<br>");
+                    new bootstrap.Modal($("#errorModal")).show();
+                }
+                return response.json();
+            })
+            .then(d => {
+                const data = d["data"];
+                const accuracy_per_model = d["accuracy_per_model"];
+                const f1_score_per_model = d["f1_score_per_model"];
+                const optimal_conf_per_model = d["optimal_conf_per_model"];
+                const optimal_f1_per_model = d["optimal_f1_per_model"];
+                const optimal_percent_per_model = d["optimal_percent_per_model"]
+
+                const model_list = Object.keys(accuracy_per_model);
+                const accuracy_list = Object.values(accuracy_per_model);
+                const f1_score_list = Object.values(f1_score_per_model);
+                const optimal_conf_list = Object.values(optimal_conf_per_model);
+                const optimal_f1_list = Object.values(optimal_f1_per_model);
+                const optimal_percent_list = Object.values(optimal_percent_per_model);
+                const elapsedTime = formatElapsedTime(Date.now() - startTime);
+                clearInterval(inferenceProgressId);
+                passCount = 0;
+                failCount = 0;
+
+                //acceptedSuggestions = deleteItemsIfKeyContainsString(acceptedSuggestions, targetField);
+                // Quick fix
+                acceptedSuggestions = deleteItemsIfKeyContainsString(acceptedSuggestions, `:${targetField}`);
+
+                data.forEach(function(item, index, array) {
+                    const issueKey = item["issue_key"];
+                    acceptedSuggestions[`${issueKey}:${targetField}`] = item;
+
+                    const confidence = minConfidence === null ? 0.6 : parseFloat(minConfidence)/100;
+                    let status = item["confidence"] >= confidence ? "accepted" : "rejected";
+                    status = item["is_split_test"] ? "tested" : status;
+                    acceptedSuggestions[`${issueKey}:${targetField}`]["status"] = status;
+
+                    const multilabelFields = ["components", "labels"];
+                    if(item["expected"] !== null) {
+
+                        let isMatch = isPredictionCorrect(item["prediction"], item["expected"]);
+                        if("accuracy_score" in item) {
+                            isMatch = item["accuracy_score"] >= list_accuracy_score_threshold
+                        }
+                        passCount += isMatch ? 1 : 0;
+                        failCount += ! isMatch ? 1 : 0;
+
+                        // DEBUG: add perf scores
+                        const mlModel = item["model"];
+                        const f1Score = 100 * f1_score_per_model[mlModel];
+                        const accuracy = 100 * accuracy_per_model[mlModel];
+                        const perfScores = {"f1Score": f1Score, "accuracy": accuracy};
+                        acceptedSuggestions[`${issueKey}:${targetField}`] = item;
+                        acceptedSuggestions[`${issueKey}:${targetField}`]["perf_scores"] = perfScores;
+                    }
+                });
+                $('button.aiAll').prop('disabled', false);
+	            $('button.ai').prop('disabled', false);
+
+	            $('#example').DataTable().ajax.reload(null, false);
+
+	            const accuracy = 100 * passCount / (passCount + failCount);
+	            currentModelPerField[targetField] = [mlModel, accuracy.toFixed(2), isApplyInheritanceRules, sFields, isSplitDataToTest, isLlm];
+
+	            const inheritSuffix = isApplyInheritanceRules ? " [I]" : "";
+	            const modelKey = `${mlModel}`;
+	            const accuracyDict = {[modelKey]: accuracy.toFixed(2)};
+	            if (!(targetField in accuracyPerFieldPerModel))
+	                accuracyPerFieldPerModel[targetField] = {}
+	            if (!(modelKey in accuracyPerFieldPerModel[targetField]))
+	                accuracyPerFieldPerModel[targetField][modelKey] = {"inherit": null, "noInherit": null}
+
+                const inheritKey = isApplyInheritanceRules ? "inherit" : "noInherit";
+                const is_split_train_test = data.filter(item => item["is_split_test"]).length > 0;
+	            accuracyPerFieldPerModel[targetField][modelKey][[inheritKey]] = accuracy.toFixed(2);
+                let msg = "<pre>";
+                msg += `Target Field: <b>${targetField}</b>`;
+                msg += `<br>ML Model: <b>${mlModel}</b>`;
+                msg += sFields == "" ? "" : `<br>Structured Fields: <b>[${sFields}]</b>`;
+                msg += `<br>Apply Inheritance Rules: <b>${data[0]["is_apply_inheritance"]}</b>`;
+                //msg += `<br>Split Data Train / Test: <b>${data[0]["is_split_test"]}</b>`;
+                msg += `<br>Split Data Train / Test: <b>${is_split_train_test}</b>`;
+                msg += `<br>Use LLM Output If Found: <b>${data[0]["is_llm"]}</b>`;
+	            if("labeled_data_size" in data[0] && data[0]["labeled_data_size"] !== null) {
+	                msg += `<br>Labeled Data Size: <b>${data[0]["labeled_data_size"]}</b>`;
+	                msg += `<br>Unlabeled Data Size: <b>${data[0]["unlabeled_data_size"]}</b>`;
+	            }
+	            msg += `<br>Elapsed Time: <b>${elapsedTime}</b>`;
+
+	            if(!mlModel.includes(',')){
+	                //msg += `<br>Train/Predict Time: ${data[0]["train_predict_time"]}`;
+                    msg += !Number.isNaN(accuracy) ? `<hr><br>Correct Predictions: <b>${passCount}</b>` : "";
+                    msg += !Number.isNaN(accuracy) ? `<br>Incorrect Predictions: <b>${failCount}</b>` : "";
+                    msg += !Number.isNaN(accuracy) ? `<br>Accuracy: <b>${accuracy.toFixed(2)}%</b>` : "";
+                    //msg += !Number.isNaN(accuracy) ? `<br>Accuracy: <b>${(100*accuracy_list[0]).toFixed(2)}%</b>` : "";
+                    msg += !Number.isNaN(accuracy) ? `<br>F1_Score: <b>${(100*f1_score_list[0]).toFixed(2)}%</b>` : "";
+                }
+                else {
+                    if(accuracy_list[0] !== null) {
+                        const sumList = optimal_f1_list.map((num, i) => 100 * num + optimal_percent_list[i]/2);
+                        const maxIndex = sumList.indexOf(Math.max(...sumList));
+                        const maxModel = model_list[maxIndex];
+
+                        accuracy_list_str = accuracy_list.map(num => (100*num).toFixed(2));
+                        f1_score_list_str = f1_score_list.map(num => (100*num).toFixed(2));
+                        optimal_conf_list_str = optimal_conf_list.map(num => Math.ceil(100*num));
+                        optimal_f1_list_str = optimal_f1_list.map(num => Math.ceil(100*num));
+                        optimal_percent_list_str = optimal_percent_list.map(num => Math.ceil(1*num));
+                        let tableBody = "";
+                        model_list.forEach(function(ml, index) {
+                            const acc = accuracy_list_str[index];
+                            const f1s = f1_score_list_str[index];
+                            const oConf = optimal_conf_list_str[index];
+                            const of1s = optimal_f1_list_str[index];
+                            const perc = optimal_percent_list_str[index];
+                            const col = ml == maxModel ? ' class="bg-success text-white"' : "";
+                            //tableBody += `<tr${col}><td>${ml}</td><td>${acc}</td><td>${f1s}</td><td>${oConf} [F1=${of1s}]</td></tr>`;
+                            tableBody += `<tr${col}><td>${ml}</td><td>${acc}</td><td>${f1s}</td><td>${oConf} [F1=${of1s} | ${perc}%]</td></tr>`;
+
+                        });
+                        const tableHtml = `
+                          <table class="table table-striped">
+                            <thead><tr><th>ML Model</th><th>Accuracy</th><th>F1-Scrore</th><th>Optim Conf</th></tr></thead>
+                            <tbody>${tableBody}</tbody>
+                          </table>
+                        `;
+                        msg += tableHtml;
+                    }
+                }
+                msg += "</pre>";
+
+                $('.modal').hide();
+	            const myModal = new bootstrap.Modal($("#mlAccuracy"));
+	            $('#mlAccuracy').find('.modal-title').html("ML Inference Info");
+	            $('#mlAccuracy').find('.modal-body').html(msg);
+	            $('#mlAccuracy').find('.modal-footer').find("span").removeClass("bi-check_all");
+	            $('#mlAccuracy').find('.modal-footer').find("span").addClass("bi-copy");
+                myModal.show();
+            })
+            .catch(error => {
+                console.log("Error message:", error.message);
+            });
+}
+
+function selectMlModel(selectedMl) {
+    if(selectedMl === ""){
+        $('#runInf').prop('disabled', true);
+    }
+    else {
+        $('#runInf').prop('disabled', false);
+    }
+}
+
+function isPredictionCorrect(predicted, expected) {
+    isMatch = null;
+    if(expected !== null) {
+        isMatch = predicted == expected;
+        if(! isMatch) {
+            // Multi-label fields (components, labels ...)
+            const isPredictedArray = Array.isArray(predicted);
+            const isExpectedArray = Array.isArray(expected);
+            if(isPredictedArray || isExpectedArray) {
+                predictedStr = predicted.toString();
+                ExpectedStr = expected.toString();
+                predictedArray = predictedStr.split(",");
+                ExpectedArray = ExpectedStr.split(",");
+                isMatch = predictedStr.trim() == ExpectedStr.trim();
+                isMatch = isMatch || predictedArray.every((element) => ExpectedArray.includes(element));
+            }
+        }
+    }
+    return isMatch;
+}
+
+function deleteItemsIfKeyContainsString(obj, searchString) {
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key.includes(searchString)) {
+        delete obj[key];
+      }
+    }
+  }
+  return obj;
+}
+
+function copyToClipboard(text, $fElt) {
+  // Create a temporary textarea element
+  var $tempInput = $("<textarea>");
+  $fElt.append($tempInput);
+
+  // Set its value and select the text
+  $tempInput.val(text).select();
+
+  try {
+    navigator.clipboard.writeText(text);
+  } catch (err) {
+    console.error('Error copying text: ', err);
+  } finally {
+    $tempInput.remove();
+  }
+}
+
+function showDiff(btnId) {
+
+    $(".diffBtn").removeClass("btn-primary");
+    $(".diffBtn").addClass("btn-secondary");
+    $(`#${btnId}`).removeClass("btn-secondary");
+    $(`#${btnId}`).addClass("btn-primary");
+
+    let issueKey = btnId.split('_')[1];
+    let btnPrefix = btnId.split('_')[0];
+
+    var table = new DataTable('#example');
+    var allRowData = table.rows().data();
+    const curIssue = allRowData.filter(issue => issue.key === issueKey)[0];
+    if (btnPrefix == "gold") {
+        $(`#desc_${issueKey}`).html(curIssue.gold_desc);
+        $(`#orig_${issueKey}`).prop('disabled', false);
+    }
+    else if (btnPrefix == "gene") {
+        //alert(`TODO: display Enriched description`);
+        let htmlStr = "";
+        if (curIssue.generated_summary !== undefined) {
+            htmlStr = `Summary: ${curIssue.generated_summary}<hr>${curIssue.generated_description}`
+        }
+        $(`#desc_${issueKey}`).html(htmlStr);
+    }
+    else if (btnPrefix == "diff") {
+        $(`#desc_${issueKey}`).html(curIssue.gold_diff);
+    }
+    else if (btnPrefix == "diff1") {
+        let htmlStr = curIssue.llm_diff !== undefined ? curIssue.llm_diff : "";
+        $(`#desc_${issueKey}`).html(htmlStr);
+    }
+    else if (btnPrefix == "orig") {
+        $(`#desc_${issueKey}`).html(curIssue.description);
+    }
+}
+
+function formatElapsedTime(milliseconds) {
+  let totalSeconds = Math.floor(milliseconds / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const pad = (num) => num.toString().padStart(2, '0');
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+</script>
+
+<body>
+    {% if session.get("auth") %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-jfip-local fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="/">JFIP</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house-door me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/jira_viewer"><i class="bi bi-eye me-1"></i>Project Viewer</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-white-50 small d-none d-md-inline">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <strong class="text-white">{{ session["jira_username"] }}</strong>
+                    </span>
+                    <a href="/logout" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="container">
+        <pre>
+		<table id="example" class="display cell-border">
+			<thead>
+				<tr>
+<!--                    <th>Key</th><th>Summary</th><th>Type</th><th>Status</th>-->
+                    <th>Key</th>
+                    {% for field in target_fields %}
+                        <th>{{ field }}</th>
+                    {% endfor %}
+                    <th>Summary</th><th>Type</th><th>Status</th><th>Reporter</th><th>LLM Confidence</th>
+				</tr>
+				<tr class="filter">
+<!--                    <th>Key</th><th>Summary</th><th>Type</th><th>Status</th>-->
+                    <th>Key</th>
+                    {% for field in target_fields %}
+                        <th>{{ field }}</th>
+                    {% endfor %}
+                    <th>Summary</th><th>Type</th><th>Status</th><th>Reporter</th><th>LLM Confidence</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+<!--                    <th></th><th></th><th></th><th></th>-->
+                    <th></th>
+                    {% for field in target_fields %}<th></th>{% endfor %}
+                    <th></th><th></th><th></th><th></th><th></th>
+				</tr>
+			</tfoot>
+        </table>
+        </pre>
+    </div>
+
+<!--    <div class="action-bar d-flex justify-content-center gap-3">-->
+<!--        <a href="/" class="btn btn-secondary"><i class="bi bi-house-door me-1"></i>Home</a>-->
+<!--        <a href="/run_inference_iteration?db={{project_json}}" class="btn btn-primary" onclick="showIterationProgress()"><i class="bi bi-cpu me-1"></i>Run Iteration</a>-->
+<!--    </div>-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-bar-chart me-2" style="color:var(--accent);"></i>Inference Accuracy Tests</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title waitTitle"><i class="bi bi-gear me-2" style="color:var(--accent);"></i></h5>
+      </div>
+      <div class="modal-body">
+            <div class="waitText mb-3"></div>
+            <div class="text-center">
+                <pre class="mt-2 progressMsg fw-bold">Your request is being processed, please wait...</pre>
+                <pre class="mt-3 progressMsg_ fw-bold default"></pre>
+                <div class="spinner-border text-primary" role="status"></div>
+                <div class="progressBar mt-3" hidden></div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2" style="color:var(--danger);"></i>Error!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-left"></div>
+      <div class="modal-footer text-danger text-left"></div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="yesNoModal" data-bs-keyboard="false" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div id="div1"></div>
+          <div id="div2">
+              <select name="manVals" class="form-select"></select>
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="accept" type="button" class="btn btn-success yesNo" data-bs-dismiss="modal">Accept</button>
+        <button id="reject" type="button" class="btn btn-danger yesNo" data-bs-dismiss="modal">Reject</button>
+        <button id="apply" type="button" class="btn btn-warning yesNo" data-bs-dismiss="modal" disabled>Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="infParams" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-cpu me-2" style="color:var(--accent);"></i>ML Inference</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+          <pre><label class="tfLabel">Target Field: <span id="targetField"></span></label></pre>
+          <div class="form-check form-switch p-0 tfSelect">
+              <div class="d-inline-flex flex-row-reverse align-items-center">
+                  <pre><select id="targetFields" class="form-select">
+                      <option value="epic_link">Epic link</option>
+                      <option value="components">Components</option>
+                      <option value="team">Team</option>
+                      <option value="epic_link,components,team" selected>All</option>
+                  </select></pre>
+                  <pre><label class="form-label">Select Fields To Target: </label></pre>
+              </div>
+          </div>
+
+          <div class="form-check form-switch p-0">
+              <div class="d-inline-flex flex-row-reverse align-items-center">
+                  <pre><select id="mlModel" class="form-select" onchange="selectMlModel(this.value);">
+                      <option value="RANDOM_FOREST">RANDOM_FOREST</option>
+                      <option value="LOGISTIC">LOGISTIC_REGRESSION</option>
+                      <option value="MLP" selected>MLP</option>
+                      <option value="SGD">SGD</option>
+                      <option value="GRADIENT_BOOSTING">GRADIENT_BOOSTING</option>
+                      <option value="LINEAR_SVC">LINEAR_SVC</option>
+                      <option value="RANDOM_FOREST,LOGISTIC,MLP,SGD,LINEAR_SVC">ALL</option>
+                  </select></pre>
+                  <pre><label class="form-label">Select ML Model To Test: </label></pre>
+              </div>
+          </div>
+
+          <div class="form-check form-switch p-0">
+              <div class="d-inline-flex flex-row-reverse align-items-center">
+                  <select id="sFields" class="selectpicker" multiple data-live-search="false" title="Select fields">
+                      <option>issuetype</option>
+                      <option>reporter</option>
+                      <option>assignee</option>
+                  </select>
+                  <pre><label class="form-check-label" for="applyInheritanceRules">Select Structured Fields:</label></pre>
+              </div>
+          </div>
+
+          <div class="form-check form-switch p-0">
+            <div class="d-inline-flex flex-row-reverse gap-1">
+              <input class="form-check-input ms-0" type="checkbox" role="switch" id="applyInheritanceRules" disabled>
+              <pre><label class="form-check-label" for="applyInheritanceRules">Apply Inheritance Rules: </label></pre>
+            </div>
+          </div>
+
+          <div class="form-check form-switch p-0">
+            <div class="d-inline-flex flex-row-reverse gap-1">
+              <input class="form-check-input ms-0" type="checkbox" role="switch" id="splitDataToTest">
+              <pre><label class="form-check-label" for="splitDataToTest">Split Data Train / Test: </label></pre>
+            </div>
+          </div>
+
+          <div class="form-check form-switch p-0">
+            <div class="d-inline-flex flex-row-reverse gap-1">
+              <input class="form-check-input ms-0" type="checkbox" role="switch" id="useLlmOutput" disabled>
+              <pre><label class="form-check-label" for="useLlmOutput">Use LLM Output If Found: </label></pre>
+            </div>
+          </div>
+
+          <div class="d-inline-flex flex-row-reverse gap-1 d-flex align-items-start">
+              <div><input id="mySlider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="75"/></div>
+              <div><pre><input type="text" class="form-control" id="minConfidence" value="75"/></pre></div>
+            <div class="align-items-end"><pre><label class="" for="mySlider">Set Minimal Confidence: </label></pre></div>
+          </div>
+          <div id="accuracyPerModelTable"></div>
+      </div>
+      <div class="modal-footer">
+          <button id="runInf" type="button" class="btn btn-primary yesNo" data-bs-dismiss="modal">Run</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="mlAccuracy" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary copyModalBodyTxt"><span class="bi bi-copy"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

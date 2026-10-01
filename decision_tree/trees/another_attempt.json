@@ -1,0 +1,87 @@
+{
+  "start": "text_1",
+  "nodes": {
+    "branch_3": {
+      "id": "branch_3",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "equals": "15 - 25"
+          },
+          "goto": "multi_select_4"
+        },
+        {
+          "when": {
+            "equals": "26 -35"
+          },
+          "goto": "multi_select_5"
+        },
+        {
+          "default": true,
+          "goto": "multi_select_6"
+        }
+      ],
+      "use_answer_from": "list_2"
+    },
+    "end_7": {
+      "id": "end_7",
+      "type": "end",
+      "prompt": "Review & Submit"
+    },
+    "list_2": {
+      "id": "list_2",
+      "type": "single_select",
+      "prompt": "What is your age range?",
+      "next": "branch_3",
+      "options": [
+        "15 - 25",
+        "26 - 35",
+        "35 - 45",
+        "+45"
+      ]
+    },
+    "multi_select_4": {
+      "id": "multi_select_4",
+      "type": "multi_select",
+      "prompt": "if you answered 15 - 25",
+      "next": "end_7",
+      "options": [
+        "minecraft",
+        "war of warcraft",
+        "GTA"
+      ]
+    },
+    "multi_select_5": {
+      "id": "multi_select_5",
+      "type": "multi_select",
+      "prompt": "If you answered 26 -35",
+      "next": "end_7",
+      "options": [
+        "Netflix",
+        "Disney +",
+        "Amazon Video",
+        "None"
+      ]
+    },
+    "multi_select_6": {
+      "id": "multi_select_6",
+      "type": "multi_select",
+      "prompt": "You are older than 35",
+      "next": "end_7",
+      "options": [
+        "Omega 3",
+        "Vitamen D",
+        "Vitamin E",
+        "None"
+      ]
+    },
+    "text_1": {
+      "id": "text_1",
+      "type": "text",
+      "prompt": "What is your name",
+      "next": "list_2"
+    }
+  }
+}

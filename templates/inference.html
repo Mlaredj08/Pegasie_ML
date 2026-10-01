@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 1000px;">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex align-items-center justify-content-between">
+    <div>
+      <h1><i class="bi bi-play-circle me-2" style="color:var(--primary);"></i>Run Iteration</h1>
+      <p class="subtitle mb-0">Execute ML inference iteration on configured data</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-1"></i>Home
+    </a>
+  </div>
+
+  {% if files %}
+    <div class="jfip-card-flat mb-4 animate-fade-in">
+      <form method="post" action="/run_inference" onsubmit="showLoadingModal()">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-8">
+            <label for="filename" class="form-label"><i class="bi bi-gear me-1"></i>Select ML Configuration</label>
+            <select name="filename" id="filename" required class="form-select">
+              {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-success w-100">
+              <i class="bi bi-rocket-takeoff me-1"></i>Run Iteration
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  {% else %}
+    <div class="alert alert-warning animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>No configuration files found.
+    </div>
+  {% endif %}
+
+  {% if iterations_data %}
+  <div class="jfip-card-flat animate-slide-up">
+    <h5 class="mb-3" style="color:var(--navy); font-weight:700;">
+      <i class="bi bi-table me-1"></i>Iteration Summary
+    </h5>
+    <div class="jfip-table">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th># Iteration</th>
+              <th>Day/Time</th>
+              <th># Questions</th>
+              <th>User</th>
+              <th>Field</th>
+              <th>Predictions</th>
+              <th>% Confidence</th>
+              <th>Approved</th>
+              <th>Cumulative Approved</th>
+              <th>Pending</th>
+              <th>Approval Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in iterations_data %}
+              <tr>
+                <td>{{ row.iteration }}</td>
+                <td>{{ row.time_stamp }}</td>
+                <td>{{ row.questions_number }}</td>
+                <td>{{ row.user }}</td>
+                <td>{{ row.field }}</td>
+                <td>{{ row.predictions }}</td>
+                <td>{{ row.confidence }}%</td>
+                <td>{{ row.approved }}</td>
+                <td>{{ row.cumulative_approved }}</td>
+                <td>{{ row.remaining }}</td>
+                <td>{{ row.completion }}%</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="jfip-loading-overlay">
+  <div class="jfip-loading-card">
+    <div class="spinner-border" role="status"></div>
+    <p class="mt-3 mb-0" style="color:var(--ink-700); font-weight:500;">Your request is being processed, please wait...</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/iteration_data_helpler.js') }}"></script>
+<script>
+  $(window).on('pageshow', function(event) {
+    if (event.originalEvent.persisted) hideLoadingModal();
+  });
+
+  function showLoadingModal() {
+    document.getElementById('loadingOverlay').classList.add('active');
+  }
+  function hideLoadingModal() {
+    document.getElementById('loadingOverlay').classList.remove('active');
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{
+  "start": "welcome",
+  "nodes": {
+    "beginner_path": {
+      "id": "beginner_path",
+      "type": "list",
+      "prompt": "Which languages did you see at school, {{answers.welcome}}?",
+      "next": "final_summary",
+      "split": ","
+    },
+    "experience_branch": {
+      "id": "experience_branch",
+      "type": "branch",
+      "prompt": "",
+      "next": [
+        {
+          "when": {
+            "is_true": true
+          },
+          "goto": "experienced_path"
+        },
+        {
+          "when": {
+            "is_false": true
+          },
+          "goto": "beginner_path"
+        },
+        {
+          "default": true,
+          "goto": "beginner_path"
+        }
+      ],
+      "use_answer_from": "experience_check"
+    },
+    "experience_check": {
+      "id": "experience_check",
+      "type": "yes_no",
+      "prompt": "",
+      "next": "experience_branch"
+    },
+    "experienced_path": {
+      "id": "experienced_path",
+      "type": "list",
+      "prompt": " Which languages do you know {{answers.welcome }} ? use comma separated format",
+      "next": "skill_assessment_loop"
+    },
+    "final_summary": {
+      "id": "final_summary",
+      "type": "end",
+      "prompt": "Review & Submit"
+    },
+    "rate_language_skill": {
+      "id": "rate_language_skill",
+      "type": "single_select",
+      "prompt": "Rate your {{answers.__skill_assessment_loop.current}} skills:",
+      "next": "skill_assessment_loop",
+      "options": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    "skill_assessment_loop": {
+      "id": "skill_assessment_loop",
+      "type": "for_each",
+      "prompt": "",
+      "next": "rate_language_skill",
+      "source": "experienced_path",
+      "item_var": "language",
+      "after": "final_summary"
+    },
+    "welcome": {
+      "id": "welcome",
+      "type": "text",
+      "prompt": "What is your name?",
+      "next": "experience_check"
+    }
+  }
+}

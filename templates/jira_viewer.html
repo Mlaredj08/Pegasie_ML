@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="bi bi-eye me-2" style="color:var(--primary);"></i>Project Viewer</h1>
+    <p class="subtitle mb-0">Browse and inspect JIRA project data</p>
+  </div>
+
+  {% if files %}
+    <div class="jfip-card-flat animate-fade-in">
+      <form id="formId" method="post" action="/show_jira_viewer">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <label for="filename" class="form-label"><i class="bi bi-database me-1"></i>Select DB</label>
+            <select name="filename" id="filename" required class="form-select" onchange="addFieldGrid(this)">
+              <option value="">— Choose file —</option>
+              {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+
+            <label for="minTestDataSize" class="form-label pt-3"><i class="bi bi bi-sliders me-1"></i>Select Min Test Data Size</label>
+            <select name="minTestDataSize" id="minTestDataSize" required class="form-select" onchange="updateFieldGrid()">
+              <option value="1">1</option><option value="100" selected>100</option><option value="250">250</option>
+              <option value="500">500</option><option value="1000">1000</option>
+            </select>
+
+            <label for="labeledDataRatio" class="form-label pt-3"><i class="bi bi bi-sliders me-1"></i>Select Labeled Data Ratio</label>
+            <select name="labeledDataRatio" id="labeledDataRatio" required class="form-select" onchange="updateFieldGrid()">
+              <option value="10">10%</option><option value="20">20%</option><option value="30" selected>30%</option>
+              <option value="40">40%</option><option value="50">50%</option><option value="60">60%</option>
+              <option value="70">70%</option><option value="80">80%</option>
+            </select>
+
+            <label id="fieldMatrixLabel" class="form-label pt-3"></label>
+            <div id="fieldMatrix" class="container text-nowrap overflow-x-auto"></div>
+
+          </div>
+          <div class="col-12 pt-2">
+            <button id="showJiraViewerBtn" name="audit" type="submit" class="btn btn-primary" disabled>
+              <i class="bi bi-eye me-1"></i>Show Jira Viewer
+            </button>
+            <button id="runIterationBtn" name="run-iteration" type="button" class="btn btn-primary" onclick="setParamsAndRunInferenceIteration()" disabled>
+              <i class="bi bi-cpu me-1"></i>Run Iteration
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  {% else %}
+    <div class="alert alert-warning animate-slide-down">
+      <i class="bi bi-exclamation-triangle me-2"></i>No configuration files found. Please import a JIRA file first.
+    </div>
+  {% endif %}
+
+</div>
+
+<script>
+  const fieldMatrix = {{ target_matrix_per_project | tojson }};
+  const latestFieldMatrix = {{ saved_target_matrix_per_project | tojson }};
+  const savedParams = {{ saved_params_per_project | tojson }};
+  const bestPerformancePerProject = {{ best_performance_per_project | tojson }};
+</script>
+<script src="/static/js/inference_params_manager.js"></script>
+<script type="text/javascript" src="/static/js/iteration_modals_bs.js"></script>
+
+{% endblock %}

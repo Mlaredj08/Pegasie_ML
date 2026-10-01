@@ -1,0 +1,118 @@
+trigger:
+  branches:
+    include:
+      - DEV
+
+pr:
+  branches:
+    include:
+      - DEV
+
+pool:
+  name: Azure Pipelines   # self-hosted agent pool on ADO Server
+
+steps:
+  - checkout: self
+    persistCredentials: true
+    fetchDepth: 0
+    clean: true
+
+  # ─── Run test suites on PR to DEV ───
+  - bash: |
+      set -e
+      echo "=== Creating virtual environment ==="
+      python3 -m venv .venv
+      source .venv/bin/activate
+
+      echo "=== Installing dependencies ==="
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      pip install -r requirements-test.txt
+
+      echo "=== Running pytest ==="
+      python3 -m pytest tests/ --junitxml=$(Build.SourcesDirectory)/test-results.xml
+    displayName: "Run Test Suites"
+    workingDirectory: $(Build.SourcesDirectory)
+    condition: eq(variables['Build.Reason'], 'PullRequest')
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '$(Build.SourcesDirectory)/test-results.xml'
+      testRunTitle: 'JFIP Test Results'
+    condition: eq(variables['Build.Reason'], 'PullRequest')
+    displayName: "Publish Test Results"
+
+  - bash: |
+      echo "=== Available Python versions ==="
+      which python3 || echo "python3 not found"
+      python3 --version || true
+      python3 --version || echo "python3 not found"
+    displayName: "Show Python versions on agent (debug)"
+    condition: ne(variables['Build.Reason'], 'PullRequest')
+
+  - bash: |
+      set -e
+
+      # Always start from a clean DEV branch (avoid detached HEAD + leftover changes)
+      git fetch origin
+      git reset --hard
+      git clean -fdx
+      git switch -C DEV origin/DEV   # or: git checkout -B DEV origin/DEV
+
+      # Now modify version.json AFTER you're on DEV
+      VERSION_FILE="version.json"
+
+      # Read current build number
+      if [ -f "$VERSION_FILE" ]; then
+        CURRENT=$(python3 -c "import json; print(json.load(open('$VERSION_FILE'))['build'])")
+      else
+        CURRENT="00000"
+      fi
+
+      NEXT_INT=$((10#$CURRENT))
+      NEXT=$(printf "%05d" $((NEXT_INT + 1)))
+
+      COMMIT_HASH=$(git rev-parse HEAD)
+      TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+      # Update version.json using Python
+      python3 -c "import json; data={'build':'$NEXT','last_commit':'$COMMIT_HASH','last_updated':'$TIMESTAMP'}; json.dump(data, open('$VERSION_FILE','w'), indent=2)"
+
+      git config user.email "azure-pipeline@dev.azure.com"
+      git config user.name "Azure Pipeline"
+
+      git add "$VERSION_FILE"
+
+      # Commit (skip push/tag if nothing to commit)
+      if ! git commit -m "Build $NEXT [skip ci]"; then
+        echo "No changes to commit. Skipping push/tag."
+        exit 0
+      fi
+
+      git config -l | grep -i extraheader || true
+      git remote -v
+      git status
+
+      # Push commit
+      if ! git push origin DEV; then
+        echo "git push failed (missing Contribute permission or branch policy). Fix repo permissions, then retry."
+        exit 1
+      fi
+
+      # Tag + push tag
+      if ! git tag "build/$NEXT"; then
+        echo "Tag build/$NEXT already exists locally. Will still try pushing tags."
+      fi
+
+      if ! git push origin DEV --follow-tags; then
+        echo "follow-tags push failed; attempting to push tags explicitly..."
+        if ! git push origin --tags; then
+          echo "git push --tags failed (likely missing Create tag permission)."
+          exit 1
+        fi
+      fi
+
+      echo "Successfully pushed commit and tag build/$NEXT"
+    displayName: "Increment Build Number and Tag (Bash + Python 3)"
+    condition: ne(variables['Build.Reason'], 'PullRequest')

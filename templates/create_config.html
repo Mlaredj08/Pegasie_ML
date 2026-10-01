@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex align-items-center justify-content-between">
+    <div>
+      <h1><i class="bi bi-sliders me-2" style="color:var(--primary);"></i>ML Configuration</h1>
+      <p class="subtitle mb-0">Configure inference settings and target fields</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-1"></i>Home
+    </a>
+  </div>
+
+  <div class="jfip-card-flat animate-fade-in">
+    <form method="post" enctype="multipart/form-data">
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          {% if files %}
+            <label for="filename" class="form-label"><i class="bi bi-database me-1"></i>Select Jira Database File (JSON)</label>
+            <select name="filename" id="filename" required class="form-select">
+              <option value="">— Choose file —</option>
+              {% for file in files %}
+              <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <div class="alert alert-warning"><i class="bi bi-exclamation-triangle me-1"></i>No database files found. Please generate a Jira Database first.</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          {% if files %}
+            <label for="profile_filename" class="form-label"><i class="bi bi-person-badge me-1"></i>Select Profile File (JSON)</label>
+            <select name="profile_filename" id="profile_filename" required class="form-select">
+              <option value="">— Choose profile —</option>
+              {% for file in profile_files %}
+              <option value="{{ file }}">{{ file }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <div class="alert alert-warning"><i class="bi bi-exclamation-triangle me-1"></i>No profile files found. Please generate a profile first.</div>
+          {% endif %}
+        </div>
+
+        <div class="col-12">
+          <label for="fields" class="form-label"><i class="bi bi-list-check me-1"></i>Select Fields to Infer (Ctrl + Select)</label>
+          <select id="fields" name="fields" class="form-select" multiple aria-label="multiple select example" required style="min-height: 120px;">
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-check">
+            <input name="isExcludeClosed" type="checkbox" class="form-check-input" id="isExcludeClosed" checked>
+            <label class="form-check-label" for="isExcludeClosed">Exclude Closed Issues</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="confidence" class="form-label"><i class="bi bi-speedometer2 me-1"></i>Confidence</label>
+          <input type="text" class="form-control" id="confidence" name="confidence" placeholder="e.g. 0.60" required>
+        </div>
+
+        <div class="col-12 pt-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-gear me-1"></i>Generate
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+  const profileSelect = document.getElementById('profile_filename');
+  const fieldsSelect = document.getElementById('fields');
+
+  function setFieldsOptions(options) {
+    fieldsSelect.innerHTML = '';
+    options.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      fieldsSelect.appendChild(opt);
+    });
+  }
+
+  async function loadFieldsForProfile(profileFilename) {
+    if (!profileFilename) {
+      setFieldsOptions([]);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/profile-fields?profile_filename=${encodeURIComponent(profileFilename)}`);
+      const data = await res.json();
+      if (res.ok && Array.isArray(data.fields)) {
+        setFieldsOptions(data.fields);
+      } else {
+        console.error('Failed to load fields:', data.error || data);
+        setFieldsOptions([]);
+      }
+    } catch (err) {
+      console.error('Error fetching fields:', err);
+      setFieldsOptions([]);
+    }
+  }
+
+  profileSelect?.addEventListener('change', (e) => {
+    loadFieldsForProfile(e.target.value);
+  });
+
+  if (profileSelect?.value) {
+    loadFieldsForProfile(profileSelect.value);
+  }
+</script>
+{% endblock %}
