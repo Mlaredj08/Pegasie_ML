@@ -11,6 +11,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from config.constants import KEYWORDS_TO_IGNORE
+from ml.metrics import evaluate_prediction_records, list_jaccard_percent, select_confidence_threshold
 
 # CONSTANTS
 EXTRA_DEPENDENCY_FIELDS = [] #[ "components" ]
@@ -19,7 +20,13 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 nltk.download('stopwords')
 lemmatizer = WordNetLemmatizer()
-model = SentenceTransformer('all-MiniLM-L6-v2')
+_embedding_model = None
+
+def _get_embedding_model():
+    global _embedding_model
+    if _embedding_model is None:
+        _embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _embedding_model
 
 def remove_keywords_to_ignore(text):
     for keyword_regex in KEYWORDS_TO_IGNORE:
@@ -55,7 +62,7 @@ def get_cluster_centroid(cluster_keys, jira_issues):
     for issue_key in cluster_keys:
         issue_data = list(filter(lambda x: x["key"] == issue_key, jira_issues))[0]
         texts.append(clean_and_lemmatize(combine_text(issue_data)))
-    embeddings = model.encode(texts)
+    embeddings = _get_embedding_model().encode(texts, normalize_embeddings=True, show_progress_bar=False)
     centroid = np.mean(embeddings, axis=0)
     similarities = cosine_similarity([centroid], embeddings)[0]
     most_representative_index = np.argmax(similarities)
@@ -121,185 +128,200 @@ def list_items_to_boolean_fields(jira_issues, list_possible_values, target_field
     return jira_issues
 
 def boolean_fields_to_list(predictions_per_value, confidence_threshold=0.75):
+    """Merge one-vs-rest predictions by Jira issue key, never by list index."""
     if not predictions_per_value:
         return []
-    prediction_list = copy.deepcopy(list(predictions_per_value.values())[0])
+
+    merged = {}
+    order = []
     for value, prediction_dicts in predictions_per_value.items():
-        prediction_dicts_ = prediction_dicts if isinstance(prediction_dicts, list) else [prediction_dicts]
-        for index, prediction_dict in enumerate(prediction_dicts_):
-            # TODO: find nan error root cause
-            # Quick fix: nan error
-            if math.isnan(prediction_dict["confidence"]):
-                prediction_dict["confidence"] = 0.001
+        items = (
+            prediction_dicts
+            if isinstance(prediction_dicts, list)
+            else [prediction_dicts]
+        )
+        for prediction_dict in items:
+            issue_key = (
+                prediction_dict.get("issue_key")
+                or prediction_dict.get("key")
+            )
+            if issue_key is None:
+                continue
+            if issue_key not in merged:
+                item = copy.deepcopy(prediction_dict)
+                item["prediction"] = []
+                item["confident_prediction"] = []
+                item["confidence_list"] = []
+                item["false_confidence_list"] = []
+                merged[issue_key] = item
+                order.append(issue_key)
 
-            if not isinstance(prediction_list[index]["prediction"], list):
-                prediction_list[index]["prediction"] = []
-                prediction_list[index]["confident_prediction"] = []
-                prediction_list[index]["confidence_list"] = []
-                prediction_list[index]["false_confidence_list"] = []
+            item = merged[issue_key]
+            try:
+                confidence = float(
+                    prediction_dict.get("confidence", 0.0)
+                )
+                if not math.isfinite(confidence):
+                    confidence = 0.0
+            except (TypeError, ValueError):
+                confidence = 0.0
 
-            if prediction_dict["prediction"] == "true":
-                prediction_list[index]["prediction"].append(value)
-                prediction_list[index]["confidence_list"].append(prediction_dict["confidence"])
-                if prediction_dict["confidence"] >= confidence_threshold:
-                    prediction_list[index]["confident_prediction"].append(value)
-            if prediction_dict["prediction"] == "false":
-                prediction_list[index]["false_confidence_list"].append(prediction_dict["confidence"])
+            predicted = str(
+                prediction_dict.get("prediction")
+            ).lower()
+            if predicted == "true":
+                item["prediction"].append(value)
+                item["confidence_list"].append(confidence)
+                if confidence >= confidence_threshold:
+                    item["confident_prediction"].append(value)
+            elif predicted == "false":
+                item["false_confidence_list"].append(confidence)
 
-    for prediction in prediction_list:
-        if "confidence_list" in prediction and prediction["confidence_list"]:
-            prediction["confidence"] = sum(prediction["confidence_list"]) / len(prediction["confidence_list"])
-        elif "false_confidence_list" in prediction and prediction["false_confidence_list"]:
-            prediction["confidence"] = sum(prediction["false_confidence_list"]) / len(prediction["false_confidence_list"])
+    result = [merged[key] for key in order]
+    for prediction in result:
+        if prediction["confidence_list"]:
+            prediction["confidence"] = (
+                sum(prediction["confidence_list"])
+                / len(prediction["confidence_list"])
+            )
+        elif prediction["false_confidence_list"]:
+            prediction["confidence"] = (
+                sum(prediction["false_confidence_list"])
+                / len(prediction["false_confidence_list"])
+            )
         else:
-            prediction["confidence"] = -1
-        if not prediction["prediction"]:
-            prediction["prediction"] = []
-    return prediction_list
+            prediction["confidence"] = 0.0
+    return result
+
 
 def compute_list_accuracy_score(expected_list, actual_list):
-    score = 0
-    for item in actual_list:
-        score_inc = 1 if item in expected_list else -1
-        score += score_inc
-    return int(100 * score / len(expected_list))
+    """Compatibility wrapper returning Jaccard similarity (0..100)."""
+    return list_jaccard_percent(expected_list, actual_list)
 
-def compute_predictions_accuracy(prediction_list, list_accuracy_score_threshold=25):
-    perf_metrics = _compute_predictions_accuracy(prediction_list, list_accuracy_score_threshold, 0.9)
-    if "err_msg" not in prediction_list:
-        prediction_test_list = [item for item in prediction_list if item.get("expected", None)]
-        no_test_predictions = [item for item in prediction_list if not item["is_split_test"]]
-        accuracy_per_confidence = {}
-        if prediction_test_list:
-            confidence_list = list(set(list(map(lambda x: x["confidence"], prediction_test_list))))
-            confidence_list.sort()
-            for confidence_percent in range(95, 49, -5):
-                confidence = confidence_percent / 100
-                confident_predictions = [item for item in prediction_test_list if item["confidence"] >= confidence]
-                no_test_confident_predictions = [item for item in no_test_predictions if item["confidence"] >= confidence]
-                if not confident_predictions:
-                    continue
-                cur_perf_metrics = compute_predictions_accuracy_(confident_predictions, list_accuracy_score_threshold)
-                accuracy_per_confidence[str(confidence_percent)] = {
-                    "f1_score": cur_perf_metrics.get("f1_score", None),
-                    "accuracy": cur_perf_metrics.get("accuracy", None),
-                    "basic_accuracy": cur_perf_metrics.get("basic_accuracy", None),
-                    "confident_predictions_percentage": 100 * len(no_test_confident_predictions) / len(no_test_predictions),
-                    "test_data_size": len(prediction_test_list)
-                }
-            print("[DEBUG] accuracy_per_confidence:", accuracy_per_confidence)
-            perf_metrics.update({
-                "accuracy_per_confidence": accuracy_per_confidence
-            })
-        else:
-            pass
-            # print("[DEBUG] prediction_list:", prediction_list)
 
+def compute_predictions_accuracy(
+    prediction_list,
+    list_accuracy_score_threshold=25,
+    min_accuracy=0.9,
+):
+    """Compute exact metrics and confidence/coverage curves."""
+    perf_metrics = _compute_predictions_accuracy(
+        prediction_list,
+        list_accuracy_score_threshold=list_accuracy_score_threshold,
+        min_accuracy=min_accuracy,
+    )
+    if not isinstance(prediction_list, list):
+        return perf_metrics
+
+    prediction_test_list = [
+        item
+        for item in prediction_list
+        if item.get("expected") is not None
+    ]
+    no_test_predictions = [
+        item
+        for item in prediction_list
+        if not item.get("is_split_test")
+    ]
+    accuracy_per_confidence = {}
+    for confidence_percent in range(95, 49, -5):
+        threshold = confidence_percent / 100
+        confident_tests = [
+            item
+            for item in prediction_test_list
+            if float(item.get("confidence", 0) or 0) >= threshold
+        ]
+        if not confident_tests:
+            continue
+        cur_metrics = evaluate_prediction_records(confident_tests)
+        confident_prod = [
+            item
+            for item in no_test_predictions
+            if float(item.get("confidence", 0) or 0) >= threshold
+        ]
+        coverage = (
+            100 * len(confident_prod) / len(no_test_predictions)
+            if no_test_predictions
+            else 0.0
+        )
+        accuracy_per_confidence[str(confidence_percent)] = {
+            "f1_score": cur_metrics.get("f1_score"),
+            "accuracy": cur_metrics.get("accuracy"),
+            "basic_accuracy": cur_metrics.get(
+                "basic_accuracy"
+            ),
+            "confident_predictions_percentage": coverage,
+            "test_data_size": len(prediction_test_list),
+        }
+    if accuracy_per_confidence:
+        perf_metrics[
+            "accuracy_per_confidence"
+        ] = accuracy_per_confidence
     return perf_metrics
 
-def _compute_predictions_accuracy(prediction_list, list_accuracy_score_threshold=25, min_accuracy=0.9):
-    perf_metrics = compute_predictions_accuracy_(prediction_list, list_accuracy_score_threshold)
-    optimal_confidence = perf_metrics.get("avg_confidence", 0)
-    # Quick fix.
-    optimal_confidence = 0.75 if math.isnan(optimal_confidence) else optimal_confidence
-    optimal_f1_score = perf_metrics.get("f1_score", 0)
-    optimal_confidence_predictions_precent = 0
-    optimal_accuracy = perf_metrics.get("basic_accuracy", 0)
 
-    is_increase_confidence = perf_metrics.get("basic_accuracy", 0) < min_accuracy
-    if is_increase_confidence:
-        if optimal_confidence and np.isfinite([perf_metrics["avg_confidence"], 0.99, 0.01]).all():
-            for confidence_threshold in np.arange(perf_metrics["avg_confidence"], 0.99, 0.01):
-                no_test_prediction_list = list(filter(lambda x: not x["is_split_test"], prediction_list))
-                confident_prediction_list = list(filter(lambda x: x["confidence"] >= confidence_threshold, prediction_list))
-                no_test_confident_prediction_list = list(filter(lambda x: not x["is_split_test"], confident_prediction_list))
-                cur_perf_metrics = compute_predictions_accuracy_(confident_prediction_list, list_accuracy_score_threshold)
-                #print("[DEBUG] cur_perf_metrics:", cur_perf_metrics)
-                #print(f"[DEBUG] Checking confidence_threshold {confidence_threshold}: basic_accuracy {cur_perf_metrics["basic_accuracy"]}")
-                if not cur_perf_metrics.get("basic_accuracy", None):
-                    print("[DEBUG] breaking loop cur_perf_metrics.get('basic_accuracy', None):", cur_perf_metrics.get("basic_accuracy", None))
-                    break
-                if cur_perf_metrics["basic_accuracy"] > optimal_accuracy:
-                    optimal_confidence = confidence_threshold.item()
-                    optimal_accuracy = cur_perf_metrics["basic_accuracy"]
-                    optimal_f1_score = cur_perf_metrics["f1_score"]
-                    optimal_confidence_predictions_precent = 100 * len(no_test_confident_prediction_list) / len(no_test_prediction_list)
-                if optimal_accuracy >= min_accuracy:
-                    print(f"[DEBUG] breaking loop optimal_accuracy >= min_accuracy {min_accuracy}")
-                    print("[DEBUG] optimal_accuracy:", optimal_accuracy)
-                    break
-    else:
-        print("[DEBUG] decreasing the confidence ...")
-        pass
+def _compute_predictions_accuracy(
+    prediction_list,
+    list_accuracy_score_threshold=25,
+    min_accuracy=0.9,
+):
+    del list_accuracy_score_threshold
+    perf_metrics = (
+        evaluate_prediction_records(prediction_list)
+        if isinstance(prediction_list, list)
+        else {}
+    )
+    if not perf_metrics:
+        return perf_metrics
 
+    threshold_result = select_confidence_threshold(
+        prediction_list,
+        target_score=min_accuracy,
+        metric_name="basic_accuracy",
+    )
+    threshold = threshold_result["threshold"]
+    no_test_predictions = [
+        item
+        for item in prediction_list
+        if not item.get("is_split_test")
+    ]
+    confident_prod = [
+        item
+        for item in no_test_predictions
+        if float(item.get("confidence", 0) or 0) >= threshold
+    ]
+    production_coverage = (
+        100 * len(confident_prod) / len(no_test_predictions)
+        if no_test_predictions
+        else 100 * threshold_result["coverage"]
+    )
     perf_metrics.update({
-        "optimal_confidence": optimal_confidence,
-        "optimal_accuracy": optimal_accuracy,
-        "optimal_f1_score": optimal_f1_score,
-        "optimal_confidence_predictions_precent": optimal_confidence_predictions_precent
+        "optimal_confidence": threshold,
+        "optimal_accuracy": threshold_result["score"],
+        "optimal_f1_score": threshold_result["metrics"].get(
+            "f1_score",
+            perf_metrics.get("f1_score", 0.0),
+        ),
+        "optimal_confidence_predictions_precent": (
+            production_coverage
+        ),
+        "meets_target_accuracy": threshold_result[
+            "meets_target"
+        ],
     })
     return perf_metrics
 
-def compute_predictions_accuracy_(prediction_list, list_accuracy_score_threshold):
-    pass_count = 0
-    is_list = isinstance(prediction_list, list)
-    if not is_list:
-        print("[DEBUG] prediction_list is not a list")
-        # print("[DEBUG] prediction_list:", prediction_list)
-        return {}
-    if is_list and prediction_list and not isinstance(prediction_list[0], dict):
-        print("[DEBUG] prediction_list[0] is not a dict")
-        print("[DEBUG] prediction_list[0]:", prediction_list[0])
-        return {}
 
-    prediction_test_list = list(filter(lambda x: x.get("expected", None) is not None, prediction_list))
-
-    for prediction in prediction_test_list:
-        if prediction.get("accuracy_score", None):
-            pass_count += 1 if prediction["accuracy_score"] >= list_accuracy_score_threshold else 0
-        else:
-            pass_count += 1 if prediction["prediction"] == prediction["expected"] else 0
-    basic_accuracy = pass_count / len(prediction_test_list) if prediction_test_list else None
-
-    # Confusion Matrix
-    perf_metrics = {}
-    expected_values = list(map(lambda x: x["expected"], prediction_test_list))
-    if expected_values:
-        if isinstance(expected_values[0], list):
-            expected_values = list(set(sum(expected_values, [])))
-        else:
-            expected_values = list(set(expected_values))
-
-        total_tp, total_tn, total_fp, total_fn = 0, 0, 0, 0
-        for expected_value in expected_values:
-            for prediction in prediction_test_list:
-                if isinstance(expected_value, float):
-                    check_is_match = lambda a, b: a == b
-                else:
-                    check_is_match = lambda a, b: a in b
-                if check_is_match(expected_value, prediction["expected"]):
-                    total_tp += 1 if check_is_match(expected_value, prediction["prediction"]) else 0
-                    total_fn += 1 if not check_is_match(expected_value, prediction["prediction"]) else 0
-                else:
-                    total_fn += 1 if check_is_match(expected_value, prediction["prediction"]) else 0
-                    total_tn += 1 if not check_is_match(expected_value, prediction["prediction"]) else 0
-
-        confidence_list = list(map(lambda x: x["confidence"], prediction_list))
-        avg_confidence = sum(confidence_list) / len(confidence_list)
-        precision = total_tp / (total_tp + total_fp) if (total_tp + total_fp) else 0
-        recall = total_tp / (total_tp + total_fn) if (total_tp + total_fn) else 0
-        f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) else 0
-        perf_metrics = {
-            "precision": precision,
-            "recall": recall,
-            "accuracy": (total_tp + total_tn) / (total_tp + total_fp + total_tn + total_fn),
-            "f1_score": f1_score,
-            "basic_accuracy": basic_accuracy,
-            "avg_confidence": avg_confidence,
-        }
-
-    return perf_metrics
-
+def compute_predictions_accuracy_(
+    prediction_list,
+    list_accuracy_score_threshold=25,
+):
+    del list_accuracy_score_threshold
+    return (
+        evaluate_prediction_records(prediction_list)
+        if isinstance(prediction_list, list)
+        else {}
+    )
 
 def group_predictions_per_value(all_predictions):
     target_fields = list(set(list(map(lambda x: x["field"], all_predictions))))
