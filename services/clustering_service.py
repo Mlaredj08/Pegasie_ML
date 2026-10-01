@@ -15,6 +15,15 @@ from config import STATUSES_TO_EXCLUDE
 from config.logger import Logger
 from nlp.centroid_manager import group_predictions_per_value
 
+_EMBEDDING_MODELS = {}
+
+
+def _get_embedding_model(model_name: str):
+    if model_name not in _EMBEDDING_MODELS:
+        _EMBEDDING_MODELS[model_name] = SentenceTransformer(model_name)
+    return _EMBEDDING_MODELS[model_name]
+
+
 
 def cluster_jira_issues(
         issues: List[Dict[str, Any]],
@@ -50,7 +59,7 @@ def cluster_jira_issues(
     # 1. Semantic embeddings
     # -----------------------------
 
-    model = SentenceTransformer(embedding_model)
+    model = _get_embedding_model(embedding_model)
     embeddings = model.encode(texts, normalize_embeddings=True)
 
     # -----------------------------
